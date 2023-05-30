@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+/* Basico */
+html {
+    background-image: linear-gradient(to bottom, #DCACE8 , #80469a);
+
+}
+
+body{
+    font-family:"Poppins";
+    height: 100vh;
+}
+
+
+
+
+/*Quita las marcas naranjas de los inputs email y contraseña*/
+*:focus {
+    outline: none;
+} 
+
+
+/*debe incluir tanto el contenido como los 
+bordes y el relleno (padding y border) dentro del ancho y la altura del elemento*/
+*{
+    box-sizing: border-box;
+}
+
+
+
+
+  /* Estructura del contenido */
+
+  .container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    ;
+  }
+
+  #contenido{   
+    background-color: #fff;
+    border-radius: 10px ;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.558);
+    position: relative;
+    text-align: center;
+
+  }
+
+
+
+
+
+  /*Logo*/
+  img{
+    width: 70%;
+  }
+
+  /* Titulo */
+
+  .login {
+    text-decoration: none;
+    text-align: justify;
+    font-size: 15px;
+    font-weight: 600;
+    display: inline-block;
+    margin: 0px 10px 10px 8px; 
+    color: #4d4d4d;
+    border-bottom: 2px solid #DCACE8;
+    padding: 30px;
+    
+  }
+  
+  .login .strong{
+    color: #000000;
+    font-size: 16px;
+
+  }
+  
+ 
+
+
+
+  /* Formulario */
+
+ input[type=text] {
+    background-color: #f6f6f6;
+    border: none;
+    color: #000000;
+    padding: 15px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 20px;
+    width: 85%;
+    border-radius:10px ;
+ }
+
+ input[type=text]:focus {
+    background-color: #fff;
+    border-bottom: 2px solid #8B26C3;
+  }
+
+
+
+ 
+
+
+
+ .btn-log-in {
+    font-family:"Poppins";
+    font-size: 13px;
+    background-color: #C586DD;
+    border: none;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px 50px;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+    margin: 5px 20px 20px 20px;
+    display: inline-block;
+  }
+
+  .btn-log-in:hover{
+    background-color: #8B26C3;
+
+  }
