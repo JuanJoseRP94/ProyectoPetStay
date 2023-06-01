@@ -24,6 +24,18 @@ public class GastosGestion {
     @JoinColumn(name = "usuario_ID")
     private Usuario usuarioID;
 
+    public GastosGestion() {
+    }
+
+    public GastosGestion(Long id, String tipoContrato, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin, Usuario usuarioID) {
+        this.id = id;
+        this.tipoContrato = tipoContrato;
+        this.descripcion = descripcion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.usuarioID = usuarioID;
+    }
+
     public Long getId() {
         return id;
     }

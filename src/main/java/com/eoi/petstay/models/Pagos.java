@@ -17,15 +17,18 @@ public class Pagos {
     private String estado;
 
     @OneToMany
-    @JoinColumn(name = "gastos_gestion")
-    private GastosGestion gastosGestion;
+    @JoinColumn(name = "gastos_gestion_ID")
+    private GastosGestion gastosGestionID;
+
+    public Pagos() {
+    }
 
     public Pagos(Long id, String tipoPago, String tipoTargeta, String estado, GastosGestion gastosGestion) {
         this.id = id;
         this.tipoPago = tipoPago;
         this.tipoTargeta = tipoTargeta;
         this.estado = estado;
-        this.gastosGestion = gastosGestion;
+        this.gastosGestionID = gastosGestion;
     }
 
     public Long getId() {
@@ -61,10 +64,10 @@ public class Pagos {
     }
 
     public GastosGestion getGastosGestion() {
-        return gastosGestion;
+        return gastosGestionID;
     }
 
     public void setGastosGestion(GastosGestion gastosGestion) {
-        this.gastosGestion = gastosGestion;
+        this.gastosGestionID = gastosGestion;
     }
 }
