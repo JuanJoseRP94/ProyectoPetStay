@@ -1,9 +1,6 @@
 package com.eoi.petstay.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table
@@ -13,6 +10,8 @@ public class Raza {
     private int id;
     @Column
     private String nombre;
+    @JoinColumn
+    @OneToMany
     private Especie especie;
 
     public Raza() {
