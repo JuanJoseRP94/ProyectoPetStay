@@ -197,6 +197,38 @@ h2 {
   }
 
 
+  // Estilo Calendario
+   table {
+              border-collapse: collapse;
+          }
+          th, td {
+              border: 1px solid black;
+              padding: 5px;
+              text-align: center;
+          }
+          th {
+              background-color: lightgray;
+          }
+          #miniCalendario {
+              display: none;
+              position: absolute;
+              background-color: white;
+              border: 1px solid black;
+              padding: 10px;
+          }
+          .current-day {
+              background-color: yellow;
+          }
+          .event-day {
+              background-color: green;
+              color: white;
+          }
+          .navigation-buttons {
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 10px;
+          }
+
   
   @media only screen and (max-width: 480px) {
     /* valoraciones */

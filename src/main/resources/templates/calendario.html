@@ -1,43 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Calendario</title>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 5px;
-            text-align: center;
-        }
-        th {
-            background-color: lightgray;
-        }
-        #miniCalendario {
-            display: none;
-            position: absolute;
-            background-color: white;
-            border: 1px solid black;
-            padding: 10px;
-        }
-        .current-day {
-            background-color: yellow;
-        }
-        .event-day {
-            background-color: green;
-            color: white;
-        }
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{style/style.css}">
+    <link rel="stylesheet" th:href="@{style/perfiles.css}">
 </head>
+
 <body>
-<h1>Calendario</h1>
+<header th:replace="layouts/layout :: cabecero"></header>
+<nav th:replace="layouts/layout :: menu"></nav>
+<h1 class="titulos">Calendario</h1>
 <div>
     <button onclick="mostrarFechaActual()">Fecha Actual</button>
     <button onclick="mostrarMiniCalendario()">Cambiar Fecha</button>
@@ -48,7 +21,7 @@
         <button onclick="cambiarFecha()">Guardar</button>
     </div>
 </div>
-<div class="navigation-buttons">
+<div class="btn navigation-buttons">
     <button onclick="verMesAnterior()">&lt; Mes Anterior</button>
     <button onclick="verMesSiguiente()">Mes Siguiente &gt;</button>
 </div>
@@ -244,5 +217,8 @@
     // Mostrar el calendario con la fecha actual al cargar la página
     mostrarFechaActual();
 </script>
+
+<footer th:replace="layouts/layout :: footer"></footer>
+
 </body>
 </html>
