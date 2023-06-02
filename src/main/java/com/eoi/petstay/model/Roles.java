@@ -22,6 +22,5 @@ public class Roles {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Usuarios> usuarios;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "menu")
     private Set<Menu> menu;
 }

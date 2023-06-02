@@ -33,7 +33,6 @@ public class GastosGestion {
     @JoinColumn(name = "usuario")
     private Usuarios usuarios;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pagos")
     private Set<Pagos> pagos;
 
 }

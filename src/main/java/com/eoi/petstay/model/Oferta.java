@@ -30,6 +30,5 @@ public class Oferta {
     @JoinColumn(name = "usuario")
     private Usuarios usuarios;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "acuerdo")
     private Set<Acuerdo> acuerdo;
 }

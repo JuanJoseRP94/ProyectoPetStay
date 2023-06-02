@@ -49,19 +49,14 @@ public class Usuarios {
     @JoinColumn(name = "alojamientos")
     private Alojamientos alojamientos;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gastos_gestion")
     private Set<GastosGestion> gastosGestion;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "valoraciones_mascotas")
     private Set<ValoracionesMascotas> valoracionesMascotas;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "valoraciones_usuarios")
     private Set<ValoracionesUsuarios> valoracionesUsuarios;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "oferta")
     private Set<Oferta> oferta;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mascotas")
     private Set<Mascotas> mascotas;
 
 }

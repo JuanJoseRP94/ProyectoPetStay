@@ -27,6 +27,5 @@ public class Alojamientos {
     @JoinColumn(name = "usuarios")
     private Usuarios usuarios;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "imagenes_alojamiento")
     private Set<ImagenesAlojamiento> imagenesAlojamiento;
 }

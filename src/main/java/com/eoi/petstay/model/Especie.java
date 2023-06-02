@@ -23,7 +23,6 @@ public class Especie {
     private String nombre;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn (name = "raza")
     private Set<Raza> raza;
 
 }

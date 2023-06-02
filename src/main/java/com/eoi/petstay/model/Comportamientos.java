@@ -23,6 +23,5 @@ public class Comportamientos {
     private String nombre;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mascotas")
     private Set<Mascotas> mascotas;
 }

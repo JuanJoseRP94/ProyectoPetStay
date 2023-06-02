@@ -26,7 +26,6 @@ public class Raza {
     @JoinColumn (name = "especie")
      private Especie especie;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn (name = "mascota")
     private Set<Mascotas> mascotas;
 
     }
