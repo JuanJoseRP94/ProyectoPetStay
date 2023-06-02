@@ -42,10 +42,10 @@ public class Usuarios {
     private boolean active;
 
     //Un usuario solo un rol
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="usuarios")
     private Roles roles;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "alojamientos")
     private Alojamientos alojamientos;
     @OneToMany(cascade = CascadeType.ALL)

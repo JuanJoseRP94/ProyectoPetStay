@@ -23,7 +23,7 @@ public class TipoCuidados {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinColumn(name = "mascotas")
     private Mascotas mascotas;
 }

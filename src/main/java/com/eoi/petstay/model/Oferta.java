@@ -26,7 +26,7 @@ public class Oferta {
     @Column(name = "puntuacion")
     private String puntuacion;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario")
     private Usuarios usuarios;
     @OneToMany(cascade = CascadeType.ALL)

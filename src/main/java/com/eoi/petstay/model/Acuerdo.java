@@ -21,7 +21,7 @@ public class Acuerdo {
     @Column(name = "factura")
     private String factura;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "oferta")
     private Oferta oferta;
 }

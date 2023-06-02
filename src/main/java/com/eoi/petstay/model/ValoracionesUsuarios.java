@@ -23,7 +23,8 @@ public class ValoracionesUsuarios {
     @Column(name = "puntuacion")
     private String puntuacion;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuarios")
     private Usuarios usuarios;
 }

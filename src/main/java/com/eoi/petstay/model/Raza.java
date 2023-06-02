@@ -22,7 +22,7 @@ public class Raza {
     @Column
     private String nombre;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "especie")
      private Especie especie;
     @OneToMany(cascade = CascadeType.ALL)

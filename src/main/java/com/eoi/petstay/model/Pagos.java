@@ -24,7 +24,7 @@ public class Pagos {
     @Column(name = "estado")
     private String estado;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "gastos_gestion")
     private GastosGestion gastosGestion;
 

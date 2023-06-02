@@ -29,7 +29,7 @@ public class GastosGestion {
     @Column(name = "fecha_fin")
     private LocalDateTime fechaFin;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario")
     private Usuarios usuarios;
     @OneToMany(cascade = CascadeType.ALL)

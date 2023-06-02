@@ -30,19 +30,19 @@ public class Mascotas {
     @Column(name = "valoracion")
     private float valoracion;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario")
     private Usuarios usuarios;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "raza")
     private Raza raza;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tamaños")
     private Tamanios tamanios;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "comportamientos")
     private Comportamientos comportamientos;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinColumn(name = "tipo_cuidados")
     private TipoCuidados tipoCuidados;
 }

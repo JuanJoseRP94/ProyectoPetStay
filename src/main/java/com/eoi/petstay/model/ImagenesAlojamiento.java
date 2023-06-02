@@ -22,7 +22,7 @@ public class ImagenesAlojamiento {
     @Column(name = "url")
     private String url;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "alojamientos")
     private Set<Alojamientos> alojamientos;
 
