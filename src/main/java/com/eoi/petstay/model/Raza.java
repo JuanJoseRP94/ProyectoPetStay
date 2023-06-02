@@ -10,20 +10,23 @@ import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "especie")
-public class Especie {
+@Table
+public class Raza {
     @Id
     @Column(name = "ID")
-    private int id;
 
+    private int id;
     @Column
     private String nombre;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name = "especie")
+     private Especie especie;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn (name = "raza")
-    private Set<Raza> raza;
+    @JoinColumn (name = "mascota")
+    private Set<Mascotas> mascotas;
 
-}
+    }

@@ -21,10 +21,7 @@ public class Acuerdo {
     @Column(name = "factura")
     private String factura;
 
-    //@OneToMany
-    //@JoinColumn(name = "oferta_ID")
-    //private GastosGestion ofertaID;
-
-
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "oferta")
+    private Oferta oferta;
 }

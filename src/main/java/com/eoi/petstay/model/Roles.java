@@ -20,5 +20,8 @@ public class Roles {
 
     //Un role puede estar asociado a muchos usuario
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Usuario> usuarios;
+    private Set<Usuarios> usuarios;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "menu")
+    private Set<Menu> menu;
 }

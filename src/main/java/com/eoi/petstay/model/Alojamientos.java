@@ -1,10 +1,17 @@
 package com.eoi.petstay.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Set;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table
 public class Alojamientos {
@@ -16,33 +23,10 @@ public class Alojamientos {
     @Column(name = "valoracion_media")
     private float valoracionMedia;
 
-    public Alojamientos(int id, String descripcion, float valoracionMedia) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.valoracionMedia = valoracionMedia;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public float getValoracionMedia() {
-        return valoracionMedia;
-    }
-
-    public void setValoracionMedia(float valoracionMedia) {
-        this.valoracionMedia = valoracionMedia;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuarios")
+    private Usuarios usuarios;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "imagenes_alojamiento")
+    private Set<ImagenesAlojamiento> imagenesAlojamiento;
 }

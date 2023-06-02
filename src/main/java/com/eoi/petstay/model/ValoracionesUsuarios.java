@@ -23,5 +23,7 @@ public class ValoracionesUsuarios {
     @Column(name = "puntuacion")
     private String puntuacion;
 
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuarios")
+    private Usuarios usuarios;
 }

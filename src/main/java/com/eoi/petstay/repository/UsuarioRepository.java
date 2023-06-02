@@ -1,11 +1,11 @@
 package com.eoi.petstay.repository;
 
-import com.eoi.petstay.model.Usuario;
+import com.eoi.petstay.model.Usuarios;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+public interface UsuarioRepository extends JpaRepository<Usuarios, Long> {
     //Para ver si el usuario esxite
-    Usuario findUsuarioByEmailAndActiveTrue(String email);
+    Usuarios findUsuarioByEmailAndActiveTrue(String email);
 }

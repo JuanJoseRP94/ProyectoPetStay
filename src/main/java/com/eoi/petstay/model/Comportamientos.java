@@ -13,17 +13,16 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "especie")
-public class Especie {
+@Table(name="comportamientos")
+public class Comportamientos {
     @Id
     @Column(name = "ID")
-    private int id;
+    private Long id;
 
-    @Column
+    @Column(name = "nombre")
     private String nombre;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn (name = "raza")
-    private Set<Raza> raza;
-
+    @JoinColumn(name = "mascotas")
+    private Set<Mascotas> mascotas;
 }

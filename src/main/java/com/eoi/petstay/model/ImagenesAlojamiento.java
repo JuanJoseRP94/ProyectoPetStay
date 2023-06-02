@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,9 +22,8 @@ public class ImagenesAlojamiento {
     @Column(name = "url")
     private String url;
 
-    //@OneToMany
-    //@JoinColumn(name = "alojamientos_ID")
-    //private Alojamientos alojamientosID;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "alojamientos")
+    private Set<Alojamientos> alojamientos;
 
 }

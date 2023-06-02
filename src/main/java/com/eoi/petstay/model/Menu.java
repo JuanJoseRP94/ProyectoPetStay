@@ -28,4 +28,7 @@ public class Menu {
     private Integer active;
     private String url;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "roles")
+    private Set<Roles> roles;
 }

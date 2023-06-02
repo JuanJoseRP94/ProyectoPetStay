@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,11 +29,11 @@ public class GastosGestion {
     @Column(name = "fecha_fin")
     private LocalDateTime fechaFin;
 
-    //@OneToMany
-    //@JoinColumn(name = "usuario_ID")
-    //private Usuario usuarioID;
-
-
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario")
+    private Usuarios usuarios;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pagos")
+    private Set<Pagos> pagos;
 
 }

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,7 +26,10 @@ public class Oferta {
     @Column(name = "puntuacion")
     private String puntuacion;
 
-
-
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario")
+    private Usuarios usuarios;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "acuerdo")
+    private Set<Acuerdo> acuerdo;
 }
