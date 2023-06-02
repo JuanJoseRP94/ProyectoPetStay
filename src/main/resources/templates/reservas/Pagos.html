@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Pantalla de Pagos</title>
-  <link rel="stylesheet" href="../static/style/style-login.css">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<title>Valoraciones</title>
+<link rel="stylesheet" href="style/style.css">
   <style>
 body {
   font-family: Arial, sans-serif;
@@ -88,36 +89,39 @@ button[type="submit"]:hover {
   </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo-container">
-          <img src="logo.png" alt="Logo PetStay" class="logo">
-        </div>
-        <h1 class="title">Pago seguro</h1>
-        <form id="payment-form">
-          <div class="form-group">
-            <label for="card-number">Número de tarjeta:</label>
-            <input type="text" id="card-number" name="card-number" required>
-          </div>
-          <div class="form-group">
-            <label for="card-holder">Titular de la tarjeta:</label>
-            <input type="text" id="card-holder" name="card-holder" required>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="expiry-month">Mes de vencimiento:</label>
-              <input type="text" id="expiry-month" name="expiry-month" required>
-            </div>
-            <div class="form-group">
-              <label for="expiry-year">Año de vencimiento:</label>
-              <input type="text" id="expiry-year" name="expiry-year" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="cvv">CVV:</label>
-            <input type="text" id="cvv" name="cvv" required>
-          </div>
-          <button type="submit">Pagar</button>
-        </form>
+<div layout:fragment="contenido">
+  <div class="container">
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo PetStay" class="logo">
+    </div>
+    <h1 class="title">Pago seguro</h1>
+    <form id="payment-form">
+      <div class="form-group">
+        <label for="card-number">Número de tarjeta:</label>
+        <input type="text" id="card-number" name="card-number" required>
       </div>
+      <div class="form-group">
+        <label for="card-holder">Titular de la tarjeta:</label>
+        <input type="text" id="card-holder" name="card-holder" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="expiry-month">Mes de vencimiento:</label>
+          <input type="text" id="expiry-month" name="expiry-month" required>
+        </div>
+        <div class="form-group">
+          <label for="expiry-year">Año de vencimiento:</label>
+          <input type="text" id="expiry-year" name="expiry-year" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="cvv" required>
+      </div>
+      <button type="submit">Pagar</button>
+    </form>
+  </div>
+
+</div>
     </body>
 </html>

@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<link th:href="@{style-login.css}" rel="stylesheet">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-    <link rel="stylesheet" type="text/css" href="style/style-login.css">
+    <title>PetStay - Olvidaste contraseña</title>
 </head>
 
 <body>
+
+<div layout:fragment="contenido">
     <div class="container">
         <div id="contenido">
 
@@ -43,13 +45,15 @@
 
             <!--Footer-->
             <!-- <footer id="formFooter">
-                
+
                     <a class="olvidaste-contraseña" href="#">¿Olvidaste la Contraseña?</a>
-                
+
             </footer>-->
         </div>
 
     </div>
+
+</div>
 </body>
 
 </html>

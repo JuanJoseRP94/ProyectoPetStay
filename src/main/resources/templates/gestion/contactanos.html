@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<link th:href="@{/css/style-login.css}" rel="stylesheet">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="style/style-login.css">
+    <title>PetStay - contactanos</title>
 </head>
 
 <body>
+<div layout:fragment="contenido">
     <div class="container">
         <div id="contenido">
 
             <!-- Logo -->
             <div>
-              <a href="index">
-                <img src="img/efrerg.png" id="icon" alt="logo" />
-              </a>
+                <a href="index">
+                    <img src="img/efrerg.png" id="icon" alt="logo" />
+                </a>
             </div>
 
             <!-- Títulos -->
@@ -25,7 +26,7 @@
                 <a class="login" href="#">Contáctanos</a>
             </div>
 
-            
+
 
             <!--Formularo -->
             <form>
@@ -34,10 +35,12 @@
                 <button type="submit" class="btn-log-in">Enviar</button>
             </form>
 
-           
+
         </div>
 
     </div>
+</div>
+
 </body>
 
 </html>
