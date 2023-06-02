@@ -49,4 +49,27 @@ public class AppUsuariosController {
     public String login( ){
         return "usuarios/login";
     }
+
+
+    @GetMapping("/usuarios/Busqueda_Cuidadores")
+    public String Busqueda_Cuidadores( ){
+        return "usuarios/Busqueda_Cuidadores";
+    }
+    @GetMapping("/usuarios/lista")
+    public String lista( ){
+        return "usuarios/lista";
+    }
+    @GetMapping("/usuarios/Perfil_Usuario")
+    public String Perfil_Usuario( ){
+        return "usuarios/Perfil_Usuario";
+    }
+    @GetMapping("/usuarios/registro")
+    public String registro( ){
+        return "usuarios/registro";
+    }
+    @GetMapping("/usuarios/usuarios")
+    public String usuarios( ){
+        return "usuarios/usuarios";
+    }
+
 }

@@ -1,0 +1,22 @@
+package com.eoi.petstay.controllers;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
+public class AppGestionController {
+    @GetMapping("/gestion/calendario")
+    public String calendario( ){
+        return "gestion/calendario";
+    }
+    @GetMapping("/gestion/configuracion")
+    public String configuracion( ){
+        return "gestion/configuracion";
+    }
+    @GetMapping("/gestion/contactanos")
+    public String contactanos( ){
+        return "gestion/contactanos";
+    }
+    @GetMapping("/gestion/olv-contrasena")
+    public String olv_contrasena( ){
+        return "gestion/olv_contrasena";
+    }
+}
