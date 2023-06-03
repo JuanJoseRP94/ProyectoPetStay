@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+/* Basico */
+html {
+    background-image: linear-gradient(to bottom, #DCACE8, #80469a);
+    background-attachment: fixed;
+}
+
+body {
+    font-family: "Poppins";
+    height:max-content;
+}
+
+footer a {
+    color: #DCACE8;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+
+/*Quita las marcas naranjas de los inputs email y contraseña*/
+*:focus {
+    outline: none;
+}
+
+
+/*debe incluir tanto el contenido como los 
+bordes y el relleno (padding y border) dentro del ancho y la altura del elemento*/
+* {
+    box-sizing: border-box;
+}
+
+
+
+
+
+/* Estructura del contenido */
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+}
+
+#contenido {
+
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    width: 60%;
+    box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.558);
+    position: relative;
+    text-align: center;
+
+}
+
+.contenido-interior {
+    display: flex;
+    flex-direction: row;
+    padding: 1px;
+    width:100%;
+
+}
+
+/* Contenido izquierda */
+.contenido-izquierda {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 47.5%;
+    margin-left: 50px;
+}
+
+.titulo_alojamiento{
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 19px;
+text-align: left;
+}
+
+.alojamiento {
+    display: flex;
+    flex-direction: row; /* Cambiado de column a row */
+    
+    text-align: left;
+    gap: 5%;
+    margin-bottom: 20px;
+  }
+
+.contenido-izquierda img{
+    border-radius: 15%;
+    
+}
+  
+  
+
+
+
+.anfitrion{
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    gap: 5%;
+    margin-bottom: 20px;
+    
+}
+
+.contenido-mascotas{
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    flex-wrap: wrap;
+    gap: 10%;
+
+}
+
+.mascota{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+/* Contenido derecha */
+.contenido-derecha {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 35%;
+    margin-top: 30px;
+    margin-left: 50px;
+    
+}
+
+
+
+
+
+/**/
+
+
+
+/*Logo*/
+.logo {
+height: 100px;
+width: 250px;
+}
+
+.contenido-interior img {
+    width: 150px;
+    height: 120px;
+}
+
+/* Titulo */
+
+.login {
+    text-decoration: none;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 600;
+    display: inline-block;
+    margin: 25px 8px 10px 8px;
+    color: #0d0d0d;
+    border-bottom: 2px solid #DCACE8
+}
+
+.login:hover {
+    color: #0d0d0d;
+    border-bottom: 2px solid #DCACE8;
+}
+
+
+
+
+
+
+
+
+/* Resto del código CSS existente */
+
+
+/* Formulario */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.formulario label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.formulario input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Factura */
+.factura {
+    margin-bottom: 20px;
+}
+
+.factura p {
+    margin-bottom: 5px;
+}
+
+.factura span {
+    font-weight: bold;
+}
+
+/* Botón Reservar */
+.btn-reservar {
+    font-family: "Poppins";
+    font-size: 13px;
+    background-color: #C586DD;
+    border: none;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px 18px;
+    border-radius: 0.40rem;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.btn-reservar:hover {
+    background-color: #8B26C3;
+}
+
+
+/* Media query para tablets */
+
+
+@media only screen and (max-width: 1500px) {
+  
+  
+    #contenido {
+        width: 70%;
+    }
+  
+    .contenido-izquierda,
+    .contenido-derecha {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 30px;
+    }
+
+    .contenido-izquierda{
+        margin-left: 50px;
+
+    }
+  
+    .contenido-derecha {
+        width: 80%;
+        margin-right: 10px;
+        margin-top: 30px;
+    }
+
+    .alojamiento img,
+    .alojamiento .card-body {
+        width: 100%;
+    }
+
+  
+    .mascota img{
+        min-width: 150px;
+    }
+    .mascota {
+        width: 100%;
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: row;
+        gap: 2%;
+    }
+}
+
+/* Media query para dispositivos móviles */
+
+@media only screen and (max-width: 768px) {
+    #contenido {
+        width: 70%;
+    }
+  
+    .contenido-izquierda,
+    .contenido-derecha {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 30px;
+    }
+  
+    .contenido-derecha {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 30px;
+    }
+
+    .alojamiento img,
+    .alojamiento .card-body {
+        width: 100%;
+    }
+
+  
+    .mascota img{
+        min-width: 150px;
+    }
+    .mascota {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
+
+/* Media query para dispositivos con pantalla pequeña (por ejemplo, smartphones) */
+
+@media only screen and (max-width: 767px) {
+    #contenido {
+        width: 90%;
+    }
+  
+    .contenido-interior {
+        flex-direction: column;
+        padding: 20px;
+    }
+  
+    .contenido-izquierda,
+    .contenido-derecha {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+  
+    .contenido-derecha {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+  
+    .alojamiento img,
+    .alojamiento .card-body {   
+        width: 100%;
+    }
+    
+    .mascota img{
+        min-width: 150px;
+    }
+    .mascota {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}

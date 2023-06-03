@@ -1,0 +1,59 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<link th:href="@{style-login.css}" rel="stylesheet">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PetStay - Olvidaste contraseña</title>
+</head>
+
+<body>
+
+<div layout:fragment="contenido">
+    <div class="container">
+        <div id="contenido">
+
+            <!-- Logo -->
+            <div>
+                <a href="index">
+                    <img src="img/efrerg.png" id="icon" alt="logo" />
+                </a>            </div>
+
+            <!-- Títulos -->
+            <div class="titulos">
+                <p class="parrafo">Si olvidaste tu Contraseña
+                    indica el correo electrónico con el que accede a su perfil
+                    de usuarios y pulse <span class="strong">Recuperar</span>. Si por el contrario
+                    desea volver a la página de inicio pulse <span class="strong">Volver</span>.
+
+                    <br>
+                    <br>
+                    En breve se le enviará un correo con el que podrá recuperar su contraseña
+                </p>
+            </div>
+
+
+
+            <!--Formularo login -->
+            <form>
+                <input type="text" id="email" class="email-login" name="email" placeholder="email">
+                <a class="btn-volver" href="login">Volver</a>
+                <button type="submit" class="btn-enviar">Enviar</button>
+            </form>
+
+            <!--Footer-->
+            <!-- <footer id="formFooter">
+
+                    <a class="olvidaste-contraseña" href="#">¿Olvidaste la Contraseña?</a>
+
+            </footer>-->
+        </div>
+
+    </div>
+
+</div>
+</body>
+
+</html>
