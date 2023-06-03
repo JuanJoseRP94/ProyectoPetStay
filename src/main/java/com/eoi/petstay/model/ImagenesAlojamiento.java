@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
 
 @Getter
 @Setter
@@ -24,6 +23,6 @@ public class ImagenesAlojamiento {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "alojamientos")
-    private Set<Alojamientos> alojamientos;
+    private Alojamientos alojamientos;
 
 }
