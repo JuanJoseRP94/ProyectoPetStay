@@ -6,13 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuarios {
     @Id
     @Column(name = "ID")
     private Long id;
@@ -40,9 +42,21 @@ public class Usuario {
     private boolean active;
 
     //Un usuario solo un rol
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="usuarios")
     private Roles roles;
-
+    @OneToOne
+    @JoinColumn(name = "alojamientos")
+    private Alojamientos alojamientos;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<GastosGestion> gastosGestion;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<ValoracionesMascotas> valoracionesMascotas;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<ValoracionesUsuarios> valoracionesUsuarios;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Oferta> oferta;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Mascotas> mascotas;
 
 }

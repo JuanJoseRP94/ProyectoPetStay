@@ -14,7 +14,7 @@ import lombok.Setter;
 @Table(name = "pagos")
 public class Pagos {
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "tipo_pago")
@@ -24,7 +24,8 @@ public class Pagos {
     @Column(name = "estado")
     private String estado;
 
-
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "gastos_gestion")
+    private GastosGestion gastosGestion;
 
 }
