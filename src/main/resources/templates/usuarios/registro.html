@@ -1,57 +1,65 @@
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sd="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{/layouts/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sd="http://www.w3.org/1999/xhtml" layout:decorate="~{/layouts/layout}">
 <title>Perfil Usuario</title>
-    <title>Registro</title>
-    <link rel="stylesheet" type="text/css" href="css/style-login.css">
+<title>Registro</title>
+<link rel="stylesheet" type="text/css" href="css/style-login.css">
 </head>
-
 <body>
 <div layout:fragment="contenido">
     <div class="container">
         <div id="contenido">
-
-            <!-- Logo -->
-            <div>
-                <a href="index">
-                    <img src="img/efrerg.png" id="icon" alt="logo" />
-                </a>
-            </div>
-
-            <!-- Títulos -->
-            <div class="titulos">
-                <a class="login_des" href="login">Iniciar Sesión</a>
-                <a class="sign_up" href="registro">Registrarse</a>
-            </div>
-
-
-
-            <!--Formularo Registro -->
-            <form>
-                <input type="text" id="nombre" class="nombe" name="nombre" placeholder="nombre">
-                <input type="text" id="apellido1" class="apellido1" name="apellido1" placeholder="apellido1">
-                <input type="text" id="apellido2" class="apellido2" name="apellido2" placeholder="apellido2">
-                <input type="date" id="birthdate" name="birthdate">
-                <input type="text" id="direccion" class="direccion" name="direccion" placeholder="direccion">
-                <input type="text" id="email" class="email-login" name="email" placeholder="email">
-                <input type="password" id="contrasena" class="contrasena-login" name="contrasena"
-                       placeholder="contraseña">
-                <input type="password" id="repetir_contrasena" class="repetir_contrasena-login"
-                       name="repetir_contrasena" placeholder="repetir contraseña">
-                <button type="submit" class="btn-log-in">Crear Perfil</button>
+            <form class="mx-1 mx-md-4" role="form" th:action="@{/usuarios/registro}" th:object="${datosUsuario} " method="post">
+                <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="email">Nombre usuario</label>
+                        <input type="text" id="email" class="form-control" name="email" placeholder="email" th:field="${datosUsuario.email}">
+                    </div>
+                </div>
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="contrasena">Contraseña</label>
+                        <input type="password" id="contrasena" class="form-control" name="contrasena" placeholder="contraseña" th:field="${datosUsuario.password}">
+                    </div>
+                </div>
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="nombre">Nombre usuario</label>
+                        <input type="text" id="nombre" class="form-control" maxlength="30" name="nombre" placeholder="nombre" th:field="${datosUsuario.nombre}">
+                    </div>
+                </div>
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="apellido1">Apellido 1</label>
+                        <input type="text" id="apellido1" class="form-control" name="apellido1" placeholder="apellido1" th:field="${datosUsuario.apellido1}">
+                    </div>
+                </div>
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="apellido2">Apellido 2</label>
+                        <input type="text" id="apellido2" class="form-control" name="apellido2" placeholder="apellido2" th:field="${datosUsuario.apellido2}">
+                    </div>
+                </div>
+                <!-- ¿Como seleccionar elementos de una lista con thymeleaf-->
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <div th:if="${listaRoles!=null and !listaRoles.empty}" class="form-group col-md-12">
+                        <label for="listaroles" th:text="#{Usuarios.listaroles}"></label>
+                        <select th:field="${datosUsuario.roles.id}" class="form-control" id="listaroles">
+                            <option value="0">Seleciona uno</option>
+                            <option th:each="elemento : ${listaRoles}" th:value="${elemento.id}" th:text="${elemento.roleName}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Registrar usuario</button>
+                </div>
             </form>
-
-            <!--Footer-->
-            <!-- <footer id="formFooter">
-
-                    <a class="olvidaste-contraseña" href="#">¿Olvidaste la Contraseña?</a>
-
-            </footer>-->
+            <!--Formularo Registro -->
         </div>
-
     </div>
-
 </div>
 </body>
 </html>

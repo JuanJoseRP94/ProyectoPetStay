@@ -19,7 +19,8 @@ public class Roles {
     private String roleName;
 
     //Un role puede estar asociado a muchos usuario
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "roles" )
+    //@OneToMany(cascade = CascadeType.ALL)
     private Set<Usuarios> usuarios;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Menu> menu;

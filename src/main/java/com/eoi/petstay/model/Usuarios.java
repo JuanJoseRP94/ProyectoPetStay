@@ -17,14 +17,14 @@ import java.util.Set;
 public class Usuarios {
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Column(name = "foto")
     private String foto;
     @Column(name = "nombre_usuario")
     private String nombre;
     @Column(name = "apellido1")
-    private String apellido;
+    private String apellido1;
     @Column(name = "apellido2")
     private String apellido2;
     @Column(name = "valoracion")
@@ -43,7 +43,6 @@ public class Usuarios {
 
     //Un usuario solo un rol
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="usuarios")
     private Roles roles;
     @OneToOne
     @JoinColumn(name = "alojamientos")
