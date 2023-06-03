@@ -2,7 +2,7 @@ package com.eoi.petstay.repository;
 
 
 import com.eoi.petstay.model.Tamanios;
-import com.eoi.petstay.model.Usuario;
+import com.eoi.petstay.model.Usuarios;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

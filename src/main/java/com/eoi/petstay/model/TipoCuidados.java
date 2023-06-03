@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.mapping.Set;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,7 +23,6 @@ public class TipoCuidados {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @ManyToMany
-    @JoinColumn(name = "mascotas")
-    private Mascotas mascotas;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Mascotas> mascotasSet;
 }
