@@ -1,27 +1,31 @@
 package com.eoi.petstay.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "acuerdo")
-public class Acuerdo {
+@Table
+public class Raza {
     @Id
     @Column(name = "ID")
-    private Long id;
 
-    @Column(name = "factura")
-    private String factura;
+    private int id;
+    @Column
+    private String nombre;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "oferta")
-    private Oferta oferta;
-}
+    @JoinColumn (name = "especie")
+     private Especie especie;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Mascotas> mascotas;
+
+    }
