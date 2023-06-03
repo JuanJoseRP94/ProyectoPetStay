@@ -28,4 +28,6 @@ public class Menu {
     private Integer active;
     private String url;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Roles> roles;
 }

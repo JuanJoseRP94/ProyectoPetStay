@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
     <title>Detalle Reserva</title>
     <link rel="stylesheet" type="text/css" href="style/style-detalleReserva.css">
 </head>
 
 <body>
+<div layout:fragment="contenido">
     <div class="container">
         <div id="contenido">
 
@@ -36,9 +34,9 @@
                     <div class="anfitrion">
                         <img  src="img/manor-house-2359884_1280.jpg" />
 
-                        
-                            <p class="card-direccion">Teatinos, 4 (Málaga)</p>
-                        
+
+                        <p class="card-direccion">Teatinos, 4 (Málaga)</p>
+
                     </div>
 
 
@@ -94,6 +92,8 @@
         </div>
 
     </div>
+
+</div>
 </body>
 
 </html>

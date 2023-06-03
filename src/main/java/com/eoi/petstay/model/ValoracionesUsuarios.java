@@ -24,4 +24,7 @@ public class ValoracionesUsuarios {
     private String puntuacion;
 
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuarios")
+    private Usuarios usuarios;
 }

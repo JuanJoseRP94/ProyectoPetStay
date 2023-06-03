@@ -17,7 +17,7 @@ public class AppGestionController {
     public String contactanos( ){
         return "gestion/contactanos";
     }
-    @GetMapping("/gestion/olv-contrasena")
+    @GetMapping("/gestion/olv_contrasena")
     public String olv_contrasena( ){
         return "gestion/olv_contrasena";
     }
