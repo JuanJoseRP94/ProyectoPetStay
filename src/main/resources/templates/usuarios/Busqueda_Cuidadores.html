@@ -1,6 +1,11 @@
-<!DOCTYPE html>
-<html>
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi primera página de login</title>
+</head>
 <head>
     <title>Búsqueda de Cuidadores</title>
     <style>
@@ -191,18 +196,7 @@
 </head>
 
 <body>
-    <header>
-        <div class="header-content">
-            <a href="inicio.html" class="home-link">Inicio</a>
-            <div class="logo">
-                <img src="logo.png" alt="PetStay Logo" class="logo-image">
-                <h1 class="logo-text">PetStay</h1>
-            </div>
-            
-        </div>
-    </header>
-    <h1>Búsqueda de Cuidadores</h1>
-
+<div layout:fragment="contenido">
     <div class="search-form">
         <input type="text" placeholder="Nombre del cuidador">
         <select>
@@ -288,6 +282,10 @@
             </div>
         </li>
     </ul>
+</div>
+
+
+
 </body>
 
 </html>

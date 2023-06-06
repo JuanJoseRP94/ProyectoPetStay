@@ -17,6 +17,8 @@ import java.util.Set;
 @Table(name = "gastos_gestion")
 public class GastosGestion {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "ID")
     private Long id;
 

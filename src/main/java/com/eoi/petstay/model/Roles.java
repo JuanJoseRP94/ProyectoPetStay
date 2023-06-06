@@ -13,6 +13,7 @@ import java.util.Set;
 @Table(name = "roles")
 public class Roles {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
     @Column(name = "roleName")

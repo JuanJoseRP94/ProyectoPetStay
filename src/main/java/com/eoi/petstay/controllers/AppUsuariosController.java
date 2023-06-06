@@ -6,8 +6,14 @@ import com.eoi.petstay.model.Usuarios;
 import com.eoi.petstay.service.IUsuarioServicio;
 import com.eoi.petstay.service.RoleService;
 import com.eoi.petstay.service.UsuarioService;
+import com.eoi.petstay.util.PageRender;
 import com.eoi.petstay.util.ValidarFormatoPassword;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,10 +56,7 @@ public class AppUsuariosController {
         interfazConPantalla.addAttribute("mensaje","El usuario logeado es:" + userName );
         return "index";
      }
-    @GetMapping("/usuarios/listausuarios")
-    public String listaUsuarios( ){
-        return "usuarios/lista";
-    }
+
     @GetMapping("/usuarios/login")
     public String login( ){
         return "usuarios/login";
@@ -64,10 +67,30 @@ public class AppUsuariosController {
     public String Busqueda_Cuidadores( ){
         return "usuarios/Busqueda_Cuidadores";
     }
+
+
+
+    //Listas y paginar los usuarios
+
     @GetMapping("/usuarios/lista")
-    public String lista( ){
-        return "usuarios/lista";
+    public String listaUsuarios(@RequestParam(name = "page", defaultValue = "0") int page, Model modelo){
+        Pageable pageRequest = PageRequest.of(page,5);
+        Page <Usuarios> usuarios = userService.findAll(pageRequest);
+        PageRender<Usuarios> pageRender = new PageRender<>("/usuarios/lista", usuarios);
+
+        modelo.addAttribute("titulo","Listado de empleados");
+        modelo.addAttribute("usuarios", usuarios);
+        modelo.addAttribute("page",pageRender);
+        return "/usuarios/lista";
     }
+
+    /*@GetMapping("/usuarios/lista")
+    public String listaUsuarios(Model modelo){
+        modelo.addAttribute("usuarios", userService.listarUsuarios());
+        return "usuarios/lista";
+    }*/
+
+
     @GetMapping("/usuarios/Perfil_Usuario")
     public String Perfil_Usuario( ){
         return "usuarios/Perfil_Usuario";

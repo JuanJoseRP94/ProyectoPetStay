@@ -5,6 +5,8 @@ import com.eoi.petstay.model.Usuarios;
 import com.eoi.petstay.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioService extends AbstractBusinessServiceSoloEnt<Usuarios,Long,
         UsuarioRepository>   {
@@ -14,6 +16,7 @@ public class UsuarioService extends AbstractBusinessServiceSoloEnt<Usuarios,Long
 
         super(repo);
     }
+
 
 
 
