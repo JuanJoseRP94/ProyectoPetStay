@@ -16,6 +16,7 @@ import java.util.Set;
 public class TipoCuidados {
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "nombre")

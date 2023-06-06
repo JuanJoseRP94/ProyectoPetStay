@@ -15,6 +15,7 @@ import lombok.Setter;
 public class ValoracionesMascotas {
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "comentarios")

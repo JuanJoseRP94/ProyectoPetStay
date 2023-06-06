@@ -13,8 +13,9 @@ import java.util.Set;
 @Table(name = "roles")
 public class Roles {
     @Id
-    @Column(name = "id")
-    private int id;
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @Column(name = "roleName")
     private String roleName;
 

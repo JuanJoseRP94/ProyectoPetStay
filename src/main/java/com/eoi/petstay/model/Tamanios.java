@@ -17,7 +17,8 @@ import java.util.Set;
 public class Tamanios {
     @Id
     @Column(name = "ID")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column
     private String nombre;

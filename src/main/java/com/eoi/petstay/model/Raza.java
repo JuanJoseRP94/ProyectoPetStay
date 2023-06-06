@@ -17,8 +17,9 @@ import java.util.Set;
 public class Raza {
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private int id;
+    private Long id;
     @Column
     private String nombre;
 

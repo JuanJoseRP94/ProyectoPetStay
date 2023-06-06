@@ -15,7 +15,8 @@ import java.util.Set;
 public class Mascotas {
     @Id
     @Column(name = "ID")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(name = "foto")
     private String foto;

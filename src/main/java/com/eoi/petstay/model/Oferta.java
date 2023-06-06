@@ -17,6 +17,7 @@ import java.util.Set;
 public class Oferta {
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "valoracion_media")
