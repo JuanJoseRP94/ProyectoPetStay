@@ -1,9 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sd="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{/layouts/layout}">
+      layout:decorate="~{/layouts/layout_det_res}">
     <title>Detalle Reserva</title>
-    <link rel="stylesheet" type="text/css" href="style/style-detalleReserva.css">
 </head>
 
 <body>
@@ -32,7 +31,7 @@
 
                     <p class="titulo_alojamiento">Casa Pet Paradise</p>
                     <div class="anfitrion">
-                        <img  src="img/manor-house-2359884_1280.jpg" />
+                        <img  th:src="@{/img/manor-house-2359884_1280.jpg}" />
 
 
                         <p class="card-direccion">Teatinos, 4 (Málaga)</p>
@@ -41,7 +40,7 @@
 
 
                     <div class="anfitrion">
-                        <img src="img/man-1868563_1280.jpg">
+                        <img th:src="@{/img/man-1868563_1280.jpg}">
                         <p class="card-afitrion">Marcos <br>
                             80 valoraciones</p>
                     </div>
@@ -50,12 +49,12 @@
                     <div class="contenido-mascotas">
 
                         <div class="mascota">
-                            <img src="img/pet01.jpeg" class="img-mascota mb-3" alt="Imagen">
+                            <img th:src="@{img/pet01.jpeg}" class="img-mascota mb-3" alt="Imagen">
                             <p class="descripcion">Hume <br>Paseo 3 veces al día</p>
                         </div>
 
                         <div class="mascota">
-                            <img src="img/pet01.jpeg" class="img-mascota mb-3" alt="Imagen">
+                            <img th:src="@{img/pet01.jpeg}" class="img-mascota mb-3" alt="Imagen">
                             <p class="descripcion">Hume <br>Paseo 3 veces al día</p>
                         </div>
 

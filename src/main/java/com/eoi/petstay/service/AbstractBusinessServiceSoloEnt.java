@@ -1,5 +1,6 @@
 package com.eoi.petstay.service;
 
+import com.eoi.petstay.model.Usuarios;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -63,4 +64,7 @@ public abstract class AbstractBusinessServiceSoloEnt<E, ID,  REPO extends JpaRep
     }
     //Obtener el repo
     public REPO getRepo(){return  repo;}
+
+
+
 }

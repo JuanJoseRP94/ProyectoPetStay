@@ -16,6 +16,8 @@ import java.util.Set;
 @Table
 public class Raza {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "ID")
 
     private int id;

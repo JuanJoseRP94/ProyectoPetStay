@@ -16,6 +16,8 @@ import java.util.Set;
 @Table
 public class Alojamientos {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "id")
     private int id;
     @Column(name = "descripcion")

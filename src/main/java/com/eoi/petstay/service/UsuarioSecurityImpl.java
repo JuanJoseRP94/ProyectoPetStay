@@ -5,6 +5,8 @@ package com.eoi.petstay.service;
 import com.eoi.petstay.model.Usuarios;
 import com.eoi.petstay.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -50,6 +54,25 @@ public class UsuarioSecurityImpl implements IUsuarioServicio, UserDetailsService
                 ga );
         return springUser;
     }
-}
+
+    //Lista de usuarios
+
+
+    @Override
+    public List<Usuarios> findAll() {
+        return (List<Usuarios>) usuarioRepository.findAll();
+    }
+
+    @Override
+    public Page<Usuarios> findAll(Pageable pageable) {
+        return usuarioRepository.findAll(pageable);
+    }
+
+
+    }
+
+
+
+
 
 
