@@ -6,11 +6,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IUsuarioServicio {
     public String getEncodedPassword(Usuarios usuarios);
 
-    public List<Usuarios> findAll();
+    List<Usuarios> findAll();
 
-    public Page<Usuarios> findAll(Pageable pageable);
+    Page<Usuarios> findAll(Pageable pageable);
+
+
+
+
 }

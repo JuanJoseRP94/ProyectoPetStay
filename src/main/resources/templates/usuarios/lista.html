@@ -19,6 +19,8 @@
             <th>Apellido1</th>
             <th>Apellido2</th>
             <th>Email</th>
+            <th>Acciones</th>
+
         </tr>
         </thead>
         <tbody>
@@ -28,9 +30,31 @@
             <td th:text="${usuario.apellido1}">ID</td>
             <td th:text="${usuario.apellido2}">ID</td>
             <td th:text="${usuario.email}">ID</td>
+            <td>
+                <a th:href="@{/usuarios/detalles_usuario}+${usuario.id}" class="btn btn-primary">Editar</a>
+
+                <a th:href="@{/usuarios/delete/{id}(id=${usuario.id})}" class="btn btn-danger">Eliminar</a>
+            </td> <!-- Columna para los botones de edición y eliminación -->
         </tr>
         </tbody>
     </table>
+
+    <div th:if="${usuarios.totalPages > 0}" class="pagination justify-content-center">
+        <ul class="pagination justify-content-center" >
+            <li class="page-item"><a class="page-link" th:href="@{/usuarios/lista(size=${usuarios.size}, page=${usuarios.number})}">Previous</a></li>
+            <li  class="page-item" th:each="pageNumber : ${pageNumbers}">
+                <a class="page-link" th:href="@{/usuarios/lista(size=${usuarios.size}, page=${pageNumber})}"
+                   th:text=${pageNumber}
+                   th:classappend="${pageNumber==usuarios.number+1} ? active"></a>
+            </li>
+            <li class="page-item"><a class="page-link" th:href="@{/usuarios/lista(size=${usuarios.size}, page=${usuarios.number+2})}">Next</a></li>
+        </ul>
+    </div>
+
+
+</div>
+
+
 
 </div>
 </body>
