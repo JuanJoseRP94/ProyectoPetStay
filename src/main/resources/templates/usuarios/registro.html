@@ -1,4 +1,7 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sd="http://www.w3.org/1999/xhtml" layout:decorate="~{/layouts/layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
 <title>Perfil Usuario</title>
 <title>Registro</title>
 <link rel="stylesheet" type="text/css" href="css/style-login.css">
@@ -44,10 +47,11 @@
                     </div>
                 </div>
                 <!-- ¿Como seleccionar elementos de una lista con thymeleaf-->
-                <div class=" d-flex flex-row align-items-center mb-4">
+                <!-- el usuario administrador puede crear otros administradores pero el alta normal solo crea usarios std-->
+                <div class=" d-flex flex-row align-items-center mb-4"   sec:authorize="hasRole('ADMIN')">
                     <div th:if="${listaRoles!=null and !listaRoles.empty}" class="form-group col-md-12">
                         <label for="listaroles" th:text="#{Usuarios.listaroles}"></label>
-                        <select th:field="${datosUsuario.roles.id}" class="form-control" id="listaroles">
+                        <select th:field="${datosUsuario.role.id}" class="form-control" id="listaroles">
                             <option value="0">Seleciona uno</option>
                             <option th:each="elemento : ${listaRoles}" th:value="${elemento.id}" th:text="${elemento.roleName}"></option>
                         </select>
