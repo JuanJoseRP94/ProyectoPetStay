@@ -27,6 +27,7 @@ public class AppUsuariosController {
     private final RoleService roleService;
     @Autowired
     private IUsuarioServicio userService;
+
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -109,6 +110,11 @@ public class AppUsuariosController {
         }
 
 
+    }
+
+    @ModelAttribute("loggedIn")
+    public boolean getLoggedInStatus() {
+        return !SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser");
     }
 
 }
