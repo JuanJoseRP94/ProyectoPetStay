@@ -1,5 +1,7 @@
 package com.eoi.petstay.controllers;
 
+import com.eoi.petstay.model.Usuarios;
+import com.eoi.petstay.service.UsuarioService;
 import org.springframework.ui.Model;
 
 import com.eoi.petstay.model.Alojamientos;
@@ -14,6 +16,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/alojamientos")
 public class AppAlojamientosController {
+    @Autowired
+    private UsuarioService usuarioService;
     private final AlojamientoService alojamientoService;
     @Autowired
     public AppAlojamientosController(AlojamientoService alojamientoService) {
@@ -70,5 +74,17 @@ public class AppAlojamientosController {
     @GetMapping("/alojamientos/Perfil_Alojamiento")
     public String Perfil_Alojamiento( ){
         return "alojamientos/Perfil_Alojamiento";
+    }
+
+    @GetMapping("/alojamientos/publicar")
+    public String mostrarFormularioPublicacion(Model model) {
+
+        List<Usuarios> usuarios = UsuarioService.obtenerTodos();
+        model.addAttribute("usuarios", usuarios);
+
+
+        model.addAttribute("alojamiento", new Alojamientos());
+
+        return "alojamientos/formulario-publicacion";
     }
 }
