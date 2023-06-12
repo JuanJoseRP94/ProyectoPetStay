@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<link th:href="@{/css/style-login.css}" rel="stylesheet">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PetStay - contactanos</title>
+</head>
+
+<body>
+<div layout:fragment="contenido">
+    <div class="container">
+        <div id="contenido">
+
+            <!-- Logo -->
+            <div>
+                <a href="index">
+                    <img src="img/efrerg.png" id="icon" alt="logo" />
+                </a>
+            </div>
+
+            <!-- Títulos -->
+            <div class="titulos">
+                <a class="login" href="#">Contáctanos</a>
+            </div>
+
+
+
+            <!--Formularo -->
+            <form>
+                <input type="text" id="email" class="email-login" name="email" placeholder="email">
+                <textarea id="comment-input" placeholder="Escribe tu comentario"></textarea>
+                <button type="submit" class="btn-log-in">Enviar</button>
+            </form>
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<div layout:fragment="cabecera">
+    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Estas en el la lista de usuarios</p>
+</div>
+<div layout:fragment="contenido">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido1</th>
+            <th>Apellido2</th>
+            <th>Email</th>
+            <th>Acciones</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="usuario : ${usuarios}">
+            <td th:text="${usuario.id}">ID</td>
+            <td th:text="${usuario.nombre}">ID</td>
+            <td th:text="${usuario.apellido1}">ID</td>
+            <td th:text="${usuario.apellido2}">ID</td>
+            <td th:text="${usuario.email}">ID</td>
+            <td>
+                <a th:href="@{/usuarios/detalles_usuario}+${usuario.id}" class="btn btn-primary">Editar</a>
+
+                <a th:href="@{/usuarios/delete/{id}(id=${usuario.id})}" class="btn btn-danger">Eliminar</a>
+            </td> <!-- Columna para los botones de edición y eliminación -->
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${usuarios.totalPages > 0}" class="pagination justify-content-center">
+        <ul class="pagination justify-content-center" >
+            <li class="page-item"><a class="page-link" th:href="@{/usuarios/lista(size=${usuarios.size}, page=${usuarios.number})}">Previous</a></li>
+            <li  class="page-item" th:each="pageNumber : ${pageNumbers}">
+                <a class="page-link" th:href="@{/usuarios/lista(size=${usuarios.size}, page=${pageNumber})}"
+                   th:text=${pageNumber}
+                   th:classappend="${pageNumber==usuarios.number+1} ? active"></a>
+            </li>
+            <li class="page-item"><a class="page-link" th:href="@{/usuarios/lista(size=${usuarios.size}, page=${usuarios.number+2})}">Next</a></li>
+        </ul>
+    </div>
+
+
+</div>
+
+
+
+</div>
+</body>
+</html>
