@@ -9,6 +9,11 @@ import com.eoi.petstay.service.RoleService;
 import com.eoi.petstay.service.UsuarioService;
 import com.eoi.petstay.util.ValidarFormatoPassword;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,8 +26,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
+
 public class AppUsuariosController {
 
     private final UsuarioService service;
@@ -53,10 +61,7 @@ public class AppUsuariosController {
         interfazConPantalla.addAttribute("mensaje","El usuario logeado es:" + userName );
         return "index";
      }
-    @GetMapping("/usuarios/listausuarios")
-    public String listaUsuarios( ){
-        return "usuarios/lista";
-    }
+
     @GetMapping("/usuarios/login")
     public String login( ){
         return "usuarios/login";
@@ -81,10 +86,43 @@ public class AppUsuariosController {
     public String Busqueda_Cuidadores( ){
         return "usuarios/Busqueda_Cuidadores";
     }
+
+
+
+    //Listas y paginar los usuarios
+
     @GetMapping("/usuarios/lista")
-    public String lista( ){
+    public String getAllPaginated(@RequestParam(defaultValue = "1") int page,
+                                  @RequestParam(defaultValue = "10") int size,
+                                  Model model) {
+
+        Pageable pageable = PageRequest.of(page-1, size);
+        Page<Usuarios> usuariosPage = userService.findAll(pageable);
+
+        model.addAttribute("usuarios", usuariosPage);
+
+        int totalPages = usuariosPage.getTotalPages();
+
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
         return "usuarios/lista";
     }
+
+
+    @GetMapping("/usuarios/{id}")
+        public String editar(@PathVariable Long id, Model model){
+        Optional<Usuarios> usuarios = userService.listarId(id);
+        model.addAttribute("usuarios", usuarios);
+        return "detalles_usuario";
+    }
+
+
+
     @GetMapping("/usuarios/Perfil_Usuario")
     public String Perfil_Usuario( ){
         return "usuarios/Perfil_Usuario";

@@ -15,6 +15,8 @@ import lombok.Setter;
 @Table(name = "imagenes_alojamiento")
 public class ImagenesAlojamiento {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

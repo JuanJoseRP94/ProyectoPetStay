@@ -16,6 +16,8 @@ import java.util.Set;
 @Table(name = "oferta")
 public class Oferta {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
