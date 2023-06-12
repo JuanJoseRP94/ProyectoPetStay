@@ -19,6 +19,7 @@ public class Oferta {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "valoracion_media")

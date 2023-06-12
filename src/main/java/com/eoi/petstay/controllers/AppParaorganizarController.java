@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AppParaorganizarController {
-    @GetMapping("/paraorganizar/index")
+    @GetMapping("/templates/index")
     public String index( ){
-        return "paraorganizar/index";
+        return "/templates/index";
     }
     @GetMapping("/paraorganizar/pantallaGeneralInvitado")
     public String pantallaGeneralInvitado( ){

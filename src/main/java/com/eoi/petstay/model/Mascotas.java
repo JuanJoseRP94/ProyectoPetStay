@@ -17,7 +17,8 @@ public class Mascotas {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     @Column(name = "ID")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(name = "foto")
     private String foto;

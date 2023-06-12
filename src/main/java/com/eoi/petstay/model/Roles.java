@@ -13,14 +13,14 @@ import java.util.Set;
 @Table(name = "roles")
 public class Roles {
     @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    private Long id;
     @Column(name = "roleName")
     private String roleName;
 
     //Un role puede estar asociado a muchos usuario
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "roles" )
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "role" )
     //@OneToMany(cascade = CascadeType.ALL)
     private Set<Usuarios> usuarios;
     @OneToMany(cascade = CascadeType.ALL)

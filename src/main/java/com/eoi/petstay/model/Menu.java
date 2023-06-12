@@ -17,8 +17,9 @@ import java.util.Set;
 @Table(name = "menu")
 public class Menu {
     @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     @Column(nullable = false)
     private String description;
     @ManyToOne

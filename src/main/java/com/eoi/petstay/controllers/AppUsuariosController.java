@@ -1,6 +1,7 @@
 package com.eoi.petstay.controllers;
 
 
+import com.eoi.petstay.dto.LoginDto;
 import com.eoi.petstay.model.Roles;
 import com.eoi.petstay.model.Usuarios;
 import com.eoi.petstay.service.IUsuarioServicio;
@@ -22,6 +23,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -35,6 +37,7 @@ public class AppUsuariosController {
     private final RoleService roleService;
     @Autowired
     private IUsuarioServicio userService;
+
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -63,7 +66,21 @@ public class AppUsuariosController {
     public String login( ){
         return "usuarios/login";
     }
-
+    @PostMapping("/usuarios/login")
+    public String validarPasswordPst(@ModelAttribute(name = "loginForm" ) LoginDto loginDto) {
+        String usr = loginDto.getUsername();
+        System.out.println("usr :" + usr);
+        String password = loginDto.getPassword();
+        System.out.println("pass :" + password);
+        //¿es correcta la password?
+        Optional<Usuarios> usuario = service.getRepo().findByEmailAndPasswordAndActiveTrue(usr, passwordEncoder.encode(password));
+        if (usuario.isPresent())
+        {
+            return "index";
+        }else {
+            return "usuarios/login";
+        }
+    }
 
     @GetMapping("/usuarios/Busqueda_Cuidadores")
     public String Busqueda_Cuidadores( ){
@@ -136,6 +153,10 @@ public class AppUsuariosController {
             String passwordcodificada = userService.getEncodedPassword(usuario);
             //Sustituimos la password
             usuario.setPassword(passwordcodificada);
+            usuario.setActive(true);
+            if (Objects.isNull(usuario.getRole())){
+                usuario.setRole(roleService.getRepo().findByRoleName("ROLE_USER"));
+            }
             //Guardamos el usuario
             Usuarios usuarioguardado = this.service.guardar(usuario);
             //Vamos a la pantalla de login
@@ -147,6 +168,11 @@ public class AppUsuariosController {
         }
 
 
+    }
+
+    @ModelAttribute("loggedIn")
+    public boolean getLoggedInStatus() {
+        return !SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser");
     }
 
 }

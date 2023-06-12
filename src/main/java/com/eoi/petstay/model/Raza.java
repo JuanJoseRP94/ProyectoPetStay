@@ -19,8 +19,9 @@ public class Raza {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private int id;
+    private Long id;
     @Column
     private String nombre;
 

@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuarios")
 public class Usuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,7 +44,7 @@ public class Usuarios {
 
     //Un usuario solo un rol
     @ManyToOne(fetch = FetchType.EAGER)
-    private Roles roles;
+    private Roles role;
     @OneToOne
     @JoinColumn(name = "alojamientos")
     private Alojamientos alojamientos;
