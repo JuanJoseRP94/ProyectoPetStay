@@ -24,6 +24,6 @@ public class TipoCuidados {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Mascotas> mascotasSet;
+    @OneToMany(mappedBy = "cuidados", cascade = CascadeType.ALL)
+    private Set<MascotaRequiereCuidados> mascotaRequiereCuidados;
 }

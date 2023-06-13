@@ -44,6 +44,9 @@ public class Mascotas {
     @JoinColumn(name = "comportamientos")
     private Comportamientos comportamientos;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "mascotasSet")
-    private Set<TipoCuidados>  tipoCuidadosSet;
+    @OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL)
+    private Set<MascotaHasComportamientos> mascotaHasComportamientos;
+
+    @OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL)
+    private Set<MascotaRequiereCuidados> mascotasRequiereCuidados;
 }

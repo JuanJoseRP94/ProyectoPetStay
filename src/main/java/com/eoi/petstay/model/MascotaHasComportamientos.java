@@ -6,23 +6,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="comportamientos")
-public class Comportamientos {
+@Table(name = "mascota_has_comportamientos")
+public class MascotaHasComportamientos {
     @Id
-    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mascota_id")
+    private Mascotas mascota;
 
-    @OneToMany(mappedBy = "comportamiento", cascade = CascadeType.ALL)
-    private Set<MascotaHasComportamientos> mascotaHasComportamientos;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comportamiento_id")
+    private Comportamientos comportamiento;
 }
