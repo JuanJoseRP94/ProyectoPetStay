@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 
 public interface RoleRepository extends JpaRepository<Roles, Long> {
-    //Para ver si el usuario esxite
+    //Para ver si el usuario existe
     Roles findByRoleName(String strRole);
 }

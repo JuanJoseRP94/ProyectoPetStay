@@ -19,6 +19,7 @@ public class GastosGestion {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     @Column(name = "tipo_contrato")

@@ -1,0 +1,114 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<title>Perfil Usuario</title>
+<title>Registro</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+    <div class="container">
+        <div id="contenido">
+            <form class="mx-1 mx-md-4" role="form" th:action="@{/mascotas/detalles_mascota}" th:object="${datosmascota} " method="post">
+                <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="foto">Foto</label>
+                        <input type="file" id="foto" class="form-control" name="foto" placeholder="foto" th:field="${datosmascota.foto}">
+                    </div>
+                </div>
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="nombre">Nombre de tu mascota</label>
+                        <input type="text" id="nombre" class="form-control" name="nombre" placeholder="nombre" th:field="${datosmascota.nombreMascota}">
+                    </div>
+                </div>
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="edad">Edad</label>
+                        <input type="number" id="edad" class="form-control" maxlength="2" name="edad" placeholder="edad" th:field="${datosmascota.edad}">
+                    </div>
+                </div>
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label" for="sexo">Sexo</label>
+                        <input type=range" id="sexo" class="form-control" name="sexo" placeholder="sexo" th:field="${datosmascota.sexo}">
+                    </div>
+                </div>
+                <!-- ¿Como seleccionar elementos de una lista con thymeleaf?-->
+                <!-- el usuario administrador puede crear otros administradores pero el alta normal solo crea usarios std-->
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <div th:if="${listaEspecies!=null and !listaEspecies.empty}" class="form-group col-md-12">
+                        <label for="listaEspecies" th:text="#{Mascotas.listaEspecies}">Especie</label>
+                        <select th:field="${datosMascota.especie.id}" class="form-control" id="listaEspecies">
+                            <option value="0">Seleciona uno</option>
+                            <option th:each="elemento : ${listaEspecies}" th:value="${elemento.id}" th:text="${elemento.nombreEspecie}"></option>
+                            <option value="1">Perro</option>
+                            <option value="2">Gato</option>
+                            <option value="3">Conejo</option>
+                            <option value="4">Hamster</option>
+                            <option value="5">Pez</option>
+                            <option value="6">Tortuga</option>
+                            <option value="7">Pajaro</option>
+                            <option value="8">Reptil</option>
+                        </select>
+                    </div>
+                </div>
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <div th:if="${listaTamanios!=null and !listaTamanios.empty}" class="form-group col-md-12">
+                        <label for="listaTamanios" th:text="#{Mascotas.listaEspecies}">Tamano</label>
+                        <select th:field="${datosMascota.tamanio.id}" class="form-control" id="listaTamanios">
+                            <option value="0">Seleciona uno</option>
+                            <option th:each="elemento : ${listaTamanios}" th:value="${elemento.id}" th:text="${elemento.nombreTamanio}"></option>
+                            <option value="1">Pequeno</option>
+                            <option value="2">Mediano</option>
+                            <option value="3">Grande</option>
+                        </select>
+                    </div>
+                </div>
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <div th:if="${listaCuidados!=null and !listaCuidados.empty}" class="form-group col-md-12">
+                        <label for="listaCuidados" th:text="#{Mascotas.listaCuidados}">Cuidados</label>
+                        <select th:field="${datosMascota.tipocuidados.id}" class="form-control" id="listaCuidados" >
+                            <option value="1">Pasear</option>
+                            <option value="2">Cepillar</option>
+                            <option value="3">Alimentar</option>
+                            <option value="4">Banar</option>
+                            <option value="5">Dar medicamento</option>
+                            <option value="6">Limpiar arenero</option>
+                            <option value="7">Limpiar jaula</option>
+                            <option value="8">Limpiar pecera</option>
+                        </select>
+                    </div>
+                </div>
+                <div class=" d-flex flex-row align-items-center mb-4">
+                    <div th:if="${listaComportamientos!=null and !listaComportamientos.empty}" class="form-group col-md-12">
+                        <label for="listaComportamientos" th:text="#{Mascotas.listaComportamientos}">Comportamientos</label>
+                        <select th:field="${datosMascota.comportamientos.id}" class="form-control" id="listaComportamientos">
+                            <option value="0">Seleciona uno</option>
+                            <option th:each="elemento : ${listaComportamientos}" th:value="${elemento.id}" th:text="${elemento.nombreComportamiento}"></option>
+                            <option value="1">Docil</option>
+                            <option value="2">Obediente</option>
+                            <option value="3">Jugueton</option>
+                            <option value="4">Dormilon</option>
+                            <option value="5">Asustadizo</option>
+                            <option value="6">Agresivo</option>
+                            <option value="7">Alegre</option>
+                            <option value="8">Solitario</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Registrar mascota</button>
+                </div>
+            </form>
+            <!--Formularo Registro -->
+        </div>
+    </div>
+</div>
+</body>
+</html>

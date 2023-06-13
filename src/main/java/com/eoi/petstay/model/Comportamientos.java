@@ -20,8 +20,8 @@ public class Comportamientos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "nombreComportamientos")
+    private String nombreComportamientos;
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Mascotas> mascotas;

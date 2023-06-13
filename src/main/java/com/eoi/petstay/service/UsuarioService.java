@@ -20,5 +20,6 @@ public class UsuarioService extends AbstractBusinessServiceSoloEnt<Usuarios,Long
     }
     public  List<Usuarios> obtenerTodos() {
         return getRepo().findAll();
+
     }
 }
