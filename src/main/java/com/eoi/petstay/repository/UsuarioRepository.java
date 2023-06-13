@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 public interface UsuarioRepository extends JpaRepository<Usuarios, Long> {
-    //Para ver si el usuario esxite
+    //Para ver si el usuario existe
     Optional<Usuarios> findUsuarioByEmailAndActiveTrue(String email);
     Optional<Usuarios> findByEmailAndPasswordAndActiveTrue(String usr, String pass);
 

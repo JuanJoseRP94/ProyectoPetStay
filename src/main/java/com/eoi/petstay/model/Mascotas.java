@@ -16,18 +16,17 @@ public class Mascotas {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     @Column(name = "foto")
     private String foto;
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "nombreMascota")
+    private String nombreMascota;
     @Column(name = "edad")
     private int edad;
     @Column(name = "sexo")
     private String sexo;
-    @Column(name = "cartilla_vacunacion")
-    private String cartillaVacunacion;
     @Column(name = "valoracion")
     private float valoracion;
 
@@ -35,8 +34,8 @@ public class Mascotas {
     @JoinColumn(name = "usuario")
     private Usuarios usuarios;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "raza")
-    private Raza raza;
+    @JoinColumn(name = "especie")
+    private Especie especie;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tamaños")
     private Tamanios tamanios;
@@ -44,9 +43,7 @@ public class Mascotas {
     @JoinColumn(name = "comportamientos")
     private Comportamientos comportamientos;
 
-    @OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL)
-    private Set<MascotaHasComportamientos> mascotaHasComportamientos;
-
-    @OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL)
-    private Set<MascotaRequiereCuidados> mascotasRequiereCuidados;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "mascotasSet")
+    private Set<TipoCuidados>  tipoCuidadosSet;
 }
+

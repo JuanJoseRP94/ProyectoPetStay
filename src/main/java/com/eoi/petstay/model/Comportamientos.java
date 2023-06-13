@@ -1,3 +1,4 @@
+
 package com.eoi.petstay.model;
 
 import jakarta.persistence.*;
@@ -20,8 +21,8 @@ public class Comportamientos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "nombreComportamientos")
+    private String nombreComportamientos;
 
     @OneToMany(mappedBy = "comportamiento", cascade = CascadeType.ALL)
     private Set<MascotaHasComportamientos> mascotaHasComportamientos;

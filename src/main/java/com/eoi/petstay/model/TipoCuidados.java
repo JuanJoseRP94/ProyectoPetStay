@@ -17,13 +17,14 @@ public class TipoCuidados {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     @Column(name = "nombre")
-    private String nombre;
+    private String nombreCuidado;
     @Column(name = "descripcion")
     private String descripcion;
 
-    @OneToMany(mappedBy = "cuidados", cascade = CascadeType.ALL)
-    private Set<MascotaRequiereCuidados> mascotaRequiereCuidados;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Mascotas> mascotasSet;
 }

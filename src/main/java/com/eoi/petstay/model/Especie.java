@@ -21,9 +21,9 @@ public class Especie {
     private Long id;
 
     @Column
-    private String nombre;
+    private String nombreEspecie;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Raza> raza;
+    private Set<Mascotas> mascotas;
 
 }

@@ -21,7 +21,7 @@ public class Tamanios {
     private Long id;
 
     @Column
-    private String nombre;
+    private String nombreTamanio;
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Mascotas> mascotas;
