@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<title>Perfil Usuario</title>
+<title>Registro</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+  <div class="container">
+    <div id="contenido">
+      <form class="mx-1 mx-md-4" role="form" th:action="@{/alojamientos/Perfil_Alojamiento}" th:object="${datosalojamiento} " method="post">
+        <div class="d-flex flex-row align-items-center mb-4">
+          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+          <div class="form-outline flex-fill mb-0">
+            <label class="form-label" for="foto">Foto</label>
+            <input type="file" id="foto" class="form-control" name="foto" placeholder="foto" th:field="${datosalojamiento.foto}">
+          </div>
+        </div>
+        <div class=" d-flex flex-row align-items-center mb-4">
+          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+          <div class="form-outline flex-fill mb-0">
+            <label class="form-label" for="nombre">Nombre de la casa</label>
+            <input type="text" id="nombre" class="form-control" name="nombre" placeholder="nombre" th:field="${datosalojamiento.nombreAlojamiento}">
+          </div>
+        </div>
+        <div class=" d-flex flex-row align-items-center mb-4">
+          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+        </div>
+        <!-- ¿Como seleccionar elementos de una lista con thymeleaf?-->
+        <!-- el usuario administrador puede crear otros administradores pero el alta normal solo crea usarios std-->
+
+        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+          <button type="submit" class="btn btn-primary btn-lg">Publicar Alojamiento</button>
+        </div>
+      </form>
+      <!--Formularo Registro -->
+    </div>
+  </div>
+</div>
+</body>
+</html>

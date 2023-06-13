@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<div layout:fragment="cabecera">
+    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Estas en la lista de alojamientos</p>
+</div>
+<div layout:fragment="contenido">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Foto</th>
+            <th>Valoracion</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="alojamientos : ${alojamientos}">
+            <td th:text="${alojamientos.id}">ID</td>
+            <td th:text="${alojamientos.valoracion}">ID</td>
+                <a th:href="@{/alojamientos/{id}(id=${alojamientos.id})}" class="btn btn-primary">Editar</a>
+
+                <a th:href="@{/alojamientos/delete/{id}(id=${alojamientos.id})}" class="btn btn-danger">Eliminar</a>
+            </td> <!-- Columna para los botones de edición y eliminación -->
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${alojamientos.totalPages > 0}" class="pagination justify-content-center">
+        <ul class="pagination justify-content-center" >
+            <li class="page-item"><a class="page-link" th:href="@{/alojamientos/lista(size=${alojamientos.size}, page=${alojamientos.number})}">Previous</a></li>
+            <li  class="page-item" th:each="pageNumber : ${pageNumbers}">
+                <a class="page-link" th:href="@{/alojamientos/lista(size=${alojamientos.size}, page=${pageNumber})}"
+                   th:text=${pageNumber}
+                   th:classappend="${pageNumber==alojamientos.number+1} ? active"></a>
+            </li>
+            <li class="page-item"><a class="page-link" th:href="@{/alojamientos/lista(size=${alojamientos.size}, page=${alojamientos.number+2})}">Next</a></li>
+        </ul>
+    </div>
+
+
+</div>
+
+
+
+</div>
+</body>
+</html>
