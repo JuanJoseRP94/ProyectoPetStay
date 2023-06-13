@@ -17,7 +17,7 @@ import java.util.Set;
 public class Alojamientos {
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "descripcion")
     private String descripcion;

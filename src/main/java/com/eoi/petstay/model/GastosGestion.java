@@ -17,10 +17,8 @@ import java.util.Set;
 @Table(name = "gastos_gestion")
 public class GastosGestion {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "tipo_contrato")

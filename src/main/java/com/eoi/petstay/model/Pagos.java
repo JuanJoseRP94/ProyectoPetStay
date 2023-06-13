@@ -14,10 +14,8 @@ import lombok.Setter;
 @Table(name = "pagos")
 public class Pagos {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "tipo_pago")

@@ -31,7 +31,7 @@
             <td th:text="${usuario.apellido2}">ID</td>
             <td th:text="${usuario.email}">ID</td>
             <td>
-                <a th:href="@{/usuarios/detalles_usuario}+${usuario.id}" class="btn btn-primary">Editar</a>
+                <a th:href="@{/usuarios/{id}(id=${usuario.id})}" class="btn btn-primary">Editar</a>
 
                 <a th:href="@{/usuarios/delete/{id}(id=${usuario.id})}" class="btn btn-danger">Eliminar</a>
             </td> <!-- Columna para los botones de edición y eliminación -->

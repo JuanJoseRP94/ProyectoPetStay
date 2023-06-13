@@ -10,8 +10,6 @@ import java.util.*;
 public abstract class AbstractBusinessServiceSoloEnt<E, ID,  REPO extends JpaRepository<E,ID>>  {
     private final REPO repo;
 
-
-
     protected AbstractBusinessServiceSoloEnt(REPO repo) {
         this.repo = repo;
 

@@ -16,10 +16,8 @@ import java.util.Set;
 @Table(name = "tamaños")
 public class Tamanios {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column

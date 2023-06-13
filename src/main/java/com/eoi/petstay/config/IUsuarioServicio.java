@@ -1,4 +1,4 @@
-package com.eoi.petstay.service;
+package com.eoi.petstay.config;
 
 
 import com.eoi.petstay.model.Usuarios;
@@ -10,12 +10,4 @@ import java.util.Optional;
 
 public interface IUsuarioServicio {
     public String getEncodedPassword(Usuarios usuarios);
-
-    List<Usuarios> findAll();
-
-    Page<Usuarios> findAll(Pageable pageable);
-
-
-
-
 }

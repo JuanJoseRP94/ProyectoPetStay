@@ -15,10 +15,8 @@ import lombok.Setter;
 @Table(name = "acuerdo")
 public class Acuerdo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "factura")

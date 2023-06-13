@@ -4,7 +4,7 @@ package com.eoi.petstay.controllers;
 import com.eoi.petstay.dto.LoginDto;
 import com.eoi.petstay.model.Roles;
 import com.eoi.petstay.model.Usuarios;
-import com.eoi.petstay.service.IUsuarioServicio;
+import com.eoi.petstay.config.IUsuarioServicio;
 import com.eoi.petstay.service.RoleService;
 import com.eoi.petstay.service.UsuarioService;
 import com.eoi.petstay.util.ValidarFormatoPassword;
@@ -97,7 +97,7 @@ public class AppUsuariosController {
                                   Model model) {
 
         Pageable pageable = PageRequest.of(page-1, size);
-        Page<Usuarios> usuariosPage = userService.findAll(pageable);
+        Page<Usuarios> usuariosPage = service.buscarTodos(pageable);
 
         model.addAttribute("usuarios", usuariosPage);
 
@@ -116,9 +116,9 @@ public class AppUsuariosController {
 
     @GetMapping("/usuarios/{id}")
         public String editar(@PathVariable Long id, Model model){
-        Optional<Usuarios> usuarios = userService.listarId(id);
+        Optional<Usuarios> usuarios = service.encuentraPorId(id);
         model.addAttribute("usuarios", usuarios);
-        return "detalles_usuario";
+        return "usuarios/detalles_usuario";
     }
 
 

@@ -79,7 +79,7 @@ public class AppAlojamientosController {
     @GetMapping("/alojamientos/publicar")
     public String mostrarFormularioPublicacion(Model model) {
 
-        List<Usuarios> usuarios = UsuarioService.obtenerTodos();
+        List<Usuarios> usuarios = usuarioService.obtenerTodos();
         model.addAttribute("usuarios", usuarios);
 
 
