@@ -2,20 +2,23 @@ package com.eoi.petstay.service;
 
 import com.eoi.petstay.model.Alojamientos;
 import com.eoi.petstay.repository.AlojamientoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AlojamientoService {
-    private final AlojamientoRepository alojamientoRepository;
+public class AlojamientoService extends AbstractBusinessServiceSoloEnt<Alojamientos,Long,
+        AlojamientoRepository> {
 
-    @Autowired
-    public AlojamientoService(AlojamientoRepository alojamientoRepository) {
+    public AlojamientoService(AlojamientoRepository repo, AlojamientoRepository alojamientoRepository) {
+        super(repo);
         this.alojamientoRepository = alojamientoRepository;
     }
+    public  List<Alojamientos> obtenerTodos() {
+        return getRepo().findAll();
+    }
+    private final AlojamientoRepository alojamientoRepository;
 
     public List<Alojamientos> obtenerAlojamientos() {
         return alojamientoRepository.findAll();
