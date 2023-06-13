@@ -1,10 +1,13 @@
 package com.eoi.petstay.repository;
 
 import com.eoi.petstay.model.TipoCuidados;
-import com.eoi.petstay.model.Usuarios;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Set;
 
-public interface TipoCuidadosRepository extends JpaRepository<TipoCuidados, Long>{
+@Repository
+public interface TipoCuidadosRepository extends JpaRepository<TipoCuidados, Long> {
+
+    Set<TipoCuidados> findByMascotaRequiereCuidadosMascotaId(Long mascotaId);
 }
