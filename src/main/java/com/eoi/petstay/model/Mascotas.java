@@ -42,6 +42,6 @@ public class Mascotas {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Comportamientos> comportamientos;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<TipoCuidados>  tipoCuidadosSet;
+    private Set<TipoCuidados>  tipoCuidados;
 }
 

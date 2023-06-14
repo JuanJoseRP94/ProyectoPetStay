@@ -1,5 +1,6 @@
 package com.eoi.petstay.controllers;
 
+import com.eoi.petstay.dto.MascotasDto;
 import com.eoi.petstay.model.*;
 import com.eoi.petstay.repository.*;
 import com.eoi.petstay.service.*;
@@ -77,7 +78,7 @@ public class AppMascotasController {
     @GetMapping("/mascotas/registro_mascota")
     public String registroMascota(Model interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
-        final Mascotas mascota = new Mascotas();
+        final MascotasDto mascotadto = new MascotasDto();
         // Creamos los listados para alimentar la pagina de alta
         List<Sexo> sexoList = sexoRepository.findAll();
         List<Especie> especieList = especieRepository.findAll();
@@ -86,7 +87,7 @@ public class AppMascotasController {
         List<Tamanios> tamaniosList = tamaniosRepository.findAll();
 
         //Mediante "addAttribute" comparto con la pantalla
-        interfazConPantalla.addAttribute("datosMascota", mascota);
+        interfazConPantalla.addAttribute("datosMascota", mascotadto);
         interfazConPantalla.addAttribute("listaSexo",sexoList);
         interfazConPantalla.addAttribute("listaEspecies",especieList);
         interfazConPantalla.addAttribute("listaTamanios",tamaniosList);
@@ -98,9 +99,16 @@ public class AppMascotasController {
 
 
     @PostMapping("/mascotas/registro_mascota")
-    public String guardarMascota( @ModelAttribute(name ="datosMascota") Mascotas mascotas) throws Exception {
+    public String guardarMascota( @ModelAttribute(name ="datosMascota") MascotasDto mascotasDto) throws Exception {
         // Tenemos que obtener el objeto de usuario
+        Mascotas mascotas = new Mascotas();
+        //Voy a copiar todos los campos
+        mascotas.setNombreMascota(mascotasDto.getNombre());
+        //Por cada id buscamos con el repositorio la entidad
+        Especie especie = especieRepository.findById(mascotasDto.getEspecieId()).get();
+        mascotas.setEspecie(especie);
 
+        mascotas.setTipoCuidados(mascotasDto.getTipocuidados());
         //Guardamos mascota
         mascotaService.guardar(mascotas);
         return "mascota/Lista_Mascotas";

@@ -28,17 +28,17 @@ public class MascotasDto {
 
     // Dependencias
 
-    private Integer usuarioId;
+    private Long usuarioId;
 
-    private Integer sexoId;
+    private Long sexoId;
 
-    private Integer especieId;
+    private Long especieId;
 
-    private Integer tamanioId;
+    private Long tamanioId;
 
 
     private Set<Comportamientos> comportamientos = new HashSet<>();
 
 
-    private Set<TipoCuidados> tipocuidadosdto = new HashSet<>();
+    private Set<TipoCuidados> tipocuidados = new HashSet<>();
 }
