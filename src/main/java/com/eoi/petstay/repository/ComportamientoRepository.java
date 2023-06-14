@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Set;
 
 public interface ComportamientoRepository extends JpaRepository<Comportamientos, Long>{
-    Set<Comportamientos> findByMascotaHasComportamientosMascotaId(Long mascotaId);
+
 }

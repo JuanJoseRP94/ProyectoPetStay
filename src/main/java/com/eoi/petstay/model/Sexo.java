@@ -10,20 +10,21 @@ import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "especie")
-public class Especie {
+@Table(name = "sexo")
+public class Sexo {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "descripcion")
+    private String descripcion;
 
-    @Column
-    private String nombreEspecie;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especie")
+    //Un role puede estar asociado a muchos usuario
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "sexo" )
+    //@OneToMany(cascade = CascadeType.ALL)
     private Set<Mascotas> mascotas;
 
 }

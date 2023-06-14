@@ -9,5 +9,4 @@ import java.util.Set;
 @Repository
 public interface TipoCuidadosRepository extends JpaRepository<TipoCuidados, Long> {
 
-    Set<TipoCuidados> findByMascotaRequiereCuidadosMascotaId(Long mascotaId);
 }

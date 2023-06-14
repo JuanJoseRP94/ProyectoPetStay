@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tamaños")
+@Table(name = "tamanio")
 public class Tamanios {
     @Id
     @Column(name = "ID")
@@ -23,6 +23,6 @@ public class Tamanios {
     @Column
     private String nombreTamanio;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamanio")
     private Set<Mascotas> mascotas;
 }

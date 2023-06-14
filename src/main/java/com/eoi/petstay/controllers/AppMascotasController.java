@@ -1,8 +1,7 @@
 package com.eoi.petstay.controllers;
 
-import com.eoi.petstay.model.Especie;
-import com.eoi.petstay.model.Mascotas;
-import com.eoi.petstay.repository.EspecieRepository;
+import com.eoi.petstay.model.*;
+import com.eoi.petstay.repository.*;
 import com.eoi.petstay.service.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -24,20 +20,21 @@ import java.util.stream.IntStream;
 public class AppMascotasController {
     @Autowired
     private MascotaService mascotaService;
-    private final EspecieService especieService;
-    private final TamaniosService tamaniosService;
-    private final TipoCuidadosService tipoCuidadosService;
-
 
     @Autowired
     private EspecieRepository especieRepository;
+    @Autowired
+    private SexoRepository sexoRepository;
+    @Autowired
+    private ComportamientoRepository comportamientoRepository;
+    @Autowired
+    private TipoCuidadosRepository tipoCuidadosRepository;
+    @Autowired
+    private TamaniosRepository tamaniosRepository;
 
-    public AppMascotasController(MascotaService mascotaService, EspecieService especieService, TamaniosService tamaniosService, TipoCuidadosService tipoCuidadosService) {
+    public AppMascotasController(MascotaService mascotaService) {
         super();
         this.mascotaService = mascotaService;
-        this.especieService = especieService;
-        this.tamaniosService = tamaniosService;
-        this.tipoCuidadosService = tipoCuidadosService;
     }
 
 
@@ -81,12 +78,24 @@ public class AppMascotasController {
     public String registroMascota(Model interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
         final Mascotas mascota = new Mascotas();
+        // Creamos los listados para alimentar la pagina de alta
+        List<Sexo> sexoList = sexoRepository.findAll();
+        List<Especie> especieList = especieRepository.findAll();
+        List<Comportamientos> comportamientosList = comportamientoRepository.findAll();
+        List<TipoCuidados> tipoCuidadosList = tipoCuidadosRepository.findAll();
+        List<Tamanios> tamaniosList = tamaniosRepository.findAll();
 
         //Mediante "addAttribute" comparto con la pantalla
         interfazConPantalla.addAttribute("datosMascota", mascota);
-        System.out.println("Preparando registro de mascota");
+        interfazConPantalla.addAttribute("listaSexo",sexoList);
+        interfazConPantalla.addAttribute("listaEspecies",especieList);
+        interfazConPantalla.addAttribute("listaTamanios",tamaniosList);
+        interfazConPantalla.addAttribute("listaTipoCuidados",tipoCuidadosList);
+        interfazConPantalla.addAttribute("listaComportamientos",comportamientosList);
+
         return "mascota/registro_mascota";
     }
+
 
     @PostMapping("/mascotas/registro_mascota")
     public String guardarMascota( @ModelAttribute(name ="datosMascota") Mascotas mascotas) throws Exception {

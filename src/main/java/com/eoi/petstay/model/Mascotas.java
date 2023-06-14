@@ -37,13 +37,12 @@ public class Mascotas {
     @JoinColumn(name = "especie")
     private Especie especie;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "tamaños")
-    private Tamanios tamanios;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tamanio")
+    private Tamanios tamanio;
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "comportamientos")
-    private Comportamientos comportamientos;
-
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "mascotasSet")
+    private Set<Comportamientos> comportamientos;
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<TipoCuidados>  tipoCuidadosSet;
 }
 

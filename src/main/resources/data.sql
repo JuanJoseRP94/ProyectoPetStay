@@ -1,3 +1,6 @@
+delete from usuarios where id > 1;
+delete from roles where id > 1;
+
 insert into ROLES (id,role_Name) values ('1', 'ROLE_ADMIN'),
 ('2', 'ROLE_USER'),
 ('3', 'ROLE_ANONIMOUS');

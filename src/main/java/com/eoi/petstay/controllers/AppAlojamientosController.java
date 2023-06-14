@@ -27,13 +27,12 @@ public class AppAlojamientosController {
     private final AlojamientoService alojamientoService;
     private final UsuarioService usuarioService;
 
-    @Autowired
     public AppAlojamientosController(AlojamientoService alojamientoService, UsuarioService usuarioService) {
         this.alojamientoService = alojamientoService;
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("/alojamientos/Perfil_Alojamiento")
+    @GetMapping("/alojamientos/Perfi_lAlojamiento")
     public String perfilAlojamiento() {
         return "alojamientos/Perfil_Alojamiento";
     }
@@ -123,10 +122,6 @@ public class AppAlojamientosController {
     @GetMapping("/alojamientos/buscar_alojamientos")
     public String buscar_alojamientos( ){
         return "alojamientos/buscar_alojamientos";
-    }
-    @GetMapping("/alojamientos/Perfil_Alojamiento")
-    public String Perfil_Alojamiento( ){
-        return "alojamientos/Perfil_Alojamiento";
     }
 
     @GetMapping("/alojamientos/publicar")

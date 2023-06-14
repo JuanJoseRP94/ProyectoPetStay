@@ -24,6 +24,6 @@ public class Comportamientos {
     @Column(name = "nombreComportamientos")
     private String nombreComportamientos;
 
-    @OneToMany(mappedBy = "comportamiento", cascade = CascadeType.ALL)
-    private Set<MascotaHasComportamientos> mascotaHasComportamientos;
+    @ManyToMany(mappedBy = "comportamientos", cascade = CascadeType.ALL)
+    private Set<Mascotas> mascotas;
 }
