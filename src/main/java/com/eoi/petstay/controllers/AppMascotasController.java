@@ -93,7 +93,7 @@ public class AppMascotasController {
         interfazConPantalla.addAttribute("listaTipoCuidados",tipoCuidadosList);
         interfazConPantalla.addAttribute("listaComportamientos",comportamientosList);
 
-        return "mascota/registro_mascota";
+        return "mascotas/registro_mascota";
     }
 
 

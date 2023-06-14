@@ -40,7 +40,6 @@ public class Mascotas {
     @JoinColumn(name = "tamanio")
     private Tamanios tamanio;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "comportamientos")
     private Set<Comportamientos> comportamientos;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<TipoCuidados>  tipoCuidadosSet;

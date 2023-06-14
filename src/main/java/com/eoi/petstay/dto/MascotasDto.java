@@ -36,9 +36,9 @@ public class MascotasDto {
 
     private Integer tamanioId;
 
-    private Integer comportamientosId;
+
     private Set<Comportamientos> comportamientos = new HashSet<>();
 
-    private Integer tipoCuidadosId;
-    private Set<TipoCuidados> tipoCuidados = new HashSet<>();
+
+    private Set<TipoCuidados> tipocuidadosdto = new HashSet<>();
 }
