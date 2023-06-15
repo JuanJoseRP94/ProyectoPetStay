@@ -9,13 +9,17 @@
 <div layout:fragment="contenido">
     <div class="container">
         <div id="contenido">
-            <form class="mx-1 mx-md-4" role="form" th:action="@{/mascotas/detalles_mascota}" th:object="${datosMascota} " method="post">
+            <form class="mx-1 mx-md-4" role="form" th:action="@{/mascotas/registro_mascota}" th:object="${datosMascota} " method="post">
                 <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <!--
                     <div class="form-outline flex-fill mb-0">
                         <label class="form-label" for="foto">Foto</label>
+
                         <input type="file" id="foto" class="form-control" name="foto" placeholder="foto" th:field="${datosMascota.foto}">
+
                     </div>
+                    -->
                 </div>
                 <div class=" d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
@@ -34,7 +38,7 @@
                 <div class=" d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <label for="listaSexo" th:text="Sexo"></label>
-                    <select th:field="${datosMascota.sexo}" class="form-control" id="listaSexo">
+                    <select th:field="${datosMascota.sexoId}" class="form-control" id="listaSexo">
                         <option value="0">Seleciona uno</option>
                         <option th:each="elemento : ${listaSexo}" th:value="${elemento.id}" th:text="${elemento.descripcion}"></option>
                     </select>

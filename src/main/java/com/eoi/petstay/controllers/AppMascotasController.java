@@ -52,7 +52,7 @@ public class AppMascotasController {
                                   @NotNull Model model) {
 
         Pageable pageable = PageRequest.of(page-1, size);
-        Page<Mascotas> mascotasPage = mascotaService.getRepo().findAll(pageable);
+        Page<Mascotas> mascotasPage = mascotaService.buscarTodos(pageable);
 
         model.addAttribute("mascotas", mascotasPage);
 
@@ -70,8 +70,8 @@ public class AppMascotasController {
     @GetMapping("/mascotas/{id}")
     public String editar(@PathVariable Long id, Model model){
         Optional<Mascotas> mascotas = mascotaService.encuentraPorId(id);
-        model.addAttribute("mascotas", mascotas);
-        return "mascotas/detalles_mascotas";
+        model.addAttribute("mascotas", mascotas.get());
+        return "mascotas/registro_mascota";
     }
 
     //Para dar de alta mascotas
@@ -104,6 +104,7 @@ public class AppMascotasController {
         Mascotas mascotas = new Mascotas();
         //Voy a copiar todos los campos
         mascotas.setNombreMascota(mascotasDto.getNombre());
+        mascotas.setEdad(mascotasDto.getEdad());
         //Por cada id buscamos con el repositorio la entidad
         Especie especie = especieRepository.findById(mascotasDto.getEspecieId()).get();
         mascotas.setEspecie(especie);
@@ -123,8 +124,7 @@ public class AppMascotasController {
 
         //Guardamos mascota
         mascotaService.guardar(mascotas);
-        return "mascota/Lista_Mascotas";
-
+        return "mascotas/Lista_Mascotas";
     }
 }
 

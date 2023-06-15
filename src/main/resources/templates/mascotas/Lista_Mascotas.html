@@ -25,16 +25,16 @@
         </thead>
         <tbody>
         <tr th:each="mascota : ${mascotas}">
-            <td th:text="${mascota.id}">ID</td>
-            <td th:text="${mascota.foto}">ID</td>
-            <td th:text="${mascota.nombre}">ID</td>
-            <td th:text="${mascota.edad}">ID</td>
-            <td th:text="${mascota.sexo}">ID</td>
-            <td th:text="${mascota.valoracion}">ID</td>
+            <td th:text="${mascota.getId()}">ID</td>
+            <td th:text="${mascota.getFoto()}">ID</td>
+            <td th:text="${mascota.getNombreMascota()}">ID</td>
+            <td th:text="${mascota.getEdad()}">ID</td>
+            <td th:text="${mascota.getSexo()}">ID</td>
+            <td th:text="${mascota.getValoracion()}">ID</td>
             <td>
-                <a th:href="@{/mascotas/{id}(id=${mascota.id})}" class="btn btn-primary">Editar</a>
+                <a th:href="@{/mascotas/{id}(id=${mascota.getId()})}" class="btn btn-primary">Editar</a>
 
-                <a th:href="@{/mascotas/delete/{id}(id=${mascota.id})}" class="btn btn-danger">Eliminar</a>
+                <a th:href="@{/mascotas/delete/{id}(id=${mascota.getId()})}" class="btn btn-danger">Eliminar</a>
             </td> <!-- Columna para los botones de edición y eliminación -->
         </tr>
         </tbody>
