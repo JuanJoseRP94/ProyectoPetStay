@@ -25,8 +25,6 @@ public class Mascotas {
     private String nombreMascota;
     @Column(name = "edad")
     private int edad;
-    @Column(name = "sexo")
-    private String sexo;
     @Column(name = "valoracion")
     private float valoracion;
 
@@ -43,5 +41,8 @@ public class Mascotas {
     private Set<Comportamientos> comportamientos;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<TipoCuidados>  tipoCuidados;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "sexo")
+    private Sexo sexo;
 }
 

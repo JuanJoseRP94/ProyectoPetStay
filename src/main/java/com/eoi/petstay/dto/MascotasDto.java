@@ -36,9 +36,13 @@ public class MascotasDto {
 
     private Long tamanioId;
 
+    /*private Long comportamientosId;
+
+    private Long tipoCuidadosId;*/
 
     private Set<Comportamientos> comportamientos = new HashSet<>();
 
 
     private Set<TipoCuidados> tipocuidados = new HashSet<>();
+
 }

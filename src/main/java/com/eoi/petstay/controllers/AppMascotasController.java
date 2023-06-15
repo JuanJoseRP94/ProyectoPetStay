@@ -65,7 +65,7 @@ public class AppMascotasController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-        return "mascotas/lista";
+        return "mascotas/Lista_Mascotas";
     }
     @GetMapping("/mascotas/{id}")
     public String editar(@PathVariable Long id, Model model){
@@ -107,8 +107,20 @@ public class AppMascotasController {
         //Por cada id buscamos con el repositorio la entidad
         Especie especie = especieRepository.findById(mascotasDto.getEspecieId()).get();
         mascotas.setEspecie(especie);
+        Sexo sexo = sexoRepository.findById(mascotasDto.getSexoId()).get();
+        mascotas.setSexo(sexo);
+        Tamanios tamanios = tamaniosRepository.findById(mascotasDto.getTamanioId()).get();
+        mascotas.setTamanio(tamanios);
 
+
+        /*Comportamientos comportamientos = comportamientoRepository.findById(mascotasDto.getComportamientos()).get();
+        mascotas.setComportamientos((Set<Comportamientos>) comportamientos);
+        TipoCuidados tipoCuidados = tipoCuidadosRepository.findById(mascotasDto.getTipocuidados()).get();
+        mascotas.setTipoCuidados((Set<TipoCuidados>) tipoCuidados);*/
+
+        mascotas.setComportamientos(mascotasDto.getComportamientos());
         mascotas.setTipoCuidados(mascotasDto.getTipocuidados());
+
         //Guardamos mascota
         mascotaService.guardar(mascotas);
         return "mascota/Lista_Mascotas";
