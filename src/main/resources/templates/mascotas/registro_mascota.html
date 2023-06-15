@@ -75,8 +75,8 @@
                 </div>
                 <div  th:if="${datosMascota.tipocuidados ==null or  datosMascota.tipocuidados.empty}" >
                     <div class="d-flex flex-row align-items-center mb-4">
-                        <label for="pp"  class="form-label mt-2 mb-1">Selecciona cuidados:</label>
-                        <select th:field="*{tipocuidados}" class="form-control" multiple="multiple"  id="pp">
+                        <label for="TiposCuidados"  class="form-label mt-2 mb-1">Selecciona cuidados:</label>
+                        <select th:field="*{tipocuidados}" class="form-control" multiple="multiple"  id="TiposCuidados">
                             <option th:each="item: ${listaTipoCuidados}"
                                     th:value="${item.id}"
                                     th:selected="${tipocuidados}"
