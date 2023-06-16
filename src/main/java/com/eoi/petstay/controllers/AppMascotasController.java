@@ -51,7 +51,7 @@ public class AppMascotasController {
 
     //Listas y paginar los usuarios
 
-    @GetMapping("/mascotas/Lista_Mascotas")
+    @GetMapping("/mascotas/listamascotas")
     public String getAllPaginated(@RequestParam(defaultValue = "1") int page,
                                   @RequestParam(defaultValue = "10") int size,
                                   @NotNull Model model) {
@@ -80,7 +80,7 @@ public class AppMascotasController {
     }
 
     //Para dar de alta mascotas
-    @GetMapping("/mascotas/registro_mascotas")
+    @GetMapping("/mascotas/registromascota")
     public String registroMascota(Model interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
         final MascotasDto mascotadto = new MascotasDto();
@@ -102,7 +102,7 @@ public class AppMascotasController {
         return "mascotas/registro_mascotas";
     }
 
-    @PostMapping("/mascotas/registro_mascotas")
+    @PostMapping("/mascotas/registromascota")
     public String guardarMascota( @ModelAttribute(name ="datosMascotas") MascotasDto mascotasDto /*, @RequestParam("foto") MultipartFile foto*/) throws Exception {
         // Tenemos que obtener el objeto de usuario
         Mascotas mascotas = new Mascotas();
@@ -132,7 +132,7 @@ public class AppMascotasController {
         }*/
         //Guardamos mascota
         mascotaService.guardar(mascotas);
-        return "mascotas/Lista_Mascotas";
+        return "redirect:/mascotas/listamascotas";
     }
     private static final String UPLOAD_DIRECTORY = "/imagenes";
 }
