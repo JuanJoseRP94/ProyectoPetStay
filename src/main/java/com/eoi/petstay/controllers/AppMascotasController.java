@@ -12,7 +12,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -87,7 +92,7 @@ public class AppMascotasController {
         List<Tamanios> tamaniosList = tamaniosRepository.findAll();
 
         //Mediante "addAttribute" comparto con la pantalla
-        interfazConPantalla.addAttribute("datosMascota", mascotadto);
+        interfazConPantalla.addAttribute("datosMascotas", mascotadto);
         interfazConPantalla.addAttribute("listaSexo",sexoList);
         interfazConPantalla.addAttribute("listaEspecies",especieList);
         interfazConPantalla.addAttribute("listaTamanios",tamaniosList);
@@ -97,12 +102,12 @@ public class AppMascotasController {
         return "mascotas/registro_mascotas";
     }
 
-
     @PostMapping("/mascotas/registro_mascotas")
-    public String guardarMascota( @ModelAttribute(name ="datosMascotas") MascotasDto mascotasDto) throws Exception {
+    public String guardarMascota( @ModelAttribute(name ="datosMascotas") MascotasDto mascotasDto /*, @RequestParam("foto") MultipartFile foto*/) throws Exception {
         // Tenemos que obtener el objeto de usuario
         Mascotas mascotas = new Mascotas();
         //Voy a copiar todos los campos
+        // mascotas.setFoto(mascotasDto.getFoto());
         mascotas.setNombreMascota(mascotasDto.getNombre());
         mascotas.setEdad(mascotasDto.getEdad());
         //Por cada id buscamos con el repositorio la entidad
@@ -112,15 +117,24 @@ public class AppMascotasController {
         mascotas.setSexo(sexo);
         Tamanios tamanios = tamaniosRepository.findById(mascotasDto.getTamanio()).get();
         mascotas.setTamanio(tamanios);
-
-
         mascotas.setComportamientos(mascotasDto.getComportamientos());
         mascotas.setTipoCuidados(mascotasDto.getTipocuidados());
-
+        /*if (!foto.isEmpty()) {
+            try {
+                String nombreArchivo = foto.getOriginalFilename();
+                Path rutaArchivo = Paths.get(UPLOAD_DIRECTORY, nombreArchivo);
+                Files.write(rutaArchivo, foto.getBytes());
+                mascotas.setFoto(nombreArchivo); // Guardar la ruta del archivo en el objeto DatosMascota
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Manejar la excepción en caso de error al guardar la foto
+            }
+        }*/
         //Guardamos mascota
         mascotaService.guardar(mascotas);
         return "mascotas/Lista_Mascotas";
     }
+    private static final String UPLOAD_DIRECTORY = "/imagenes";
 }
 
 

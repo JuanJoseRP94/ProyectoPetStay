@@ -39,7 +39,6 @@
         </tr>
         </tbody>
     </table>
-
     <div th:if="${mascotas.totalPages > 0}" class="pagination justify-content-center">
         <ul class="pagination justify-content-center" >
             <li class="page-item"><a class="page-link" th:href="@{/mascotas/lista(size=${mascotas.size}, page=${mascotas.number})}">Previous</a></li>
@@ -51,6 +50,8 @@
             <li class="page-item"><a class="page-link" th:href="@{/mascotas/lista(size=${mascotas.size}, page=${mascotas.number+2})}">Next</a></li>
         </ul>
     </div>
+
+
 
 
 </div>
