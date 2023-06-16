@@ -39,9 +39,9 @@ public class AppMascotasController {
     }
 
 
-    @GetMapping("/mascotas/Perfil_Mascota")
+    @GetMapping("/mascotas/Perfil_Mascotas")
     public String perfilMascota( ){
-        return "mascotas/Perfil_Mascota";
+        return "mascotas/Perfil_Mascotas";
     }
 
     //Listas y paginar los usuarios
@@ -71,11 +71,11 @@ public class AppMascotasController {
     public String editar(@PathVariable Long id, Model model){
         Optional<Mascotas> mascotas = mascotaService.encuentraPorId(id);
         model.addAttribute("mascotas", mascotas.get());
-        return "mascotas/registro_mascota";
+        return "mascotas/registro_mascotas";
     }
 
     //Para dar de alta mascotas
-    @GetMapping("/mascotas/registro_mascota")
+    @GetMapping("/mascotas/registro_mascotas")
     public String registroMascota(Model interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
         final MascotasDto mascotadto = new MascotasDto();
@@ -94,30 +94,25 @@ public class AppMascotasController {
         interfazConPantalla.addAttribute("listaTipoCuidados",tipoCuidadosList);
         interfazConPantalla.addAttribute("listaComportamientos",comportamientosList);
 
-        return "mascotas/registro_mascota";
+        return "mascotas/registro_mascotas";
     }
 
 
-    @PostMapping("/mascotas/registro_mascota")
-    public String guardarMascota( @ModelAttribute(name ="datosMascota") MascotasDto mascotasDto) throws Exception {
+    @PostMapping("/mascotas/registro_mascotas")
+    public String guardarMascota( @ModelAttribute(name ="datosMascotas") MascotasDto mascotasDto) throws Exception {
         // Tenemos que obtener el objeto de usuario
         Mascotas mascotas = new Mascotas();
         //Voy a copiar todos los campos
         mascotas.setNombreMascota(mascotasDto.getNombre());
         mascotas.setEdad(mascotasDto.getEdad());
         //Por cada id buscamos con el repositorio la entidad
-        Especie especie = especieRepository.findById(mascotasDto.getEspecieId()).get();
+        Especie especie = especieRepository.findById(mascotasDto.getEspecie()).get();
         mascotas.setEspecie(especie);
-        Sexo sexo = sexoRepository.findById(mascotasDto.getSexoId()).get();
+        Sexo sexo = sexoRepository.findById(mascotasDto.getSexo()).get();
         mascotas.setSexo(sexo);
-        Tamanios tamanios = tamaniosRepository.findById(mascotasDto.getTamanioId()).get();
+        Tamanios tamanios = tamaniosRepository.findById(mascotasDto.getTamanio()).get();
         mascotas.setTamanio(tamanios);
 
-
-        /*Comportamientos comportamientos = comportamientoRepository.findById(mascotasDto.getComportamientos()).get();
-        mascotas.setComportamientos((Set<Comportamientos>) comportamientos);
-        TipoCuidados tipoCuidados = tipoCuidadosRepository.findById(mascotasDto.getTipocuidados()).get();
-        mascotas.setTipoCuidados((Set<TipoCuidados>) tipoCuidados);*/
 
         mascotas.setComportamientos(mascotasDto.getComportamientos());
         mascotas.setTipoCuidados(mascotasDto.getTipocuidados());

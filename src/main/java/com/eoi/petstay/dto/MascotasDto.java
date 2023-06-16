@@ -22,26 +22,20 @@ public class MascotasDto {
     private String foto;
     private String nombre;
     private int edad;
-    private String sexo;
     private float valoracion;
 
 
     // Dependencias
 
-    private Long usuarioId;
+    private Long usuarios;
 
-    private Long sexoId;
+    private Long sexo;
 
-    private Long especieId;
+    private Long especie;
 
-    private Long tamanioId;
-
-    /*private Long comportamientosId;
-
-    private Long tipoCuidadosId;*/
+    private Long tamanio;
 
     private Set<Comportamientos> comportamientos = new HashSet<>();
-
 
     private Set<TipoCuidados> tipocuidados = new HashSet<>();
 

@@ -22,8 +22,6 @@ public class TipoCuidados {
 
     @Column(name = "nombre")
     private String nombreCuidado;
-    @Column(name = "descripcion")
-    private String descripcion;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "tipoCuidados")
     private Set<Mascotas> mascotasSet;
