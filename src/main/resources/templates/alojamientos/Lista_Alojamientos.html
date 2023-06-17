@@ -15,15 +15,14 @@
         <thead class="table-dark">
         <tr>
             <th>ID</th>
-            <th>Foto</th>
-            <th>Valoracion</th>
+            <th>Nombre</th>
 
         </tr>
         </thead>
         <tbody>
-        <tr th:each="alojamientos : ${alojamientos}">
+        <tr th:each="alojamientosDto : ${alojamientos}">
             <td th:text="${alojamientos.id}">ID</td>
-            <td th:text="${alojamientos.valoracion}">ID</td>
+            <td th:text="${alojamientos.nombre}">ID</td>
                 <a th:href="@{/alojamientos/{id}(id=${alojamientos.id})}" class="btn btn-primary">Editar</a>
 
                 <a th:href="@{/alojamientos/delete/{id}(id=${alojamientos.id})}" class="btn btn-danger">Eliminar</a>
@@ -37,7 +36,7 @@
             <li class="page-item"><a class="page-link" th:href="@{/alojamientos/lista(size=${alojamientos.size}, page=${alojamientos.number})}">Previous</a></li>
             <li  class="page-item" th:each="pageNumber : ${pageNumbers}">
                 <a class="page-link" th:href="@{/alojamientos/lista(size=${alojamientos.size}, page=${pageNumber})}"
-                   th:text=${pageNumber}
+                   th:text="${pageNumber}"
                    th:classappend="${pageNumber==alojamientos.number+1} ? active"></a>
             </li>
             <li class="page-item"><a class="page-link" th:href="@{/alojamientos/lista(size=${alojamientos.size}, page=${alojamientos.number+2})}">Next</a></li>

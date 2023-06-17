@@ -13,8 +13,12 @@ import lombok.Setter;
 public class AlojamientosDto {
 
     private String foto;
-
     private String nombre;
-
+    private String direccion;
+    private String descripcion;
     private float valoracion;
+
+    private Long tipo;
+
+    private Long tamanio;
 }
