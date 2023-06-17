@@ -44,7 +44,7 @@
             <li class="page-item"><a class="page-link" th:href="@{/mascotas/lista(size=${mascotas.size}, page=${mascotas.number})}">Previous</a></li>
             <li  class="page-item" th:each="pageNumber : ${pageNumbers}">
                 <a class="page-link" th:href="@{/mascotas/lista(size=${mascotas.size}, page=${pageNumber})}"
-                   th:text=${pageNumber}
+                   th:text="${pageNumber}"
                    th:classappend="${pageNumber==mascotas.number+1} ? active"></a>
             </li>
             <li class="page-item"><a class="page-link" th:href="@{/mascotas/lista(size=${mascotas.size}, page=${mascotas.number+2})}">Next</a></li>

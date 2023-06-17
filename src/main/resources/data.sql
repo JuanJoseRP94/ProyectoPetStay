@@ -47,3 +47,7 @@ insert into tipo_cuidados (id, descripcion, nombre) values ('1', 'Alimentar 1 ve
 ('6', 'Limpiar arenero'),
 ('7', 'Limpiar jaula'),
 ('8', 'Peinar 1 vez al día');
+
+insert into tamanio_alojamiento (id, nombre) values ('1', 'Pequeño'), ('2', 'Mediano'), ('3', 'Grande');
+
+insert into tipo_alojamiento (id, nombre) values ('1', 'Casa'), ('2', 'Piso'), ('3', 'Duplex'), ('4', 'Estudio'), ('5', 'Bajo');
