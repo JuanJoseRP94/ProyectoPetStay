@@ -29,8 +29,6 @@ public class Usuarios {
     private String apellido2;
     @Column(name = "valoracion")
     private String valoracion;
-    @Column(name = "sexousuario")
-    private String sexousuario;
     @Column(name = "email")
     private String email;
     @Column(name = "telefono")
