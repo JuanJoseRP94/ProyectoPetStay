@@ -31,11 +31,12 @@ public class UsuariosDto {
     // Dependencias
 
     private Long role;
-    private Long alojamientos;
+
     private Long gastosGestion;
     private Set<ValoracionesMascotas> valoracionesMascotas = new HashSet<>();
     private Set<ValoracionesUsuarios> valoracionesUsuarios = new HashSet<>();
     private Set<Oferta> oferta = new HashSet<>();
     private Set<Mascotas> mascotas = new HashSet<>();
+    private Set<Alojamientos> alojamientos = new HashSet<>();
 
 }

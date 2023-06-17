@@ -132,7 +132,7 @@ public class AppMascotasController {
         }*/
         //Guardamos mascota
         mascotaService.guardar(mascotas);
-        return "redirect:/mascotas/listamascotas";
+        return "redirect:/mascotas/Lista_Mascotas";
     }
     private static final String UPLOAD_DIRECTORY = "/imagenes";
 }
