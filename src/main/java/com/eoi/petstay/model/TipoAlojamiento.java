@@ -20,7 +20,7 @@ public class TipoAlojamiento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "nombreTipoAlojamiento")
     private String nombreTipoAlojamiento;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoAlojamiento")
