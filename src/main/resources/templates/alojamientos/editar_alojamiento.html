@@ -8,7 +8,7 @@
 <div layout:fragment="contenido">
   <div class="container">
     <div id="contenido">
-      <form class="mx-1 mx-md-4" role="form" th:action="@{/alojamientos/{id}/registro_alojamiento(id=${id})}" th:object="${datosAlojamiento} " method="post" enctype="multipart/form-data">
+      <form class="mx-1 mx-md-4" role="form" th:action="@{/alojamientos/{id}/editar_alojamiento(id=${id})}" th:object="${datosAlojamiento} " method="post" enctype="multipart/form-data">
 
 
         <!-- <div class="d-flex flex-row align-items-center mb-4">

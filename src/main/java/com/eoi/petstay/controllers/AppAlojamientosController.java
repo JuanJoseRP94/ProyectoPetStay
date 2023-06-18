@@ -126,6 +126,7 @@ public class AppAlojamientosController {
 
             // Asignar los valores del alojamiento existente al objeto DTO
             AlojamientosDto alojamientoDto = new AlojamientosDto();
+            alojamientoDto.setId(alojamiento.getId());
             alojamientoDto.setNombre(alojamiento.getNombre());
             alojamientoDto.setDireccion(alojamiento.getDireccion());
             alojamientoDto.setDescripcion(alojamiento.getDescripcion());
@@ -139,7 +140,7 @@ public class AppAlojamientosController {
             interfazConPantalla.addAttribute("listaTamaniosAlojamiento", tamanioAlojamientoList);
             interfazConPantalla.addAttribute("listaTipoAlojamiento", tipoAlojamientoList);
 
-            return "alojamientos/{id}/editar_alojamiento";
+            return "alojamientos/editar_alojamiento";
         } else {
             // Manejar el caso en que el alojamiento no exista
             return "error"; // o redireccionar a alguna otra página o mostrar un mensaje de error
