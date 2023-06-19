@@ -4,10 +4,9 @@
 package com.eoi.petstay.controllers;
 
 
-
-import com.app.gestionturnos.dto.Email;
-import com.app.gestionturnos.service.EmailService;
-import com.app.gestionturnos.service.MenuService;
+import com.eoi.petstay.dto.Email;
+import com.eoi.petstay.service.EmailService;
+import com.eoi.petstay.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -16,12 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-/**
- * 
- * @author rutpatel
- *
- */
 @Controller
 public class AppSendMailController extends  AbstractControllerMenu {
 	EmailService service;
