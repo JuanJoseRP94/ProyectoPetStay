@@ -1,5 +1,6 @@
 package com.eoi.petstay.controllers;
 
+import com.eoi.petstay.config.ConfigProperties;
 import com.eoi.petstay.dto.MascotasDto;
 import com.eoi.petstay.model.*;
 import com.eoi.petstay.repository.*;
@@ -25,6 +26,8 @@ import java.util.stream.IntStream;
 
 @Controller
 public class AppMascotasController {
+    @Autowired
+    ConfigProperties configProperties;
     @Autowired
     private MascotaService mascotaService;
 
@@ -73,16 +76,13 @@ public class AppMascotasController {
 
         return "mascotas/Lista_Mascotas";
     }
-    @GetMapping("/mascotas/{id}")
-    public String editar(@PathVariable Long id, Model model){
-        Optional<Mascotas> mascotas = mascotaService.encuentraPorId(id);
-        model.addAttribute("mascotas", mascotas.get());
-        return "mascotas/registromascota";
-    }
+
 
     //Para dar de alta mascotas
     @GetMapping("/mascotas/registromascota")
     public String registroMascota(Model interfazConPantalla){
+        //Leemos el directorio
+        System.out.println("Path:" +   configProperties.getPathimg());
         //Instancia en memoria del dto a informar en la pantalla
         final MascotasDto mascotadto = new MascotasDto();
         // Creamos los listados para alimentar la pagina de alta
@@ -105,11 +105,13 @@ public class AppMascotasController {
         interfazConPantalla.addAttribute("listaTipoCuidados",tipoCuidadosList);
         interfazConPantalla.addAttribute("listaComportamientos",comportamientosList);
 
-        return "mascotas/registromascota";
+        return "mascotas/registromascotas";
     }
 
     @PostMapping("/mascotas/registromascota")
     public String guardarMascota( @ModelAttribute(name ="datosMascotas") MascotasDto mascotasDto /*, @RequestParam("foto") MultipartFile foto*/) throws Exception {
+        //Leemos el directorio
+        System.out.println("Path:" +   configProperties.getPathimg());
         // Tenemos que obtener el objeto de usuario
         Mascotas mascotas = new Mascotas();
         //Voy a copiar todos los campos
@@ -153,7 +155,7 @@ public class AppMascotasController {
 
     //Para editar mascotas
     @GetMapping("/mascotas/{id}")
-    public String registroMascota(@PathVariable("id") Long id,Model interfazConPantalla){
+    public String editarMascotaGet(@PathVariable("id") Long id,Model interfazConPantalla){
         //Valores para listas
         // Creamos los listados para alimentar la pagina de alta
         List<Sexo> sexoList = sexoRepository.findAll();
@@ -182,7 +184,7 @@ public class AppMascotasController {
     }
 
     @PostMapping("/mascotas/{id}")
-    public String guardarMascota( @PathVariable("idusr") Long id,@ModelAttribute(name ="datosMascotas") MascotasDto mascotasDto /*, @RequestParam("foto") MultipartFile foto*/) throws Exception {
+    public String editarMascota( @PathVariable("idusr") Long id,@ModelAttribute(name ="datosMascotas") MascotasDto mascotasDto /*, @RequestParam("foto") MultipartFile foto*/) throws Exception {
         // Tenemos que obtener el objeto de usuario
         Mascotas mascotas = new Mascotas();
         //Voy a copiar todos los campos
