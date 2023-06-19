@@ -1,6 +1,8 @@
 package com.eoi.petstay.controllers;
 
 
+import com.eoi.petstay.dto.CambioContrasenaDto;
+import com.eoi.petstay.dto.RecuperarContrasenaDto;
 import com.eoi.petstay.dto.LoginDto;
 import com.eoi.petstay.model.Roles;
 import com.eoi.petstay.model.Usuarios;
@@ -173,6 +175,32 @@ public class AppUsuariosController {
     @ModelAttribute("loggedIn")
     public boolean getLoggedInStatus() {
         return !SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser");
+    }
+
+    //Cambio de password
+    @GetMapping("/email/olv_contrasena")
+    public String reestablecerContrasena(@ModelAttribute(name = "loginForm" ) RecuperarContrasenaDto recuperarContrasenaDto) throws Exception {
+
+        //Comprobamos que existe el usuario por email y passweord
+        if (service.getRepo().repValidarEmail(recuperarContrasenaDto.getEmail()) > 0)
+        {
+            // Buscamos el usuario
+            Usuarios usuario = service.getRepo().findUsuarioByEmail(recuperarContrasenaDto.getEmail());
+            return "redirect: email/recuperarcontrasena";
+        }else {
+            return "redirect: usuarios/usuarionoexiste";
+        }
+    }
+    @PostMapping("email/recuperarcontrasena")
+    public String reestablecerContrasena(@ModelAttribute(name = "loginForm" ) CambioContrasenaDto cambioContrasenaDto) throws Exception {
+        String passwordNueva =  passwordEncoder.encode(cambioContrasenaDto.getPasswordnueva());
+
+        //Modificicamos la password
+        Usuarios usuario = service.getRepo().findUsuarioByEmail(cambioContrasenaDto.getEmail());
+        usuario.setPassword(passwordNueva);
+        //Guardamos el usuario
+        Usuarios usuario1 = service.guardar(usuario);
+        return "redirect: usuarios/login";
     }
 
 }
