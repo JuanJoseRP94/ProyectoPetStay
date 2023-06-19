@@ -21,6 +21,8 @@ public class Alojamientos {
     private Long id;
     @Column(name = "nombre")
     private String nombre;
+    @Column(name = "foto")
+    private String foto;
     @Column(name = "direccion")
     private String direccion;
     @Column(name = "descripcion")

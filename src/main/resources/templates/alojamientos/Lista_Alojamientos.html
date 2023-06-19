@@ -16,10 +16,13 @@
         <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <th>Foto</th>
             <th>Dirección</th>
             <th>Tamaño</th>
             <th>Tipo</th>
             <th>Descripción</th>
+            <th>Acciones</th>
+
 
 
         </tr>
@@ -28,6 +31,7 @@
         <tr th:each="alojamientosDto : ${alojamientos}">
             <td th:text="${alojamientosDto.id}">ID</td>
             <td th:text="${alojamientosDto.nombre}">ID</td>
+            <td th:text="${alojamientosDto.foto}">ID</td>
             <td th:text="${alojamientosDto.direccion}">ID</td>
             <td th:text="${alojamientosDto.tamanioAlojamiento.nombreTamanioAlojamiento}">ID</td>
             <td th:text="${alojamientosDto.tipoAlojamiento.nombreTipoAlojamiento}">ID</td>
@@ -37,7 +41,6 @@
 
             <td>
                <a th:href="@{/alojamientos/{id}/editar_alojamiento(id=${alojamientosDto.id})}" class="btn btn-primary">Editar</a>
-               <a th:href="@{/alojamientos/{id}/editar_alojamiento(id=*{alojamientosDto.id})}" class="btn btn-primary">Editar</a>
 
 
                <a th:href="@{/alojamientos/delete/{id}(id=${alojamientosDto.id})}" class="btn btn-danger">Eliminar</a>

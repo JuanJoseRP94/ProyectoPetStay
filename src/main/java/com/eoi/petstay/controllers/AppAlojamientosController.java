@@ -1,5 +1,6 @@
 package com.eoi.petstay.controllers;
 
+import com.eoi.petstay.config.ConfigProperties;
 import com.eoi.petstay.dto.AlojamientosDto;
 import com.eoi.petstay.model.*;
 import com.eoi.petstay.repository.AlojamientoRepository;
@@ -18,6 +19,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,7 +28,8 @@ import java.util.stream.IntStream;
 
 @Controller
 public class AppAlojamientosController {
-
+    @Autowired
+    ConfigProperties configProperties;
     @Autowired
     private final AlojamientoService alojamientoService;
 
@@ -76,6 +80,9 @@ public class AppAlojamientosController {
 
         @GetMapping("/alojamientos/registro_alojamiento")
         public String registroAlojamiento(Model interfazConPantalla) {
+
+            //Leemos el directorio
+            System.out.println("Path:" +   configProperties.getPathimg());
             // Instancia en memoria del objeto a informar en la pantalla
             final AlojamientosDto alojamientoDto = new AlojamientosDto();
 
@@ -86,7 +93,9 @@ public class AppAlojamientosController {
             interfazConPantalla.addAttribute("listaTipoAlojamiento", tipoAlojamientoList);
             interfazConPantalla.addAttribute("listaTamaniosAlojamiento", tamanioAlojamientoList);
 
-
+            //Temporalmente listamos imágenes de static
+            File ruta = new File("/img/alojamientos");
+            List<String> imagenes = listarArchivos(ruta,".jpg");
 
 
             return "alojamientos/registro_alojamiento";
@@ -96,6 +105,8 @@ public class AppAlojamientosController {
 
     @PostMapping("/alojamientos/registro_alojamiento")
     public String guardarAlojamiento(@ModelAttribute("datosAlojamiento") AlojamientosDto alojamientoDto) throws Exception {
+        //Leemos el directorio
+        System.out.println("Path:" +   configProperties.getPathimg());
         Alojamientos alojamientos = new Alojamientos();
 
         alojamientos.setNombre(alojamientoDto.getNombre());
@@ -115,7 +126,26 @@ public class AppAlojamientosController {
         return "redirect:/alojamientos/registro_alojamiento";
     }
 
+    private static final String UPLOAD_DIRECTORY = "/imagenes";
 
+    private  List<String> listarArchivos(File ruta, String tipo) {
+        List<String> imagenes = new ArrayList<>();
+        //la ruta es la que tiene las imagenes
+        // Creo el vector que contendra todos los archivos de una ruta especificada
+        File[] archivo = ruta.listFiles();
+        //Evaluo si la carpeta especificada contiene archivos.
+        if (archivo != null) {
+            //Recorro el vector el cual tiene almacenado la ruta del archivo a buscar.
+            for (int i = 0; i < archivo.length; i++) {
+                File Arc = archivo[i];
+                //Evaluo el tipo de extencion.
+                if (archivo[i].getName().endsWith("tipo")) {
+                    imagenes.add(archivo[i].getName());
+                }
+            }
+        }
+        return imagenes;
+    }
 
     @GetMapping("/alojamientos/{id}/editar_alojamiento")
     public String editarAlojamiento(@PathVariable("id") Long id, Model interfazConPantalla) {
