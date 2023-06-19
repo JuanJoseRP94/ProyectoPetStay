@@ -21,8 +21,8 @@ public class Mascotas {
 
     @Column(name = "foto")
     private String foto;
-    @Column(name = "nombreMascota")
-    private String nombreMascota;
+    @Column(name = "nombre")
+    private String nombre;
     @Column(name = "edad")
     private int edad;
     @Column(name = "valoracion")

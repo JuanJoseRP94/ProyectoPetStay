@@ -19,7 +19,7 @@ import java.util.Set;
 public class MascotasDto {
 
     private long id;
-    private String foto;
+    //private String foto;
     private String nombre;
     private int edad;
     private float valoracion;
@@ -37,6 +37,6 @@ public class MascotasDto {
 
     private Set<Comportamientos> comportamientos = new HashSet<>();
 
-    private Set<TipoCuidados> tipocuidados = new HashSet<>();
+    private Set<TipoCuidados> tipoCuidados = new HashSet<>();
 
 }
