@@ -12,6 +12,8 @@ import lombok.Setter;
 
 public class AlojamientosDto {
 
+
+    private Long id;
     private String foto;
     private String nombre;
     private String direccion;

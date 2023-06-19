@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html th:lang="#{principal.lang}" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
@@ -46,29 +47,18 @@
                 <img th:src="@{/img/logo_blanco.png}" class="logo-container">
             </div>
 
-            <div class="d-flex col-2 justify-content-end">
+            <div sec:authorize="isAnonymous()" class="d-flex col-2 justify-content-end">
                 <a class="dropdown-item" th:href="@{/usuarios/login}" >Iniciar Sesión</a>
                 <a class="dropdown-item" th:href="@{/usuarios/registro}" >Registrarse</a>
-
             </div>
-
-            <!-- <div class="d-flex col-4 justify-content-end">
-                 <div class="flex-shrink-0 dropdown">
-                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                         <img th:src="@{/img/man-1868563_1280.jpg}" alt="mdo" width="32" height="32" class="rounded-circle">
-                     </a>
-                     <ul class="dropdown-menu text-small shadow">
-                         <li><a class="dropdown-item"  th:href="@{/Perfil_Usuario}">Perfil</a></li>
-                         <li><a class="dropdown-item" th:href="@{/configuracion}">Ajustes</a></li>
-                         <li><a class="dropdown-item" href="#" >Notificaciones</a></li>
-                         <li>
-                             <hr class="dropdown-divider">
-                         </li>
-                         <li><a class="dropdown-item" th:href="@{/PantallaGeneralInvitado}" >Cerrar sesión</a></li>
-                     </ul>
-                 </div>
-             </div> -->
+            <div sec:authorize="isAuthenticated()">
+                <div>
+                    <div sec:authentication="name"></div>
+                </div>
+                <div>
+                    <a class="dropdown-item" th:href="@{/usuarios/logout}" >Cerrar Sesión</a>
+                </div>
+            </div>
         </div>
 
     </div>

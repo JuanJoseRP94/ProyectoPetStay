@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<title>Editar Alojamiento</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+  <div class="container">
+    <div id="contenido">
+      <form class="mx-1 mx-md-4" role="form" th:action="@{/alojamientos/{id}/editar_alojamiento(id=${id})}" th:object="${datosAlojamiento} " method="post" enctype="multipart/form-data">
+
+
+        <!-- <div class="d-flex flex-row align-items-center mb-4">
+          <div class="form-outline flex-fill mb-0">
+            <label class="form-label" for="foto">Foto</label>
+            <input type="file" id="foto" class="form-control" name="foto" placeholder="foto" th:field="${datosAlojamiento.foto}">
+          </div>
+        </div> -->
+
+        <div class=" d-flex flex-row align-items-center mb-4">
+          <div class="form-outline flex-fill mb-0">
+            <label class="form-label" for="nombre">Nombre del Alojamiento</label>
+            <input type="text" id="nombre" class="form-control" name="nombre" placeholder="nombre" th:field="${datosAlojamiento.nombre}">
+          </div>
+        </div>
+
+        <div class=" d-flex flex-row align-items-center mb-4">
+          <div class="form-outline flex-fill mb-0">
+            <label class="form-label" for="direccion">Direccion</label>
+            <textarea type="text" id="direccion" class="form-control" name="nombre" placeholder="direccion" style="resize: none;" th:field="${datosAlojamiento.direccion}"></textarea>
+          </div>
+        </div>
+
+        <div class=" d-flex flex-row align-items-center mb-4">
+          <label for="listaTamaniosAlojamiento">Tamaño del Alojamiento</label>
+          <select th:field="${datosAlojamiento.tamanio}" class="form-control" id="listaTamaniosAlojamiento">
+            <option value="0">Seleciona uno</option>
+            <option th:each="elemento : ${listaTamaniosAlojamiento}" th:value="${elemento.id}" th:text="${elemento.nombreTamanioAlojamiento}"></option>
+          </select>
+        </div>
+
+        <div class=" d-flex flex-row align-items-center mb-4">
+          <label for="listaTipoAlojamiento">Tipo de Alojamiento</label>
+          <select th:field="${datosAlojamiento.tipo}" class="form-control" id="listaTipoAlojamiento">
+            <option value="0">Seleciona uno</option>
+            <option th:each="elemento : ${listaTipoAlojamiento}" th:value="${elemento.id}" th:text="${elemento.nombreTipoAlojamiento}"></option>
+          </select>
+        </div>
+
+        <div class=" d-flex flex-row align-items-center mb-4">
+          <div class="form-outline flex-fill mb-0">
+            <label class="form-label" for="nombre">Descripción</label>
+            <textarea type="text" id="descripcion" class="form-control" name="descripcion" placeholder="Descripcion"
+                      style="resize: none;" rows="8"  th:field="${datosAlojamiento.descripcion}"></textarea>
+          </div>
+        </div>
+
+        <div class=" d-flex flex-row align-items-center mb-4">
+        </div>
+        <!-- ¿Como seleccionar elementos de una lista con thymeleaf?-->
+        <!-- el usuario administrador puede crear otros administradores pero el alta normal solo crea usarios std-->
+
+        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+          <button type="submit" class="btn btn-primary btn-lg">Guardar Alojamiento</button>
+        </div>
+      </form>
+      <!--Formularo Registro -->
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.eoi.petstay.controllers;
 
 import com.eoi.petstay.dto.AlojamientosDto;
 import com.eoi.petstay.model.*;
+import com.eoi.petstay.repository.AlojamientoRepository;
 import com.eoi.petstay.repository.TamanioAlojamientoRepository;
 import com.eoi.petstay.repository.TipoAlojamientoRepository;
 import com.eoi.petstay.service.UsuarioService;
@@ -28,6 +29,7 @@ public class AppAlojamientosController {
     @Autowired
     private final AlojamientoService alojamientoService;
 
+
     @Autowired
     private final TipoAlojamientoRepository tipoAlojamientoRepository;
     @Autowired
@@ -36,7 +38,7 @@ public class AppAlojamientosController {
     @Autowired
     private final UsuarioService usuarioService;
 
-    public AppAlojamientosController(AlojamientoService alojamientoService, TipoAlojamientoRepository tipoAlojamientoRepository, TamanioAlojamientoRepository tamanioAlojamientoRepository, UsuarioService usuarioService) {
+    public AppAlojamientosController(AlojamientoService alojamientoService, AlojamientoRepository alojamientoRepository, TipoAlojamientoRepository tipoAlojamientoRepository, TamanioAlojamientoRepository tamanioAlojamientoRepository, UsuarioService usuarioService) {
         super();
         this.alojamientoService = alojamientoService;
         this.tipoAlojamientoRepository = tipoAlojamientoRepository;
@@ -81,8 +83,9 @@ public class AppAlojamientosController {
             List<TipoAlojamiento> tipoAlojamientoList = tipoAlojamientoRepository.findAll();
 
             interfazConPantalla.addAttribute("datosAlojamiento", alojamientoDto);
-            interfazConPantalla.addAttribute("listaTamaniosAlojamiento", tamanioAlojamientoList);
             interfazConPantalla.addAttribute("listaTipoAlojamiento", tipoAlojamientoList);
+            interfazConPantalla.addAttribute("listaTamaniosAlojamiento", tamanioAlojamientoList);
+
 
 
 
@@ -91,7 +94,7 @@ public class AppAlojamientosController {
 
 
 
-    @PostMapping("alojamientos/registro_alojamiento")
+    @PostMapping("/alojamientos/registro_alojamiento")
     public String guardarAlojamiento(@ModelAttribute("datosAlojamiento") AlojamientosDto alojamientoDto) throws Exception {
         Alojamientos alojamientos = new Alojamientos();
 
@@ -105,24 +108,77 @@ public class AppAlojamientosController {
         alojamientos.setTamanioAlojamiento(tamanioAlojamiento);
 
         TipoAlojamiento tipoAlojamiento = tipoAlojamientoRepository.findById(alojamientoDto.getTipo()).get();
-        alojamientos.setTamanioAlojamiento(tamanioAlojamiento);
-
-
+        alojamientos.setTipoAlojamiento(tipoAlojamiento);
         alojamientoService.guardar(alojamientos);
 
 
         return "redirect:/alojamientos/registro_alojamiento";
     }
 
-    @GetMapping("/{id}/editar")
-    public String editarAlojamiento(@PathVariable("id") Long id, Model model) {
-        Optional<Alojamientos> alojamiento = alojamientoService.obtenerAlojamientoPorId(id);
-        if (alojamiento.isPresent()) {
-            model.addAttribute("alojamiento", alojamiento.get());
-            return "alojamientos/edicion";
+
+
+    @GetMapping("/alojamientos/{id}/editar_alojamiento")
+    public String editarAlojamiento(@PathVariable("id") Long id, Model interfazConPantalla) {
+        // Obtener el alojamiento existente por su ID
+        Optional<Alojamientos> alojamientoOptional = alojamientoService.getRepo().findById(id);
+        if (alojamientoOptional.isPresent()) {
+            Alojamientos alojamiento = alojamientoOptional.get();
+
+            // Asignar los valores del alojamiento existente al objeto DTO
+            AlojamientosDto alojamientoDto = new AlojamientosDto();
+            alojamientoDto.setId(alojamiento.getId());
+            alojamientoDto.setNombre(alojamiento.getNombre());
+            alojamientoDto.setDireccion(alojamiento.getDireccion());
+            alojamientoDto.setDescripcion(alojamiento.getDescripcion());
+            alojamientoDto.setTamanio(alojamiento.getTamanioAlojamiento().getId());
+            alojamientoDto.setTipo(alojamiento.getTipoAlojamiento().getId());
+
+            List<TamanioAlojamiento> tamanioAlojamientoList = tamanioAlojamientoRepository.findAll();
+            List<TipoAlojamiento> tipoAlojamientoList = tipoAlojamientoRepository.findAll();
+
+            interfazConPantalla.addAttribute("datosAlojamiento", alojamientoDto);
+            interfazConPantalla.addAttribute("listaTamaniosAlojamiento", tamanioAlojamientoList);
+            interfazConPantalla.addAttribute("listaTipoAlojamiento", tipoAlojamientoList);
+
+            return "alojamientos/editar_alojamiento";
+        } else {
+            // Manejar el caso en que el alojamiento no exista
+            return "error"; // o redireccionar a alguna otra página o mostrar un mensaje de error
         }
-        return "redirect:/alojamientos";
     }
+
+
+
+
+    @PostMapping("/alojamientos/{id}/editar_alojamiento")
+    public String actualizarAlojamiento(@PathVariable("id") Long id, @ModelAttribute("datosAlojamiento") AlojamientosDto alojamientoDto) throws Exception {
+        // Obtener el alojamiento existente por su ID
+        Optional<Alojamientos> alojamientoOptional = alojamientoService.getRepo().findById(id);
+        if (alojamientoOptional.isPresent()) {
+            Alojamientos alojamiento = alojamientoOptional.get();
+
+            alojamiento.setNombre(alojamientoDto.getNombre());
+            alojamiento.setDireccion(alojamientoDto.getDireccion());
+            alojamiento.setDescripcion(alojamientoDto.getDescripcion());
+
+            // Llamamos a las entidades relacionadas
+            TamanioAlojamiento tamanioAlojamiento = tamanioAlojamientoRepository.findById(alojamientoDto.getTamanio()).get();
+            alojamiento.setTamanioAlojamiento(tamanioAlojamiento);
+
+            TipoAlojamiento tipoAlojamiento = tipoAlojamientoRepository.findById(alojamientoDto.getTipo()).get();
+            alojamiento.setTipoAlojamiento(tipoAlojamiento);
+
+            alojamientoService.actualizarAlojamiento(alojamiento.getId(),alojamiento);
+
+            return "redirect:/alojamientos/Listaalojamientos";
+        } else {
+            // Manejar el caso en que el alojamiento no exista
+            return "error"; // o redireccionar a alguna otra página o mostrar un mensaje de error
+        }
+    }
+
+
+
 
     @PostMapping("/{id}/eliminar")
     public String eliminarAlojamiento(@PathVariable("id") Long id) {

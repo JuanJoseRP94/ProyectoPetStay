@@ -1,5 +1,6 @@
 package com.eoi.petstay.controllers;
 
+import com.eoi.petstay.config.ConfigProperties;
 import com.eoi.petstay.dto.MascotasDto;
 import com.eoi.petstay.model.*;
 import com.eoi.petstay.repository.*;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,6 +26,8 @@ import java.util.stream.IntStream;
 
 @Controller
 public class AppMascotasController {
+    @Autowired
+    ConfigProperties configProperties;
     @Autowired
     private MascotaService mascotaService;
 
@@ -72,16 +76,13 @@ public class AppMascotasController {
 
         return "mascotas/Lista_Mascotas";
     }
-    @GetMapping("/mascotas/{id}")
-    public String editar(@PathVariable Long id, Model model){
-        Optional<Mascotas> mascotas = mascotaService.encuentraPorId(id);
-        model.addAttribute("mascotas", mascotas.get());
-        return "mascotas/registro_mascotas";
-    }
+
 
     //Para dar de alta mascotas
     @GetMapping("/mascotas/registromascota")
     public String registroMascota(Model interfazConPantalla){
+        //Leemos el directorio
+        System.out.println("Path:" +   configProperties.getPathimg());
         //Instancia en memoria del dto a informar en la pantalla
         final MascotasDto mascotadto = new MascotasDto();
         // Creamos los listados para alimentar la pagina de alta
@@ -90,20 +91,27 @@ public class AppMascotasController {
         List<Comportamientos> comportamientosList = comportamientoRepository.findAll();
         List<TipoCuidados> tipoCuidadosList = tipoCuidadosRepository.findAll();
         List<Tamanios> tamaniosList = tamaniosRepository.findAll();
+        //Temporalmente listamos imágenes de static
+        File ruta = new File("/img/animales");
+        List<String> imagenes = listarArchivos(ruta,".jpg");
+
 
         //Mediante "addAttribute" comparto con la pantalla
         interfazConPantalla.addAttribute("datosMascotas", mascotadto);
         interfazConPantalla.addAttribute("listaSexo",sexoList);
+        interfazConPantalla.addAttribute("listanimales",imagenes);
         interfazConPantalla.addAttribute("listaEspecies",especieList);
         interfazConPantalla.addAttribute("listaTamanios",tamaniosList);
         interfazConPantalla.addAttribute("listaTipoCuidados",tipoCuidadosList);
         interfazConPantalla.addAttribute("listaComportamientos",comportamientosList);
 
-        return "mascotas/registro_mascotas";
+        return "mascotas/registromascotas";
     }
 
     @PostMapping("/mascotas/registromascota")
     public String guardarMascota( @ModelAttribute(name ="datosMascotas") MascotasDto mascotasDto /*, @RequestParam("foto") MultipartFile foto*/) throws Exception {
+        //Leemos el directorio
+        System.out.println("Path:" +   configProperties.getPathimg());
         // Tenemos que obtener el objeto de usuario
         Mascotas mascotas = new Mascotas();
         //Voy a copiar todos los campos
@@ -119,22 +127,85 @@ public class AppMascotasController {
         mascotas.setTamanio(tamanios);
         mascotas.setComportamientos(mascotasDto.getComportamientos());
         mascotas.setTipoCuidados(mascotasDto.getTipocuidados());
-        /*if (!foto.isEmpty()) {
-            try {
-                String nombreArchivo = foto.getOriginalFilename();
-                Path rutaArchivo = Paths.get(UPLOAD_DIRECTORY, nombreArchivo);
-                Files.write(rutaArchivo, foto.getBytes());
-                mascotas.setFoto(nombreArchivo); // Guardar la ruta del archivo en el objeto DatosMascota
-            } catch (IOException e) {
-                e.printStackTrace();
-                // Manejar la excepción en caso de error al guardar la foto
-            }
-        }*/
+
         //Guardamos mascota
         mascotaService.guardar(mascotas);
-        return "redirect:/mascotas/Lista_Mascotas";
+        return "redirect:/mascotas/listamascotas";
     }
     private static final String UPLOAD_DIRECTORY = "/imagenes";
+
+    private  List<String> listarArchivos(File ruta, String tipo) {
+        List<String> imagenes = new ArrayList<>();
+        //la ruta es la que tiene las imagenes
+        // Creo el vector que contendra todos los archivos de una ruta especificada
+        File[] archivo = ruta.listFiles();
+        //Evaluo si la carpeta especificada contiene archivos.
+        if (archivo != null) {
+            //Recorro el vector el cual tiene almacenado la ruta del archivo a buscar.
+            for (int i = 0; i < archivo.length; i++) {
+                File Arc = archivo[i];
+                //Evaluo el tipo de extencion.
+                if (archivo[i].getName().endsWith("tipo")) {
+                    imagenes.add(archivo[i].getName());
+                }
+            }
+        }
+        return imagenes;
+    }
+
+    //Para editar mascotas
+    @GetMapping("/mascotas/{id}")
+    public String editarMascotaGet(@PathVariable("id") Long id,Model interfazConPantalla){
+        //Valores para listas
+        // Creamos los listados para alimentar la pagina de alta
+        List<Sexo> sexoList = sexoRepository.findAll();
+        List<Especie> especieList = especieRepository.findAll();
+        List<Comportamientos> comportamientosList = comportamientoRepository.findAll();
+        List<TipoCuidados> tipoCuidadosList = tipoCuidadosRepository.findAll();
+        List<Tamanios> tamaniosList = tamaniosRepository.findAll();
+        //Instancia en memoria del dto a informar en la pantalla
+        final MascotasDto mascotadto = new MascotasDto();
+        Optional<Mascotas> mascota  = mascotaService.encuentraPorId(id);
+        if (mascota.isPresent()){
+            //Informamos el dto
+
+            //Mediante "addAttribute" comparto con la pantalla
+            interfazConPantalla.addAttribute("datosMascotas", mascotadto);
+            interfazConPantalla.addAttribute("listaSexo",sexoList);
+            interfazConPantalla.addAttribute("listaEspecies",especieList);
+            interfazConPantalla.addAttribute("listaTamanios",tamaniosList);
+            interfazConPantalla.addAttribute("listaTipoCuidados",tipoCuidadosList);
+            interfazConPantalla.addAttribute("listaComportamientos",comportamientosList);
+            return "mascotas/detalles_mascota";
+        } else{
+            //Mostrar página usuario no existe
+            return "mascotas/detallesmascotanoencontrados";
+        }
+    }
+
+    @PostMapping("/mascotas/{id}")
+    public String editarMascota( @PathVariable("idusr") Long id,@ModelAttribute(name ="datosMascotas") MascotasDto mascotasDto /*, @RequestParam("foto") MultipartFile foto*/) throws Exception {
+        // Tenemos que obtener el objeto de usuario
+        Mascotas mascotas = new Mascotas();
+        //Voy a copiar todos los campos
+        mascotas.setId(mascotasDto.getId());
+        // mascotas.setFoto(mascotasDto.getFoto());
+        mascotas.setNombreMascota(mascotasDto.getNombre());
+        mascotas.setEdad(mascotasDto.getEdad());
+        //Por cada id buscamos con el repositorio la entidad
+        Especie especie = especieRepository.findById(mascotasDto.getEspecie()).get();
+        mascotas.setEspecie(especie);
+        Sexo sexo = sexoRepository.findById(mascotasDto.getSexo()).get();
+        mascotas.setSexo(sexo);
+        Tamanios tamanios = tamaniosRepository.findById(mascotasDto.getTamanio()).get();
+        mascotas.setTamanio(tamanios);
+        mascotas.setComportamientos(mascotasDto.getComportamientos());
+        mascotas.setTipoCuidados(mascotasDto.getTipocuidados());
+
+        //Guardamos mascota
+        mascotaService.guardar(mascotas);
+        return "redirect:/mascotas/listamascotas";
+    }
 }
 
 

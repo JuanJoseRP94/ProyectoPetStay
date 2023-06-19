@@ -20,7 +20,7 @@ public class TipoCuidados {
 
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "nombreCuidado")
     private String nombreCuidado;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "tipoCuidados")

@@ -4,7 +4,7 @@
       layout:decorate="~{/layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Lista Alojamientos</title>
 </head>
 <body>
 <div layout:fragment="cabecera">
@@ -16,17 +16,32 @@
         <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Tamaño</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="alojamientosDto : ${alojamientos}">
-            <td th:text="${alojamientos.id}">ID</td>
-            <td th:text="${alojamientos.nombre}">ID</td>
-                <a th:href="@{/alojamientos/{id}(id=${alojamientos.id})}" class="btn btn-primary">Editar</a>
+            <td th:text="${alojamientosDto.id}">ID</td>
+            <td th:text="${alojamientosDto.nombre}">ID</td>
+            <td th:text="${alojamientosDto.direccion}">ID</td>
+            <td th:text="${alojamientosDto.tamanioAlojamiento.nombreTamanioAlojamiento}">ID</td>
+            <td th:text="${alojamientosDto.tipoAlojamiento.nombreTipoAlojamiento}">ID</td>
+            <td th:text="${alojamientosDto.descripcion}">ID</td>
 
-                <a th:href="@{/alojamientos/delete/{id}(id=${alojamientos.id})}" class="btn btn-danger">Eliminar</a>
-            </td> <!-- Columna para los botones de edición y eliminación -->
+
+
+            <td>
+               <a th:href="@{/alojamientos/{id}/editar_alojamiento(id=${alojamientosDto.id})}" class="btn btn-primary">Editar</a>
+               <a th:href="@{/alojamientos/{id}/editar_alojamiento(id=*{alojamientosDto.id})}" class="btn btn-primary">Editar</a>
+
+
+               <a th:href="@{/alojamientos/delete/{id}(id=${alojamientosDto.id})}" class="btn btn-danger">Eliminar</a>
+           </td> <!-- Columna para los botones de edición y eliminación -->
         </tr>
         </tbody>
     </table>
