@@ -8,46 +8,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@RestController
-@RequestMapping("/calendario")
+@Controller
 public class AppEventosController {
-    private final EventoService eventoService;
+        @Autowired
+        private EventoService eventoService;
 
-    public AppEventosController(EventoService eventoService) {
-        this.eventoService = eventoService;
-    }
+        @GetMapping("/reservas/detalle_reserva")
+        public String mostrarFormularioEvento(Model model) {
+                Evento evento = new Evento();
+                model.addAttribute("evento", evento);
+                return "/reservas/detalle_reserva";
+        }
 
-    @GetMapping("/eventos")
-    public ResponseEntity<List<EventoDto>> obtenerEventos() {
-        List<EventoDto> eventos = eventoService.obtenerTodosLosEventos();
-        return ResponseEntity.ok(eventos);
-    }
+        @PostMapping("/reservas/detalle_reserva")
+        public String guardarEvento(@Validated @ModelAttribute("evento") Evento evento, BindingResult bindingResult) {
+                if (bindingResult.hasErrors()) {
+                        return "/reservas/detalle_reserva";
+                }
 
-    @PostMapping("/eventos")
-    public ResponseEntity<EventoDto> agregarEvento(@RequestBody EventoDto eventoDto) {
-        EventoDto nuevoEvento = eventoService.agregarEvento(eventoDto);
-        return ResponseEntity.ok(nuevoEvento);
-    }
-
-    @DeleteMapping("/eventos/{id}")
-    public ResponseEntity<Void> eliminarEvento(@PathVariable Long id) {
-        eventoService.eliminarEvento(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping("/eventos/{id}")
-    public ResponseEntity<EventoDto> editarEvento(@PathVariable Long id, @RequestBody EventoDto eventoDto) {
-        EventoDto eventoActualizado = eventoService.editarEvento(id, eventoDto);
-        return ResponseEntity.ok(eventoActualizado);
-    }
+                eventoService.guardarEvento(evento);
+                return "/reservas/Pagos";
+        }
 }
-
