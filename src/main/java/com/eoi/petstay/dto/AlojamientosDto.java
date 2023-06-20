@@ -23,4 +23,6 @@ public class AlojamientosDto {
     private Long tipo;
 
     private Long tamanio;
+
+    private Long usuario;
 }

@@ -1,10 +1,19 @@
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sd="http://www.w3.org/1999/xhtml"
       layout:decorate="~{/layouts/layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Lista Alojamientos</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <!-- Estilos personalizados -->
+
+
+    <title th:text="${titulo}">Alojamiento</title>
 </head>
 <body>
 <div layout:fragment="cabecera">
@@ -43,7 +52,9 @@
                <a th:href="@{/alojamientos/{id}/editar_alojamiento(id=${alojamientosDto.id})}" class="btn btn-primary">Editar</a>
 
 
-               <a th:href="@{/alojamientos/delete/{id}(id=${alojamientosDto.id})}" class="btn btn-danger">Eliminar</a>
+                <form th:action="@{/alojamientos/{id}(id=${alojamientosDto.id})}" method="post">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
            </td> <!-- Columna para los botones de edición y eliminación -->
         </tr>
         </tbody>

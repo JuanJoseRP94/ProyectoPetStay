@@ -1,9 +1,19 @@
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sd="http://www.w3.org/1999/xhtml"
       layout:decorate="~{/layouts/layout}">
-<title>Perfil Usuario</title>
-<title>Registro</title>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+  <!-- Estilos personalizados -->
+
+
+  <title th:text="${titulo}">Alojamiento</title>
 </head>
 <body>
 <div layout:fragment="contenido">
@@ -61,16 +71,15 @@
           <div class="row">
             <div class="d-flex flex-row align-items-center mb-4">
               <div class="form-outline flex-fill mb-0">
-                <label class="form-label" for="foto">Foto</label>
-                <!--input type="file" id="foto" accept="image/*" class="form-control-file" name="foto" placeholder="foto" th:field="${datosMascotas.foto}"-->
-                <input  id="foto" type="text"  class="form-control" onfocusout="showPIIDoc()" name="foto" maxlength="30" th:field="${datosAlojamiento.foto}"/>
+                <label class="form-label" for="img">Foto</label>
+                <input type="file" id="img" name="img" accept="image/*" class="form-control-file"
+                       placeholder="foto" onchange="eligeFoto(this)">
               </div>
-
             </div>
           </div>
           <div class="row">
             <div style="max-height: 50%" class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-              <img class="img-thumbnail" id="imagen" th:src="${datosAlojamiento.foto}"  >
+              <img class="img-thumbnail" id="imagen">
             </div>
           </div>
 
