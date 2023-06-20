@@ -30,7 +30,7 @@ public class Alojamientos {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuarios")
-    private Usuarios usuarios;
+    private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<ImagenesAlojamiento> imagenesAlojamiento;
 

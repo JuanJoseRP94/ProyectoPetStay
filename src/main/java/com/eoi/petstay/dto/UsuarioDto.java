@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class UsuariosDto {
+public class UsuarioDto {
 
     private long id;
     private String foto;
@@ -34,7 +34,7 @@ public class UsuariosDto {
 
     private Long gastosGestion;
     private Set<ValoracionesMascotas> valoracionesMascotas = new HashSet<>();
-    private Set<ValoracionesUsuarios> valoracionesUsuarios = new HashSet<>();
+    private Set<ValoracionesUsuario> valoracionesusuario = new HashSet<>();
     private Set<Oferta> oferta = new HashSet<>();
     private Set<Mascotas> mascotas = new HashSet<>();
     private Set<Alojamientos> alojamientos = new HashSet<>();

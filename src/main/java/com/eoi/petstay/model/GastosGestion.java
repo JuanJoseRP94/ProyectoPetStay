@@ -33,7 +33,7 @@ public class GastosGestion {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario")
-    private Usuarios usuarios;
+    private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Pagos> pagos;
 

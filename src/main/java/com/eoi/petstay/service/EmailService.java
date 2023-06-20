@@ -1,5 +1,6 @@
 package com.eoi.petstay.service;
 
+import com.eoi.petstay.config.ConfigPropertiesEmail;
 import com.eoi.petstay.dto.Email;
 import freemarker.template.Configuration;
 import jakarta.mail.*;
@@ -18,6 +19,8 @@ import java.util.Properties;
 public class EmailService {
 	private Session session;
 	@Autowired
+	ConfigPropertiesEmail configPropertiesEmail;
+	@Autowired
 	private JavaMailSender javaMailSender;
 
 	@Autowired
@@ -28,18 +31,19 @@ public class EmailService {
 	}
 
 	public void initSesion(){
+
 		//provide Mailtrap's username
-		final String username = "api";
+		final String username = configPropertiesEmail.getUsername();
 		//provide Mailtrap's password
-		final String password = "dd05f45be13af56332d53dec9b2ab3d2";
+		final String password = configPropertiesEmail.getPassword();
 		//provide Mailtrap's host address
-		String host = "live.smtp.mailtrap.io";
+		String host = configPropertiesEmail.getHost();
 		//configure Mailtrap's SMTP server details
 		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.auth", configPropertiesEmail.getProps_mail_smtp_auth());
+		props.put("mail.smtp.starttls.enable", configPropertiesEmail.getProps_mail_smtp_starttls_enable());
+		props.put("mail.smtp.host", configPropertiesEmail.getHost());
+		props.put("mail.smtp.port", configPropertiesEmail.getProps_mail_smtp_port());
 		//create the Session object
 		session = Session.getInstance(props,
 				new jakarta.mail.Authenticator() {
@@ -103,4 +107,5 @@ public class EmailService {
 		}
 
 	}
+
 }

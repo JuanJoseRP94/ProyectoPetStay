@@ -3,7 +3,7 @@ package com.eoi.petstay.config;
 
 
 import com.eoi.petstay.model.Mascotas;
-import com.eoi.petstay.model.Usuarios;
+import com.eoi.petstay.model.Usuario;
 import com.eoi.petstay.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,14 +32,14 @@ public class UsuarioSecurityImpl implements IUsuarioServicio, UserDetailsService
 
 
     @Override
-    public String getEncodedPassword(Usuarios usuarios) {
-        String passwd = usuarios.getPassword();
+    public String getEncodedPassword(Usuario usuario) {
+        String passwd = usuario.getPassword();
         String encodedPasswod = passwordEncoder.encode(passwd);
         return encodedPasswod;
     }
 
     @Override
-    public List<Usuarios> findAll() {
+    public List<Usuario> findAll() {
         return null;
     }
 
@@ -51,7 +51,7 @@ public class UsuarioSecurityImpl implements IUsuarioServicio, UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("loadUserByUsername email : " + email);
-        Optional<Usuarios> usuariosOptional = usuarioRepository.findUsuarioByEmailAndActiveTrue(email);
+        Optional<Usuario> usuariosOptional = usuarioRepository.findUsuarioByEmailAndActiveTrue(email);
         //Variables de gestion de seguridad
         org.springframework.security.core.userdetails.User springUser=null;
         Set<GrantedAuthority> ga = new HashSet<>();

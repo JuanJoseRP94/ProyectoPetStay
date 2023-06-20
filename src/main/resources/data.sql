@@ -1,7 +1,7 @@
 insert into ROLES (role_Name) values ( 'ROLE_ADMIN'),
                                      ( 'ROLE_USER'),
                                      ('ROLE_ANONIMOUS');
-insert into usuarios (active ,apellido1 ,apellido2 ,email ,foto ,nombre_usuario ,password , telefono ,valoracion ,alojamientos ,role_id)
+insert into usuario (active ,apellido1 ,apellido2 ,email ,foto ,nombre_usuario ,password , telefono ,valoracion ,alojamientos ,role_id)
 values (true, 'Apell1', 'Apell2', 'admin@petstay.com', NULL, 'Alba', '$2a$10$GM78bWCZHQF8xnUqh.DyNOdjc6hsa/.ssrXBozbzgiJGslO7RljG6', NULL,  NULL, NULL, '1' );
 insert into especie(nombre_especie) values ( 'Perro'),
                                            ( 'Gato'),

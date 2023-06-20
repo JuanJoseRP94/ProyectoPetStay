@@ -1,9 +1,8 @@
 package com.eoi.petstay.repository;
 
-import com.eoi.petstay.model.ValoracionesUsuarios;
+import com.eoi.petstay.model.ValoracionesUsuario;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 
-public interface ValoracionesUsuariosRepository extends JpaRepository<ValoracionesUsuarios, Long> {
+public interface ValoracionesUsuariosRepository extends JpaRepository<ValoracionesUsuario, Long> {
 }

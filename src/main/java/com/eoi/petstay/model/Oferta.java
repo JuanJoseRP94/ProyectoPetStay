@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -28,8 +29,19 @@ public class Oferta {
     private String puntuacion;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario")
-    private Usuarios usuarios;
+    @JoinColumn(name = "usuario_oferta")
+    private Usuario usuarioOfertante;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuario_demanda")
+    private Usuario usuarioDemandante;
+
+    @Column(name = "fecha_inicio")
+    private Date fechaInicio;
+
+    @Column(name = "fecha_fin")
+    private Date fechaFin;
+
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Acuerdo> acuerdo;
 }

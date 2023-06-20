@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Envío de email</title>
+</head>
+<body>
+<div layout:fragment="cabecera">
+    <h1>Envío de email</h1>
+</div>
+<div layout:fragment="contenido">
+    <h2>Resultado del envío de email</h2>
+    <div class="alert alert-success">
+        El envío de email ha sido exitoso. Por favor revisa su bandeja de entrada o span para reestablecer su contraseña.
+    </div>
+    <a th:href="@{/}" class="nav-item nav-link active">Volver</a>
+</div>
+</body>
+</html>

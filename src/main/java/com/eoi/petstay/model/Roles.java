@@ -22,7 +22,7 @@ public class Roles {
     //Un role puede estar asociado a muchos usuario
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "role" )
     //@OneToMany(cascade = CascadeType.ALL)
-    private Set<Usuarios> usuarios;
+    private Set<Usuario> usuarios;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Menu> menu;
 }

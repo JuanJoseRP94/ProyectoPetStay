@@ -1,11 +1,9 @@
 package com.eoi.petstay.controllers;
 
 
-import com.eoi.petstay.dto.CambioContrasenaDto;
-import com.eoi.petstay.dto.RecuperarContrasenaDto;
 import com.eoi.petstay.dto.LoginDto;
 import com.eoi.petstay.model.Roles;
-import com.eoi.petstay.model.Usuarios;
+import com.eoi.petstay.model.Usuario;
 import com.eoi.petstay.config.IUsuarioServicio;
 import com.eoi.petstay.service.RoleService;
 import com.eoi.petstay.service.UsuarioService;
@@ -33,7 +31,7 @@ import java.util.stream.IntStream;
 
 @Controller
 
-public class AppUsuariosController {
+public class AppUsuarioController {
 
     private final UsuarioService service;
     private final RoleService roleService;
@@ -43,7 +41,7 @@ public class AppUsuariosController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public AppUsuariosController( UsuarioService service, RoleService roleService) {
+    public AppUsuarioController(UsuarioService service, RoleService roleService) {
         super();
         this.service = service;
         this.roleService = roleService;
@@ -75,7 +73,7 @@ public class AppUsuariosController {
         String password = loginDto.getPassword();
         System.out.println("pass :" + password);
         //¿es correcta la password?
-        Optional<Usuarios> usuario = service.getRepo().findByEmailAndPasswordAndActiveTrue(usr, passwordEncoder.encode(password));
+        Optional<Usuario> usuario = service.getRepo().findByEmailAndPasswordAndActiveTrue(usr, passwordEncoder.encode(password));
         if (usuario.isPresent())
         {
             return "index";
@@ -99,7 +97,7 @@ public class AppUsuariosController {
                                   Model model) {
 
         Pageable pageable = PageRequest.of(page-1, size);
-        Page<Usuarios> usuariosPage = service.buscarTodos(pageable);
+        Page<Usuario> usuariosPage = service.buscarTodos(pageable);
 
         model.addAttribute("usuarios", usuariosPage);
 
@@ -118,7 +116,7 @@ public class AppUsuariosController {
 
     @GetMapping("/usuarios/{id}")
         public String editar(@PathVariable Long id, Model model){
-        Optional<Usuarios> usuarios = service.encuentraPorId(id);
+        Optional<Usuario> usuarios = service.encuentraPorId(id);
         model.addAttribute("usuarios", usuarios);
         return "usuarios/detalles_usuario";
     }
@@ -137,7 +135,7 @@ public class AppUsuariosController {
     @GetMapping("/usuarios/registro")
     public String vistaRegistro(Model interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
-        final Usuarios usuario = new Usuarios();
+        final Usuario usuario = new Usuario();
         //Obtengo la lista de roles
         final Set<Roles> roles = roleService.buscarTodos();
         //Mediante "addAttribute" comparto con la pantalla
@@ -148,7 +146,7 @@ public class AppUsuariosController {
     }
     //El que con los datos de la pantalla guarda la informacion de tipo PostMapping
     @PostMapping("/usuarios/registro")
-    public String guardarUsuario( @ModelAttribute(name ="datosUsuario") Usuarios usuario) throws Exception {
+    public String guardarUsuario( @ModelAttribute(name ="datosUsuario") Usuario usuario) throws Exception {
         //Guardamos el usuario
         if (ValidarFormatoPassword.ValidarFormato(usuario.getPassword())){
             //Tenemos que codificar la password antes de guardarla en la base de datos
@@ -160,7 +158,7 @@ public class AppUsuariosController {
                 usuario.setRole(roleService.getRepo().findByRoleName("ROLE_USER"));
             }
             //Guardamos el usuario
-            Usuarios usuarioguardado = this.service.guardar(usuario);
+            Usuario usuarioguardado = this.service.guardar(usuario);
             //Vamos a la pantalla de login
             return "usuarios/login";
         }
@@ -177,30 +175,6 @@ public class AppUsuariosController {
         return !SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser");
     }
 
-    //Cambio de password
-    @GetMapping("/email/olv_contrasena")
-    public String reestablecerContrasena(@ModelAttribute(name = "loginForm" ) RecuperarContrasenaDto recuperarContrasenaDto) throws Exception {
 
-        //Comprobamos que existe el usuario por email y passweord
-        if (service.getRepo().repValidarEmail(recuperarContrasenaDto.getEmail()) > 0)
-        {
-            // Buscamos el usuario
-            Usuarios usuario = service.getRepo().findUsuarioByEmail(recuperarContrasenaDto.getEmail());
-            return "redirect: email/recuperarcontrasena";
-        }else {
-            return "redirect: usuarios/usuarionoexiste";
-        }
-    }
-    @PostMapping("email/recuperarcontrasena")
-    public String reestablecerContrasena(@ModelAttribute(name = "loginForm" ) CambioContrasenaDto cambioContrasenaDto) throws Exception {
-        String passwordNueva =  passwordEncoder.encode(cambioContrasenaDto.getPasswordnueva());
-
-        //Modificicamos la password
-        Usuarios usuario = service.getRepo().findUsuarioByEmail(cambioContrasenaDto.getEmail());
-        usuario.setPassword(passwordNueva);
-        //Guardamos el usuario
-        Usuarios usuario1 = service.guardar(usuario);
-        return "redirect: usuarios/login";
-    }
 
 }

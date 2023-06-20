@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name="valoraciones")
-public class ValoracionesUsuarios {
+public class ValoracionesUsuario {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,5 +27,5 @@ public class ValoracionesUsuarios {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuarios")
-    private Usuarios usuarios;
+    private Usuario usuario;
 }

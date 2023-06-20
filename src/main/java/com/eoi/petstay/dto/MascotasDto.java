@@ -27,7 +27,7 @@ public class MascotasDto {
 
     // Dependencias
 
-    private Long usuarios;
+    private Long usuario;
 
     private Long sexo;
 
