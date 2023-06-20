@@ -38,13 +38,13 @@ https://www.baeldung.com/spring-security-csrf
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.formLogin(form -> form
-                        .loginPage("/usuarios/login")
+                        .loginPage("/usuario/login")
                         .failureUrl("/login-error")
                         .defaultSuccessUrl("/",true)
                         .permitAll()
                 );
         http.logout(logout -> logout
-                        .logoutUrl("/usuarios/logout")
+                        .logoutUrl("/usuario/logout")
                         .logoutSuccessUrl("/")
                         /*.logoutSuccessHandler(logoutSuccessHandler)
                         .invalidateHttpSession(true)
@@ -57,7 +57,7 @@ https://www.baeldung.com/spring-security-csrf
                 .requestMatchers("/css/**").permitAll()
                 .requestMatchers("/fonts/**").permitAll()
                 //Aqui se meten las direcciones del controlador que no requieren logi.
-                //.requestMatchers("/","/usuarios/registro","/usuarios/cambiopass","/calendario/calmes" ).permitAll()
+                //.requestMatchers("/","/usuario/registro","/usuario/cambiopass","/calendario/calmes" ).permitAll()
                 //Aqui se meten las direcciones del controlador que  requieren ser admin.
                 //.requestMatchers("/galeria/{id}","/galeria/embed/{id}").hasAuthority("ROLE_ADMIN")
                 .requestMatchers( HttpMethod.POST,"/**").permitAll()

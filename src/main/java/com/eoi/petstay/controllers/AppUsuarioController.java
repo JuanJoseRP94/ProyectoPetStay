@@ -62,11 +62,11 @@ public class AppUsuarioController {
         return "index";
      }
 
-    @GetMapping("/usuarios/login")
+    @GetMapping("/usuario/login")
     public String login( ){
-        return "usuarios/login";
+        return "usuario/login";
     }
-    @PostMapping("/usuarios/login")
+    @PostMapping("/usuario/login")
     public String validarPasswordPst(@ModelAttribute(name = "loginForm" ) LoginDto loginDto) {
         String usr = loginDto.getUsername();
         System.out.println("usr :" + usr);
@@ -78,30 +78,30 @@ public class AppUsuarioController {
         {
             return "index";
         }else {
-            return "usuarios/login";
+            return "usuario/login";
         }
     }
 
-    @GetMapping("/usuarios/Busqueda_Cuidadores")
+    @GetMapping("/usuario/Busqueda_Cuidadores")
     public String Busqueda_Cuidadores( ){
-        return "usuarios/Busqueda_Cuidadores";
+        return "usuario/Busqueda_Cuidadores";
     }
 
 
 
-    //Listas y paginar los usuarios
+    //Listas y paginar los usuario
 
-    @GetMapping("/usuarios/lista")
+    @GetMapping("/usuario/lista")
     public String getAllPaginated(@RequestParam(defaultValue = "1") int page,
                                   @RequestParam(defaultValue = "10") int size,
                                   Model model) {
 
         Pageable pageable = PageRequest.of(page-1, size);
-        Page<Usuario> usuariosPage = service.buscarTodos(pageable);
+        Page<Usuario> usuarioPage = service.buscarTodos(pageable);
 
-        model.addAttribute("usuarios", usuariosPage);
+        model.addAttribute("usuario", usuarioPage);
 
-        int totalPages = usuariosPage.getTotalPages();
+        int totalPages = usuarioPage.getTotalPages();
 
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -110,29 +110,29 @@ public class AppUsuarioController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-        return "usuarios/lista";
+        return "usuario/lista";
     }
 
 
-    @GetMapping("/usuarios/{id}")
+    @GetMapping("/usuario/{id}")
         public String editar(@PathVariable Long id, Model model){
-        Optional<Usuario> usuarios = service.encuentraPorId(id);
-        model.addAttribute("usuarios", usuarios);
-        return "usuarios/detalles_usuario";
+        Optional<Usuario> usuario = service.encuentraPorId(id);
+        model.addAttribute("usuario", usuario);
+        return "usuario/detalles_usuario";
     }
 
 
 
-    @GetMapping("/usuarios/Perfil_Usuario")
+    @GetMapping("/usuario/Perfil_Usuario")
     public String Perfil_Usuario( ){
-        return "usuarios/Perfil_Usuario";
+        return "usuario/Perfil_Usuario";
     }
 
 
     //Para crear un usuario hay dos bloques
     //El que genera la pantalla para pedir los datos de tipo GetMapping
     //Cuando pasamos informacion a la pantalla hay que usar ModelMap
-    @GetMapping("/usuarios/registro")
+    @GetMapping("/usuario/registro")
     public String vistaRegistro(Model interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
         final Usuario usuario = new Usuario();
@@ -142,10 +142,10 @@ public class AppUsuarioController {
         interfazConPantalla.addAttribute("datosUsuario",usuario);
         interfazConPantalla.addAttribute("listaRoles", roles);
         System.out.println("Preparando pantalla registro");
-        return "usuarios/registro";
+        return "usuario/registro";
     }
     //El que con los datos de la pantalla guarda la informacion de tipo PostMapping
-    @PostMapping("/usuarios/registro")
+    @PostMapping("/usuario/registro")
     public String guardarUsuario( @ModelAttribute(name ="datosUsuario") Usuario usuario) throws Exception {
         //Guardamos el usuario
         if (ValidarFormatoPassword.ValidarFormato(usuario.getPassword())){
@@ -160,11 +160,11 @@ public class AppUsuarioController {
             //Guardamos el usuario
             Usuario usuarioguardado = this.service.guardar(usuario);
             //Vamos a la pantalla de login
-            return "usuarios/login";
+            return "usuario/login";
         }
         else
         {
-            return "usuarios/registro";
+            return "usuario/registro";
         }
 
 

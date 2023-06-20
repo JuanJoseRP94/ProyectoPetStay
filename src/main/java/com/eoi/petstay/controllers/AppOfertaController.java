@@ -29,7 +29,7 @@ public class AppOfertaController {
         String ofertanteEmail = principal.getName();
         Optional<Usuario> ofertanteOptional = usuarioService.getRepo().findUsuarioByEmailAndActiveTrue(ofertanteEmail);
         if (ofertanteOptional.isEmpty()) {
-            return "redirect:/usuarios/usuarionoexiste";
+            return "redirect:/usuario/usuarionoexiste";
         }
         Usuario ofertante = ofertanteOptional.get();
 
@@ -45,7 +45,7 @@ public class AppOfertaController {
         String ofertanteEmail = principal.getName();
         Optional<Usuario> ofertanteOptional = usuarioService.getRepo().findUsuarioByEmailAndActiveTrue(ofertanteEmail);
         if (ofertanteOptional.isEmpty()) {
-            return "redirect:/usuarios/usuarionoexiste";
+            return "redirect:/usuario/usuarionoexiste";
         }
         Usuario ofertante = ofertanteOptional.get();
 

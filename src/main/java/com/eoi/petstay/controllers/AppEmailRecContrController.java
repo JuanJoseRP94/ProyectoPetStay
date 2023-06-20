@@ -57,27 +57,27 @@ public class AppEmailRecContrController {
 
             return "email/emailexitoso";
         }else {
-            return "redirect: usuarios/usuarionoexiste";
+            return "redirect: usuario/usuarionoexiste";
         }
     }
 
     @PostMapping("email/recuperarcontrasena")
     public String cambioContrasena(@RequestParam("email") String email, CambioContrasenaDto cambioContrasenaDto) throws Exception {
-        Usuario usuarios = service.getRepo().findUsuarioByEmail(email);
+        Usuario usuario = service.getRepo().findUsuarioByEmail(email);
 
-        if (usuarios.isActive()) {
+        if (usuario.isActive()) {
             String passwordNueva = passwordEncoder.encode(cambioContrasenaDto.getPasswordnueva());
 
             // Modificamos la contraseña
-            Usuario usuario = service.getRepo().findUsuarioByEmail(cambioContrasenaDto.getEmail());
+            Usuario usuario1 = service.getRepo().findUsuarioByEmail(cambioContrasenaDto.getEmail());
             usuario.setPassword(passwordNueva);
 
             // Guardamos el usuario
-            Usuario usuario1 = service.guardar(usuario);
+            Usuario usuario2 = service.guardar(usuario);
 
-            return "redirect:/usuarios/login";
+            return "redirect:/usuario/login";
         } else {
-            return "redirect:/usuarios/usuarionoexiste";
+            return "redirect:/usuario/usuarionoexiste";
         }
     }
 

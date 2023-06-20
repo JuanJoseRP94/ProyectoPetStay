@@ -49,7 +49,7 @@
                 <!-- el usuario administrador puede crear otros administradores pero el alta normal solo crea usarios std-->
                 <div class=" d-flex flex-row align-items-center mb-4"   sec:authorize="hasRole('ADMIN')">
                     <div th:if="${listaRoles!=null and !listaRoles.empty}" class="form-group col-md-12">
-                        <label for="listaroles" th:text="#{Usuarios.listaroles}"></label>
+                        <label for="listaroles" th:text="#{Usuario.listaroles}"></label>
                         <select th:field="${datosUsuario.role.id}" class="form-control" id="listaroles">
                             <option value="0">Seleciona uno</option>
                             <option th:each="elemento : ${listaRoles}" th:value="${elemento.id}" th:text="${elemento.roleName}"></option>

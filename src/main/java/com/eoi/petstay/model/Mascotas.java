@@ -29,7 +29,7 @@ public class Mascotas {
     private float valoracion;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuarios")
+    @JoinColumn(name = "usuario")
     private Usuario usuario;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "especie")

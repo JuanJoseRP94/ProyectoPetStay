@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuario")
 public class Usuario {
     @Id
     @Column(name = "ID")
@@ -50,7 +50,7 @@ public class Usuario {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<ValoracionesMascotas> valoracionesMascotas;
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<ValoracionesUsuario> valoracionesUsuarios;
+    private Set<ValoracionesUsuario> valoracionesUsuario;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Oferta> oferta;
     @OneToMany(cascade = CascadeType.ALL)

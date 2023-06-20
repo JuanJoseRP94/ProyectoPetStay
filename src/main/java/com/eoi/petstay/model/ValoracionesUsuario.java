@@ -26,6 +26,6 @@ public class ValoracionesUsuario {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuarios")
+    @JoinColumn(name = "usuario")
     private Usuario usuario;
 }

@@ -51,18 +51,18 @@ public class UsuarioSecurityImpl implements IUsuarioServicio, UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("loadUserByUsername email : " + email);
-        Optional<Usuario> usuariosOptional = usuarioRepository.findUsuarioByEmailAndActiveTrue(email);
+        Optional<Usuario> usuarioOptional = usuarioRepository.findUsuarioByEmailAndActiveTrue(email);
         //Variables de gestion de seguridad
         org.springframework.security.core.userdetails.User springUser=null;
         Set<GrantedAuthority> ga = new HashSet<>();
 
-        if (usuariosOptional.isPresent()){
-            System.out.println("loadUserByUsername usuario : " + usuariosOptional.get().getNombre());
-            ga.add(new SimpleGrantedAuthority(usuariosOptional.get().getRole().getRoleName()));
+        if (usuarioOptional.isPresent()){
+            System.out.println("loadUserByUsername usuario : " + usuarioOptional.get().getNombre());
+            ga.add(new SimpleGrantedAuthority(usuarioOptional.get().getRole().getRoleName()));
 
             springUser = new org.springframework.security.core.userdetails.User(
                     email,
-                    usuariosOptional.get().getPassword(),
+                    usuarioOptional.get().getPassword(),
                     ga );
         } else {
             String email_anonimo = "anonimo@anonimo";
