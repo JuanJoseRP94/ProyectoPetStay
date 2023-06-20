@@ -219,58 +219,6 @@ public class AppMascotasController {
         mascotaService.guardar(mascotas);
         return "redirect:/mascotas/listamascotas";
     }
-
-    /*
-            Bloque añadido por CPL
-     */
-
-
-    @GetMapping("/mascotas/nueva")
-    public String nueva(Model modelo){
-        // Instanciamos una nueva mascota para acoger los datos
-        MascotasDto nueva = new MascotasDto();
-        nueva.setUsuario(1L);  // poner el id del usuario que está en la sesión (se obtiene del objeto Principal de Spring security)
-        // Creamos los listados para alimentar la página de alta
-        List<Sexo> sexoList = sexoRepository.findAll();
-        List<Especie> especieList = especieRepository.findAll();
-        List<Comportamientos> comportamientosList = comportamientoRepository.findAll();
-        List<TipoCuidados> tipoCuidadosList = tipoCuidadosRepository.findAll();
-        List<Tamanios> tamaniosList = tamaniosRepository.findAll();
-        //Mediante "addAttribute" comparto con la pantalla
-        modelo.addAttribute("titulo","Ficha mascota");
-        //modelo.addAttribute("usuario", "12");
-        modelo.addAttribute("datosMascota", nueva);
-        modelo.addAttribute("listaSexo",sexoList);
-        modelo.addAttribute("listaEspecies",especieList);
-        modelo.addAttribute("listaTamanios",tamaniosList);
-        modelo.addAttribute("listaTipoCuidados",tipoCuidadosList);
-        modelo.addAttribute("listaComportamientos",comportamientosList);
-
-        return "mascotas/fichaMascota";
-    }
-
-    @PostMapping("/mascotas/nueva")
-    public String nuevaMascota( @ModelAttribute(name ="datosMascota") MascotasDto mascota, @RequestParam("img") MultipartFile imagen,
-                                ModelMap modelo) throws Exception {
-
-        // ... Asignamos la foto con la ruta al DTO recibido.
-        // ATENCION. Para evitar nombre duplicados, deberíamos añadir el id del usuario de la mascota o componer
-        // el nombre de forma que nos aseguremos que es único cuando se guarde en la carpeta de imágenes
-        mascota.setFotoConRuta(configProperties.getRuta() + "/" + StringUtils.cleanPath(imagen.getOriginalFilename()));
-        // Creamos una instancia de Mascotas para albergar los datos
-       // Mascotas nuevaMascota = modelMapper.map().toEntidad(mascota);
-        // ... guardamos la entidad en la BBDD
-        //mascotaService.guardar(nuevaMascota);
-        // ... Grabamos el archivo en la carpeta de imágenes. El nombre de la carpeta se obtiene del archivo
-        //     application.properties via clase ConfigProperties
-        String imgDir = configProperties.getRuta();
-        //FileUploadUtil.saveFile(imgDir, nuevaMascota.getFoto(), imagen);  // FileUploadUtil está en
-
-        return "redirect:/mascotas/lista";
-    }
-
-
-
 }
 
 
