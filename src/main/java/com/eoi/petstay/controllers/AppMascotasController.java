@@ -1,5 +1,6 @@
 package com.eoi.petstay.controllers;
-
+import java.util.HashSet;
+import java.util.List;
 import com.eoi.petstay.config.ConfigProperties;
 import com.eoi.petstay.dto.MascotasDto;
 import com.eoi.petstay.model.*;
@@ -267,6 +268,9 @@ public class AppMascotasController {
         nuevaMascota.setSexo(sexoRepository.findById(mascota.getSexo()).get());
         nuevaMascota.setTamanio(tamaniosRepository.findById(mascota.getTamanio()).get());
         nuevaMascota.setUsuario(usuarioRepository.findById(mascota.getUsuario()).get());
+
+
+
         // Procesamos la foto
         // ... Generamos el nombre del archivo
         // ATENCION. Para evitar nombre duplicados, deberíamos añadir el id del usuario de la mascota o componer
