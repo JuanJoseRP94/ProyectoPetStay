@@ -41,11 +41,11 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
     /*
-        Añadimos lo siguiente para poder acceder a ka carpeta de imágenes
+        Añadimos lo siguiente para poder acceder a kl carpeta de imágenes
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        exposeDirectory(configProperties.getPathimg(), registry);
+        exposeDirectory(configProperties.getRuta(), registry);
     }
 
     private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
