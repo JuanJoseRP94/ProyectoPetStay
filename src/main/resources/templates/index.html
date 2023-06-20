@@ -186,6 +186,42 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- esto es para probar que se publiquen aqui los alojamientos registrados -->
+
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="card-img-top " height="225" th:src="${alojamiento.foto}"
+                                 preserveAspectRatio="xMidYMid slice"
+                                 focusable="false"/>
+                            <div class="card-body">
+                                <p class="card-text" th:text="${alojamiento.descripcion}">
+                                </p>
+                                Mascotas:
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-circle">
+                                            <img th:src="@{animales/pet01.jpg}" class="rounded-circle"
+                                                 alt="MascotasCasas"/>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-circle">
+                                            <img th:src="@{img/animales/pet02.jpg}" class="rounded-circle"
+                                                 alt="MascotasCasas"/>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-circle">
+                                            <img th:src="@{img/animales/pet04.jpg}" class="rounded-circle"
+                                                 alt="MascotasCasas"/>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-circle">
+                                            <img th:src="@{img/animales/pet06.jpg}" class="rounded-circle"
+                                                 alt="MascotasCasas"/>
+                                        </button>
+                                    </div>
+                                    <small class="text-body-secondary">Zaragoza</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
