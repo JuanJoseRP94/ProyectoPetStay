@@ -82,7 +82,7 @@ public class AppAlojamientosController {
         public String registroAlojamiento(Model interfazConPantalla) {
 
             //Leemos el directorio
-            System.out.println("Path:" +   configProperties.getPathimg());
+            System.out.println("Path:" +   configProperties.getRuta());
             // Instancia en memoria del objeto a informar en la pantalla
             final AlojamientosDto alojamientoDto = new AlojamientosDto();
 
@@ -106,7 +106,7 @@ public class AppAlojamientosController {
     @PostMapping("/alojamientos/registro_alojamiento")
     public String guardarAlojamiento(@ModelAttribute("datosAlojamiento") AlojamientosDto alojamientoDto) throws Exception {
         //Leemos el directorio
-        System.out.println("Path:" +   configProperties.getPathimg());
+        System.out.println("Path:" +   configProperties.getRuta());
         Alojamientos alojamientos = new Alojamientos();
 
         alojamientos.setNombre(alojamientoDto.getNombre());

@@ -24,9 +24,9 @@ public class MascotaDto {
 
     // Dependencias
     private Long usuario;
-    private String sexo;
-    private String especie;
-    private String tamanio;
+    private Long sexo;
+    private Long especie;
+    private Long tamanio;
     private Set<Comportamientos> comportamientos = new HashSet<>();
     private Set<TipoCuidados> tipoCuidados = new HashSet<>();
 }
