@@ -7,7 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -23,13 +26,13 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "titulo")
-    private String titulo;
-
+    @DateTimeFormat(iso = ISO.DATE)
     @Column(name = "fecha_inicio")
-    private LocalDateTime fechaInicio;
+    private LocalDate fechaInicio;
 
+    @DateTimeFormat(iso = ISO.DATE)
     @Column(name = "fecha_fin")
-    private LocalDateTime fechaFin;
+    private LocalDate fechaFin;
+
 
 }
