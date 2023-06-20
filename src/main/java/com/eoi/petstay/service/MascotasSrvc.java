@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Service
-public class MascotaSrvc implements ifxMascotasSrvc{
+public class MascotasSrvc implements ifxMascotasSrvc{
     // Conectamos con el repositorio
     @Autowired
     private MascotasRepo mascotasRepo;
@@ -38,13 +38,13 @@ public class MascotaSrvc implements ifxMascotasSrvc{
     }
 
     @Override
-    public Mascotas nuevaMascota(Mascotas mascota) {
-        return null;
+    public Mascotas grabaMascota(Mascotas mascota) {
+        return mascotasRepo.save(mascota);
     }
 
     @Override
     public void borrarMascota(Long id) {
-
+        mascotasRepo.deleteById(id);
     }
 
     @Override

@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.print.DocFlavor;
@@ -48,11 +49,22 @@ public class MascotasCtrl {
     @Autowired
     private UsuarioRepository usuarioRepo;
 
-    @GetMapping("/lista")
-    public String listar(Model modelo) {
-        List<Mascotas> listaMascotas = mascotasSrvc.listarMascotas(1,5);
-        List<MascotaDto> listaMascotasDto = listaMascotas.stream().map(this::toDto).toList();
+    private int borrado = 0;
+    private Exception exception;
 
+    @GetMapping("/lista")
+    public String listar(Model modelo, RedirectAttributes redirectAttributes) {
+        List<Mascotas> listaMascotas = mascotasSrvc.listarMascotas(0,5);
+        List<MascotaDto> listaMascotasDto = listaMascotas.stream().map(this::toDto).toList();
+        switch (borrado) {
+            case 1:
+                modelo.addAttribute("msg", "Registro borrado");
+                break;
+            case -1:
+                modelo.addAttribute("msg","No se puede borrar el registro. Error: " + exception.getMessage());
+                break;
+        }
+        borrado = 0;
         modelo.addAttribute("mascotas", listaMascotasDto);
         return "mascotas/listaMascotas";
     }
@@ -91,9 +103,25 @@ public class MascotasCtrl {
         String imgDir = "./" + configProperties.getRuta();
         FileUploadUtil.saveFile(imgDir, imagen.getOriginalFilename(), imagen);
         // ... guardamos la entidad en la BBDD
-        //mascotasSrvc.guardar(nuevaMascota);
+        mascotasSrvc.grabaMascota(nuevaMascota);
 
-        return "redirect:/mascotas/lista";
+        return "redirect:/mascotasv2/lista";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String borrarMascota(@PathVariable Long id, Model modelo, RedirectAttributes redirectAttributes) {
+        try {
+            // TODO borro la imagen dela carpeta de imágenes
+
+            // Borro de la BBDD
+            mascotasSrvc.borrarMascota(id);
+            borrado = 1;
+        } catch (Exception e) {
+            borrado = -1;
+            exception = e;
+        }
+
+        return "redirect:/mascotasv2/lista";
     }
 
     // Obtenemos la imagen
@@ -133,6 +161,7 @@ public class MascotasCtrl {
         nueva.setNombre(mascotaDto.getNombre());
         nueva.setEdad(mascotaDto.getEdad());
         nueva.setValoracion(mascotaDto.getValoracion());
+        nueva.setFoto(mascotaDto.getFotoConRuta());
         // Ejemplo de uso del optional en una sentencia de programación funciona
         usuarioRepo.findById(mascotaDto.getUsuario()).ifPresent(nueva::setUsuario);
         especieRepository.findById(mascotaDto.getEspecie()).ifPresent(nueva::setEspecie);

@@ -28,7 +28,7 @@
     <div layout:fragment="contenido">
         <div class="container">
             <div id="contenido">
-                <form class="mx-1 mx-md-4" role="form" th:action="@{/mascotas/nueva}" th:object="${datosMascota} " method="post" enctype="multipart/form-data">
+                <form class="mx-1 mx-md-4" role="form" th:action="@{/mascotasv2/nueva}" th:object="${datosMascota} " method="post" enctype="multipart/form-data">
                     <div>
                         <input name="usuario" type="text" class="invisible" th:field="${datosMascota.usuario}">
                     </div>
@@ -80,9 +80,9 @@
                                     <label for="comportamientos"  class="form-label mt-2 mb-1">Selecciona comportamientos:</label>
                                     <select th:field="*{comportamientos}" class="form-control" multiple="multiple" id="comportamientos">
                                         <option th:each="item: ${listaComportamientos}"
-                                                th:value="${item.id}"
+                                                th:value="${item.getId()}"
                                                 th:selected="*{comportamientos}"
-                                                th:text="${item.nombreComportamientos}">
+                                                th:text="${item.getNombreComportamientos()}">
                                         </option>
                                     </select>
                                 </div>
@@ -92,9 +92,9 @@
                                     <label for="TiposCuidados"  class="form-label mt-2 mb-1">Selecciona cuidados:</label>
                                     <select th:field="*{tipoCuidados}" class="form-control" multiple="multiple"  id="TiposCuidados">
                                         <option th:each="item: ${listaTipoCuidados}"
-                                                th:value="${item.id}"
+                                                th:value="${item.getId()}"
                                                 th:selected="*{tipoCuidados}"
-                                                th:text="${item.descripcion}">
+                                                th:text="${item.getNombreCuidado()}">
                                         </option>
                                     </select>
                                 </div>
@@ -112,8 +112,8 @@
                             </div>
                             <div class="row">
                                 <div style="max-height: 50%" class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                                    <input id="fotoConRuta" type="text" class="invisible" th:field="${datosMascota.fotoConRuta}" >
-                                    <img class="img-thumbnail" id="imagen">
+                                    <input id="fotoConRuta" type="text" class="visible" th:field="${datosMascota.fotoConRuta}" >
+                                    <img class="img-thumbnail" id="imagen" width="70px">
                                 </div>
                             </div>
 
