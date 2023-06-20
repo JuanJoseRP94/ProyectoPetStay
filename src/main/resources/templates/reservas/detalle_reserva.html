@@ -9,7 +9,6 @@
 <div layout:fragment="contenido">
     <div class="container">
         <div id="contenido">
-
             <!-- Logo -->
             <div>
                 <a href="index">
@@ -69,29 +68,23 @@
 
                 <div class="contenido-derecha">
                     <div class="formulario">
-                        <label for="fechaInicio">Fecha de inicio:</label>
-                        <input type="date" id="fechaInicio">
+                        <form action="/reservas/detalle_reserva" method="post" th:object="${evento}">
+                            <label for="fechaInicio">Fecha de inicio:</label>
+                            <input type="date" id="fechaInicio" name="fechaInicio" th:field="*{fechaInicio}" class="form-control" required>
+                            <div th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}" class="invalid-feedback"></div>
 
-                        <label for="fechaFin">Fecha de fin:</label>
-                        <input type="date" id="fechaFin">
-                    </div>
+                            <label for="fechaFin">Fecha de fin:</label>
+                            <input type="date" id="fechaFin" name="fechaFin" th:field="*{fechaFin}" class="form-control" required>
+                            <div th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}" class="invalid-feedback"></div>
 
-                    <div class="factura">
-                        <p>Precio por noche: <span>50€</span></p>
-                        <p>Precio cuidados al día: <span>20€</span></p>
-                        <p>Total factura: <span>70€</span></p>
-                    </div>
-
-                    <button class="btn-reservar">Reservar</button>
-                </div>
+                            <button type="submit">Guardar</button>
+                        </form>
+            </div>
             </div>
 
-
-
+</div>
         </div>
-
-    </div>
-
+</div>
 </div>
 </body>
 
