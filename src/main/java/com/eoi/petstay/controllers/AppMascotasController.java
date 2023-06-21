@@ -52,7 +52,7 @@ public class AppMascotasController {
         return "mascotas/Perfil_Mascotas";
     }
 
-    //Listas y paginar los usuarios
+    //Listas y paginar los usuario
 
     @GetMapping("/mascotas/listamascotas")
     public String getAllPaginated(@RequestParam(defaultValue = "1") int page,

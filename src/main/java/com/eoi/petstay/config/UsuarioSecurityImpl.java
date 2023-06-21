@@ -3,7 +3,7 @@ package com.eoi.petstay.config;
 
 
 import com.eoi.petstay.model.Mascotas;
-import com.eoi.petstay.model.Usuarios;
+import com.eoi.petstay.model.Usuario;
 import com.eoi.petstay.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,14 +32,14 @@ public class UsuarioSecurityImpl implements IUsuarioServicio, UserDetailsService
 
 
     @Override
-    public String getEncodedPassword(Usuarios usuarios) {
-        String passwd = usuarios.getPassword();
+    public String getEncodedPassword(Usuario usuario) {
+        String passwd = usuario.getPassword();
         String encodedPasswod = passwordEncoder.encode(passwd);
         return encodedPasswod;
     }
 
     @Override
-    public List<Usuarios> findAll() {
+    public List<Usuario> findAll() {
         return null;
     }
 
@@ -51,18 +51,18 @@ public class UsuarioSecurityImpl implements IUsuarioServicio, UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("loadUserByUsername email : " + email);
-        Optional<Usuarios> usuariosOptional = usuarioRepository.findUsuarioByEmailAndActiveTrue(email);
+        Optional<Usuario> usuarioOptional = usuarioRepository.findUsuarioByEmailAndActiveTrue(email);
         //Variables de gestion de seguridad
         org.springframework.security.core.userdetails.User springUser=null;
         Set<GrantedAuthority> ga = new HashSet<>();
 
-        if (usuariosOptional.isPresent()){
-            System.out.println("loadUserByUsername usuario : " + usuariosOptional.get().getNombre());
-            ga.add(new SimpleGrantedAuthority(usuariosOptional.get().getRole().getRoleName()));
+        if (usuarioOptional.isPresent()){
+            System.out.println("loadUserByUsername usuario : " + usuarioOptional.get().getNombre());
+            ga.add(new SimpleGrantedAuthority(usuarioOptional.get().getRole().getRoleName()));
 
             springUser = new org.springframework.security.core.userdetails.User(
                     email,
-                    usuariosOptional.get().getPassword(),
+                    usuarioOptional.get().getPassword(),
                     ga );
         } else {
             String email_anonimo = "anonimo@anonimo";

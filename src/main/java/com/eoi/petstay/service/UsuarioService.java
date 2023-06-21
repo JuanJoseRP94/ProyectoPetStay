@@ -1,15 +1,15 @@
 package com.eoi.petstay.service;
 
 
-import com.eoi.petstay.model.Usuarios;
+import com.eoi.petstay.model.Usuario;
 import com.eoi.petstay.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UsuarioService extends AbstractBusinessServiceSoloEnt<Usuarios,Long,
+public class UsuarioService extends AbstractBusinessServiceSoloEnt<Usuario,Long,
         UsuarioRepository>   {
 
 
@@ -18,8 +18,13 @@ public class UsuarioService extends AbstractBusinessServiceSoloEnt<Usuarios,Long
     public UsuarioService(UsuarioRepository repo) {
         super(repo);
     }
-    public  List<Usuarios> obtenerTodos() {
+    public  List<Usuario> obtenerTodos() {
         return getRepo().findAll();
 
+    }
+
+    public Optional<Usuario> buscarporemail(String email){
+        Optional<Usuario> usuario = getRepo().findUsuarioByEmailAndActiveTrue(email);
+        return  usuario;
     }
 }

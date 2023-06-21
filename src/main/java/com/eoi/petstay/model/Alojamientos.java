@@ -31,8 +31,8 @@ public class Alojamientos {
     private float valoracionMedia;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuarios")
-    private Usuarios usuarios;
+    @JoinColumn(name = "usuario")
+    private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<ImagenesAlojamiento> imagenesAlojamiento;
 
