@@ -14,13 +14,12 @@
 <div layout:fragment="contenido">
     <div class="container">
         <div id="contenido">
-
             <div>
                 <a href="index">
-                    <img src="img/efrerg.png" id="icon" alt="logo" />
+                    <img th:src="@{/img/efrerg.png}"id="icon" alt="logo" class="logo" height="80px"  />
                 </a>
             </div>
-
+            <br>
             <div class="titulos">
                 <p>El envío de email ha sido exitoso. Por favor revisa su bandeja de entrada o span para reestablecer su contraseña.
                 </p>
