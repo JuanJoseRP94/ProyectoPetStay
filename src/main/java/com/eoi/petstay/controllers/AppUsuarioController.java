@@ -114,13 +114,7 @@ public class AppUsuarioController {
         model.addAttribute("usuario", usuario);
         return "usuario/detalles_usuario";
     }
-
-
-    @GetMapping("/usuario/Perfil_Usuario")
-    public String Perfil_Usuario() {
-        return "usuario/Perfil_Usuario";
-    }
-
+    
 
     //Para crear un usuario hay dos bloques
     //El que genera la pantalla para pedir los datos de tipo GetMapping

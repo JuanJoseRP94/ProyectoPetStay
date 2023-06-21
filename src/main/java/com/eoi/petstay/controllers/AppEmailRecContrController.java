@@ -38,7 +38,7 @@ public class AppEmailRecContrController {
 
     //Cambio de password
     @GetMapping("/email/olv_contrasena")
-    public String reestablecerContrasena(@ModelAttribute(name = "loginForm") RecuperarContrasenaDto recuperarContrasenaDto) throws Exception {
+    public String olvContrasena(@ModelAttribute(name = "loginForm") RecuperarContrasenaDto recuperarContrasenaDto) throws Exception {
         return "email/olv_contrasena";
     }
 
@@ -61,13 +61,21 @@ public class AppEmailRecContrController {
             emailRecContr.setFrom("notificaciones@agestturnos.es");
             emailRecContr.setTo(usuarioGuardar.getEmail());
             emailRecContr.setSubject("Recuperación de contraseña");
-            emailRecContr.setContent("<a href='" + recuperarContrasenaURL + "'>Haz clic aquí</a> para recuperar tu contraseña.");
+            emailRecContr.setContent("Haz clic en el siguiente enlace para recuperar tu contraseña:     " + recuperarContrasenaURL);
             emailservice.sendMail(emailRecContr);
 
             return "email/emailexitoso";
         }else {
             return "usuario/usuarionoexiste";
         }
+    }
+    @GetMapping("/email/recuperarcontrasena")
+    public String reestablecerContrasena(@ModelAttribute(name = "loginForm") RecuperarContrasenaDto recuperarContrasenaDto) throws Exception {
+        return "email/recuperarcontrasena";
+    }
+    @PostMapping("/email/recuperarcontrasena")
+    public String reestablecerContrasena (@RequestParam ("username") String correo){
+        return "email/contrasenacambiada";
     }
 
 
