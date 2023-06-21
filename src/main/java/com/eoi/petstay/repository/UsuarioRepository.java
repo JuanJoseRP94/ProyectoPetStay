@@ -16,7 +16,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Usuario findUsuarioByEmailAndPassword(String email, String password);
 
-    @Query("Select count(id) from Usuario where email= ?1 and password = ?2")
+    @Query("Select count(u.id) from Usuario u where u.email= ?1")
     Integer repValidarEmail(String email);
 
     Usuario findUsuarioByEmail(String email);

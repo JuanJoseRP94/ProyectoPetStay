@@ -34,15 +34,17 @@
                     <form class="mx-1 mx-md-4"  role="form" th:action="@{/email/olv_contrasena}"
                           th:object="${loginForm}" method="post">
                         <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
-                                <input type="email" id="form1Example3c" class="form-control"  name="username"/>
+                                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                 <label class="form-label" for="form1Example3c">Email</label>
+                                <input type="email" id="form1Example3c" class="form-control"  name="username"/>
                             </div>
                         </div>
+
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                            <button type="submit"  class="btn btn-primary btn-lg">Recuperar contraseña</button>
+                            <a href="/email/emailexitoso" class="btn btn-primary btn-lg">Recuperar contraseña</a>
                         </div>
+
                     </form>
                 </div>
             </div>

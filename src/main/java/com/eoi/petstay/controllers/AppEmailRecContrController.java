@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AppEmailRecContrController {
-    private final UsuarioService service;
+    private final UsuarioService usuarioService;
     private final EmailService emailservice;
     private final UsuarioRepository usuarioRepository;
     @Autowired
@@ -26,7 +26,7 @@ public class AppEmailRecContrController {
 
     public AppEmailRecContrController(UsuarioService service, EmailService emailservice,
                                       UsuarioRepository usuarioRepository) {
-        this.service = service;
+        this.usuarioService = service;
         this.emailservice = emailservice;
         this.usuarioRepository = usuarioRepository;
     }
@@ -35,14 +35,18 @@ public class AppEmailRecContrController {
 
 
     //Cambio de password
-    @GetMapping("email/olv_contrasena")
+    @GetMapping("/email/olv_contrasena")
     public String reestablecerContrasena(@ModelAttribute(name = "loginForm") RecuperarContrasenaDto recuperarContrasenaDto) throws Exception {
+        return "email/olv_contrasena";
+    }
 
-        //Comprobamos que existe el usuario por email y passweord
-        if (service.getRepo().repValidarEmail(recuperarContrasenaDto.getEmail()) > 0)
+    @PostMapping("email/olv_contrasena")
+    public String enviarContrasena (@RequestParam ("username") String correo){
+        //Comprobamos que existe el usuario por email y password
+        if (usuarioService.getRepo().repValidarEmail(correo) > 0)
         {
             // Buscamos el usuario
-            Usuario usuario = service.getRepo().findUsuarioByEmail(recuperarContrasenaDto.getEmail());
+            Usuario usuario = usuarioService.getRepo().findUsuarioByEmail(correo);
             Email emailRecContr = new Email();
             String recuperarContrasenaURL = "http://localhost:8099/email/recuperarcontrasena";
 
@@ -55,30 +59,11 @@ public class AppEmailRecContrController {
             emailRecContr.setContent("<a href='" + recuperarContrasenaURL + "'>Haz clic aquí</a> para recuperar tu contraseña.");
             emailservice.sendMail(emailRecContr);
 
-            return "email/emailexitoso";
+            return "redirect: email/emailexitoso";
         }else {
             return "redirect: usuario/usuarionoexiste";
         }
     }
 
-    @PostMapping("email/recuperarcontrasena")
-    public String cambioContrasena(@RequestParam("email") String email, CambioContrasenaDto cambioContrasenaDto) throws Exception {
-        Usuario usuario = service.getRepo().findUsuarioByEmail(email);
-
-        if (usuario.isActive()) {
-            String passwordNueva = passwordEncoder.encode(cambioContrasenaDto.getPasswordnueva());
-
-            // Modificamos la contraseña
-            Usuario usuario1 = service.getRepo().findUsuarioByEmail(cambioContrasenaDto.getEmail());
-            usuario.setPassword(passwordNueva);
-
-            // Guardamos el usuario
-            Usuario usuario2 = service.guardar(usuario);
-
-            return "redirect:/usuario/login";
-        } else {
-            return "redirect:/usuario/usuarionoexiste";
-        }
-    }
 
 }
