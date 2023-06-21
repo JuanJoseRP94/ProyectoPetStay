@@ -40,7 +40,7 @@ public class AppEmailRecContrController {
         return "email/olv_contrasena";
     }
 
-    @PostMapping("email/olv_contrasena")
+    @PostMapping("/email/olv_contrasena")
     public String enviarContrasena (@RequestParam ("username") String correo){
         //Comprobamos que existe el usuario por email y password
         if (usuarioService.getRepo().repValidarEmail(correo) > 0)

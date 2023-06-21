@@ -66,6 +66,7 @@ public class AppUsuarioController {
     public String login( ){
         return "usuario/login";
     }
+
     @PostMapping("/usuario/login")
     public String validarPasswordPst(@ModelAttribute(name = "loginForm" ) LoginDto loginDto) {
         String usr = loginDto.getUsername();
