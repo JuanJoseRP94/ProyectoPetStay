@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
-
+@RequestMapping ("/usuarios")
 public class AppUsuariosController {
 
     private final UsuarioService service;
@@ -62,7 +62,7 @@ public class AppUsuariosController {
         return "index";
      }
 
-    @GetMapping("/usuarios/login")
+    @GetMapping("/login")
     public String login( ){
         return "usuarios/login";
     }
@@ -82,7 +82,7 @@ public class AppUsuariosController {
         }
     }
 
-    @GetMapping("/usuarios/Busqueda_Cuidadores")
+    @GetMapping("/Busqueda_Cuidadores")
     public String Busqueda_Cuidadores( ){
         return "usuarios/Busqueda_Cuidadores";
     }
@@ -91,7 +91,7 @@ public class AppUsuariosController {
 
     //Listas y paginar los usuarios
 
-    @GetMapping("/usuarios/lista")
+    @GetMapping("/lista")
     public String getAllPaginated(@RequestParam(defaultValue = "1") int page,
                                   @RequestParam(defaultValue = "10") int size,
                                   Model model) {
@@ -114,7 +114,7 @@ public class AppUsuariosController {
     }
 
 
-    @GetMapping("/usuarios/{id}")
+    @GetMapping("/{id}")
         public String editar(@PathVariable Long id, Model model){
         Optional<Usuarios> usuarios = service.encuentraPorId(id);
         model.addAttribute("usuarios", usuarios);
@@ -123,7 +123,7 @@ public class AppUsuariosController {
 
 
 
-    @GetMapping("/usuarios/Perfil_Usuario")
+    @GetMapping("/Perfil_Usuario")
     public String Perfil_Usuario( ){
         return "usuarios/Perfil_Usuario";
     }
@@ -132,7 +132,7 @@ public class AppUsuariosController {
     //Para crear un usuario hay dos bloques
     //El que genera la pantalla para pedir los datos de tipo GetMapping
     //Cuando pasamos informacion a la pantalla hay que usar ModelMap
-    @GetMapping("/usuarios/registro")
+    @GetMapping("/registro")
     public String vistaRegistro(Model interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
         final Usuarios usuario = new Usuarios();
@@ -145,7 +145,7 @@ public class AppUsuariosController {
         return "usuarios/registro";
     }
     //El que con los datos de la pantalla guarda la informacion de tipo PostMapping
-    @PostMapping("/usuarios/registro")
+    @PostMapping("/registro")
     public String guardarUsuario( @ModelAttribute(name ="datosUsuario") Usuarios usuario) throws Exception {
         //Guardamos el usuario
         if (ValidarFormatoPassword.ValidarFormato(usuario.getPassword())){

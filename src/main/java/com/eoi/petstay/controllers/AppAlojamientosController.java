@@ -116,12 +116,11 @@ public class AppAlojamientosController {
 
 
         //llamamos a las entidades relacionadas
-        TamanioAlojamiento tamanioAlojamiento = tamanioAlojamientoRepository.findById(alojamientoDto.getTamanio()).get();
-        alojamientos.setTamanioAlojamiento(tamanioAlojamiento);
+        List<TamanioAlojamiento> tamanioAlojamientoList = tamanioAlojamientoRepository.findAll();
+        List<TipoAlojamiento> tipoAlojamientoList = tipoAlojamientoRepository.findAll();
 
-        TipoAlojamiento tipoAlojamiento = tipoAlojamientoRepository.findById(alojamientoDto.getTipo()).get();
-        alojamientos.setTipoAlojamiento(tipoAlojamiento);
-
+        interfazConPantalla.addAttribute("listaTamaniosAlojamiento", tamanioAlojamientoList);
+        interfazConPantalla.addAttribute("listaTipoAlojamiento", tipoAlojamientoList);
 
         // Procesamos la foto
         // ... Generamos el nombre del archivo
