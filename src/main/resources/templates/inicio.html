@@ -104,15 +104,12 @@
 
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     <div class="col">
-                        <div class="card shadow-sm">
+                        <div th:each="aloj : ${alojamientos}" class="card shadow-sm">
                             <img class="card-img-top " height="225" th:src="@{img/manor-house-2359884_1280.jpg}"
                                  preserveAspectRatio="xMidYMid slice"
                                  focusable="false"/>
                             <div class="card-body">
-                                <p class="card-text">Preciosa casa en un pueblo de Málaga, tengo 2 perritos en ella, son
-                                    muy buenos.
-                                    La casa cuenta con piscina, jardín, barbacoa...
-                                </p>
+                                <p th:text="${aloj.getDescripcion()}" class="card-text">Descripción</p>
                                 Mascotas:
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
@@ -123,7 +120,7 @@
                                             <img th:src="@{img/sant.jpg}" class="rounded-circle" alt="MascotasCasas"/>
                                         </button>
                                     </div>
-                                    <small class="text-body-secondary">MÁLAGA</small>
+                                    <small th:text="${aloj.getDireccion()}" class="text-body-secondary">Dirección</small>
                                 </div>
                             </div>
                         </div>
