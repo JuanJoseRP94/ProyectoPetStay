@@ -193,9 +193,8 @@
                     <div class="col">
                         <div class="card shadow-sm">
                             <img class="card-img-top " height="225" th:src="${alojamiento.foto}"
-                                 preserveAspectRatio="xMidYMid slice"
-                                 focusable="false"/>
-                            <div class="card-body">
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"/>
+                            <div class="card-body" th:each="alojamiento : ${alojamiento}">
                                 <p class="card-text" th:text="${alojamiento.descripcion}">
                                 </p>
                                 Mascotas:

@@ -78,7 +78,7 @@ public class AppAlojamientosController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-        return "alojamientos/Lista_Alojamientos";
+        return "/alojamientos/Listaalojamientos";
     }
 
 
