@@ -13,5 +13,8 @@ public class ConfigProperties {
     private String servidor;
     private int puerto;
     private String ruta;
+
+    private String  pathimg;
+
     // standard getters and setters
 }
