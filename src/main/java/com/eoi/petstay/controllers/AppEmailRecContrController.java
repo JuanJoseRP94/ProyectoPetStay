@@ -1,6 +1,6 @@
 package com.eoi.petstay.controllers;
 
-import com.eoi.petstay.dto.CambioContrasenaDto;
+
 import com.eoi.petstay.dto.Email;
 import com.eoi.petstay.dto.RecuperarContrasenaDto;
 import com.eoi.petstay.model.Usuario;
@@ -59,9 +59,9 @@ public class AppEmailRecContrController {
             emailRecContr.setContent("<a href='" + recuperarContrasenaURL + "'>Haz clic aquí</a> para recuperar tu contraseña.");
             emailservice.sendMail(emailRecContr);
 
-            return "redirect: email/emailexitoso";
+            return "email/emailexitoso";
         }else {
-            return "redirect: usuario/usuarionoexiste";
+            return "usuario/usuarionoexiste";
         }
     }
 
