@@ -2,7 +2,6 @@ package com.eoi.petstay.dto;
 
 import com.eoi.petstay.model.Comportamientos;
 import com.eoi.petstay.model.TipoCuidados;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MascotasDto {
+public class MascotaDto {
 
     private long id;
     private String fotoConRuta;

@@ -1,0 +1,93 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+
+<body>
+    <div layout:fragment="cabecera">
+    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Estas en el la lista de mascotas</p>
+</div>
+    <div layout:fragment="contenido">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Foto</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Sexo</th>
+                    <th>Tamaño</th>
+                    <th>Valoración</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="mascota : ${mascotas}">
+                    <td th:text="${mascota.getId()}">ID</td>
+                    <td><img th:src="@{${mascota.getFotoConRuta()}}" th:alt="${mascota.getFotoConRuta()}" height="60px"/></td>
+                    <td th:text="${mascota.getNombre()}">ID</td>
+                    <td th:text="${mascota.getEdad()}">ID</td>
+                    <td th:text="${mascota.getSexo()}">ID</td>
+                    <td th:text="${mascota.getTamanio()}">ID</td>
+                    <td th:text="${mascota.getValoracion()}">ID</td>
+                    <td>
+                        <a th:href="@{/mascotasv2/{id}(id=${mascota.getId()})}" class="btn btn-primary">Editar</a>
+
+                        <a th:href="@{'/mascotasv2/delete/' + ${mascota.getId()}}" th:id="${mascota.getId()}"
+                           id="btnBorrar" class="btn btn-danger" onclick="return borrar()">Eliminar</a>
+                    </td> <!-- Columna para los botones de edición y eliminación -->
+                </tr>
+            </tbody>
+        </table>
+        <!--
+        <div th:if="${mascotas.totalPages > 0}" class="pagination justify-content-center">
+            <ul class="pagination justify-content-center" >
+                <li class="page-item"><a class="page-link" th:href="@{/mascotas/lista(size=${mascotas.size}, page=${mascotas.number})}">Previous</a></li>
+                <li  class="page-item" th:each="pageNumber : ${pageNumbers}">
+                    <a class="page-link" th:href="@{/mascotas/lista(size=${mascotas.size}, page=${pageNumber})}"
+                       th:text="${pageNumber}"
+                       th:classappend="${pageNumber==mascotas.number+1} ? active"></a>
+                </li>
+                <li class="page-item"><a class="page-link" th:href="@{/mascotas/lista(size=${mascotas.size}, page=${mascotas.number+2})}">Next</a></li>
+            </ul>
+        </div>
+        -->
+
+        <!-- Mensaje de confirmación de borrado -->
+        <!--
+        <div class="alert alert-secondary alert-dismissible fade show text-center message mt-3" role="alert"
+             th:if="${msg != null}">
+            [[${msg}]]
+            <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        -->
+        <!-- Modal para confirmar el borrado -->
+        <!--
+        <div class="modal fade text-center" id="confirmModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmar el borrado</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <span id="confirmText"></span>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a type="button" id="yesBtn" class="btn btn-danger">Yes</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+    </div>
+
+</body>
+</html>

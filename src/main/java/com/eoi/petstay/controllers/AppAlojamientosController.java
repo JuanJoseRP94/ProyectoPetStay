@@ -7,23 +7,20 @@ import com.eoi.petstay.repository.AlojamientoRepository;
 import com.eoi.petstay.repository.TamanioAlojamientoRepository;
 import com.eoi.petstay.repository.TipoAlojamientoRepository;
 import com.eoi.petstay.service.UsuarioService;
-import com.eoi.petstay.util.FileUploadUtil;
-import org.modelmapper.ModelMapper;
 import org.springframework.ui.Model;
 
 import com.eoi.petstay.service.AlojamientoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,7 +33,6 @@ public class AppAlojamientosController {
     @Autowired
     private final AlojamientoService alojamientoService;
 
-    private final ModelMapper modelMapper;
 
     @Autowired
     private final TipoAlojamientoRepository tipoAlojamientoRepository;
@@ -46,10 +42,9 @@ public class AppAlojamientosController {
     @Autowired
     private final UsuarioService usuarioService;
 
-    public AppAlojamientosController(AlojamientoService alojamientoService, AlojamientoRepository alojamientoRepository, ModelMapper modelMapper, TipoAlojamientoRepository tipoAlojamientoRepository, TamanioAlojamientoRepository tamanioAlojamientoRepository, UsuarioService usuarioService) {
+    public AppAlojamientosController(AlojamientoService alojamientoService, AlojamientoRepository alojamientoRepository, TipoAlojamientoRepository tipoAlojamientoRepository, TamanioAlojamientoRepository tamanioAlojamientoRepository, UsuarioService usuarioService) {
         super();
         this.alojamientoService = alojamientoService;
-        this.modelMapper = modelMapper;
         this.tipoAlojamientoRepository = tipoAlojamientoRepository;
         this.tamanioAlojamientoRepository = tamanioAlojamientoRepository;
         this.usuarioService = usuarioService;
@@ -86,19 +81,21 @@ public class AppAlojamientosController {
         @GetMapping("/alojamientos/registro_alojamiento")
         public String registroAlojamiento(Model interfazConPantalla) {
 
+            //Leemos el directorio
+            System.out.println("Path:" +   configProperties.getRuta());
             // Instancia en memoria del objeto a informar en la pantalla
-            AlojamientosDto alojamientoDto = new AlojamientosDto();
-            alojamientoDto.setUsuario(1L);  // poner el id del usuario que está en la sesión (se obtiene del objeto Principal de Spring security)
+            final AlojamientosDto alojamientoDto = new AlojamientosDto();
 
             List<TamanioAlojamiento> tamanioAlojamientoList = tamanioAlojamientoRepository.findAll();
             List<TipoAlojamiento> tipoAlojamientoList = tipoAlojamientoRepository.findAll();
-            //Mediante "addAttribute" comparto con la pantalla
-            interfazConPantalla.addAttribute("titulo","Ficha mascota");
+
             interfazConPantalla.addAttribute("datosAlojamiento", alojamientoDto);
             interfazConPantalla.addAttribute("listaTipoAlojamiento", tipoAlojamientoList);
             interfazConPantalla.addAttribute("listaTamaniosAlojamiento", tamanioAlojamientoList);
 
-
+            //Temporalmente listamos imágenes de static
+            File ruta = new File("/img/alojamientos");
+            List<String> imagenes = listarArchivos(ruta,".jpg");
 
 
             return "alojamientos/registro_alojamiento";
@@ -107,12 +104,14 @@ public class AppAlojamientosController {
 
 
     @PostMapping("/alojamientos/registro_alojamiento")
-    public String guardarAlojamiento(@ModelAttribute("datosAlojamiento") AlojamientosDto alojamientoDto , @RequestParam("img") MultipartFile imagen,
-                                     ModelMap interfazConPantalla) throws Exception {
-
+    public String guardarAlojamiento(@ModelAttribute("datosAlojamiento") AlojamientosDto alojamientoDto) throws Exception {
+        //Leemos el directorio
+        System.out.println("Path:" +   configProperties.getRuta());
         Alojamientos alojamientos = new Alojamientos();
 
-      alojamientos = modelMapper.map(alojamientoDto, Alojamientos.class);
+        alojamientos.setNombre(alojamientoDto.getNombre());
+        alojamientos.setDireccion(alojamientoDto.getDireccion());
+        alojamientos.setDescripcion(alojamientoDto.getDescripcion());
 
 
         //llamamos a las entidades relacionadas
@@ -121,26 +120,32 @@ public class AppAlojamientosController {
 
         TipoAlojamiento tipoAlojamiento = tipoAlojamientoRepository.findById(alojamientoDto.getTipo()).get();
         alojamientos.setTipoAlojamiento(tipoAlojamiento);
+        alojamientoService.guardar(alojamientos);
 
 
-        // Procesamos la foto
-        // ... Generamos el nombre del archivo
-        // ATENCION. Para evitar nombre duplicados, deberíamos añadir el id del usuario de la mascota o componer
-        // el nombre de forma que nos aseguremos que es único cuando se guarde en la carpeta de imágenes
-        String nombreArch = StringUtils.cleanPath(imagen.getOriginalFilename());
-        // ... asignamos el nombre en la entidad
-        alojamientos.setFoto(nombreArch);
-        // ... guardamos la entidad en la BBDD
-        alojamientoService.guardar(alojamientos);        // ... grabamos el archivo en la carpeta de imágenes. El nombre de la carpeta se obtiene del archivo
-        //     application.properties via clase ConfigProperties
-        String imgDir = configProperties.getPathimg();
-        FileUploadUtil.saveFile(imgDir, nombreArch, imagen);
-
-
-
-        return "redirect:/alojamientos/Listaalojamientos";
+        return "redirect:/alojamientos/registro_alojamiento";
     }
 
+    private static final String UPLOAD_DIRECTORY = "/imagenes";
+
+    private  List<String> listarArchivos(File ruta, String tipo) {
+        List<String> imagenes = new ArrayList<>();
+        //la ruta es la que tiene las imagenes
+        // Creo el vector que contendra todos los archivos de una ruta especificada
+        File[] archivo = ruta.listFiles();
+        //Evaluo si la carpeta especificada contiene archivos.
+        if (archivo != null) {
+            //Recorro el vector el cual tiene almacenado la ruta del archivo a buscar.
+            for (int i = 0; i < archivo.length; i++) {
+                File Arc = archivo[i];
+                //Evaluo el tipo de extencion.
+                if (archivo[i].getName().endsWith("tipo")) {
+                    imagenes.add(archivo[i].getName());
+                }
+            }
+        }
+        return imagenes;
+    }
 
     @GetMapping("/alojamientos/{id}/editar_alojamiento")
     public String editarAlojamiento(@PathVariable("id") Long id, Model interfazConPantalla) {
@@ -172,9 +177,11 @@ public class AppAlojamientosController {
         }
     }
 
+
+
+
     @PostMapping("/alojamientos/{id}/editar_alojamiento")
-    public String actualizarAlojamiento(@PathVariable("id") Long id, @ModelAttribute("datosAlojamiento") AlojamientosDto alojamientoDto,
-                                        @RequestParam("img") MultipartFile imagen) throws Exception {
+    public String actualizarAlojamiento(@PathVariable("id") Long id, @ModelAttribute("datosAlojamiento") AlojamientosDto alojamientoDto) throws Exception {
         // Obtener el alojamiento existente por su ID
         Optional<Alojamientos> alojamientoOptional = alojamientoService.getRepo().findById(id);
         if (alojamientoOptional.isPresent()) {
@@ -191,22 +198,7 @@ public class AppAlojamientosController {
             TipoAlojamiento tipoAlojamiento = tipoAlojamientoRepository.findById(alojamientoDto.getTipo()).get();
             alojamiento.setTipoAlojamiento(tipoAlojamiento);
 
-            // Procesamos la foto si se ha proporcionado una nueva
-            if (!imagen.isEmpty()) {
-                // ... Generamos el nombre del archivo
-                String nombreArch = StringUtils.cleanPath(imagen.getOriginalFilename());
-                // ... asignamos el nombre en la entidad
-                alojamiento.setFoto(nombreArch);
-                // ... guardamos la entidad en la BBDD
-                alojamientoService.actualizarAlojamiento(alojamiento.getId(), alojamiento);
-                // ... grabamos el archivo en la carpeta de imágenes. El nombre de la carpeta se obtiene del archivo
-                //     application.properties via clase ConfigProperties
-                String imgDir = configProperties.getPathimg();
-                FileUploadUtil.saveFile(imgDir, nombreArch, imagen);
-            } else {
-                // Si no se ha proporcionado una nueva imagen, mantener la imagen existente en la entidad
-                alojamientoService.actualizarAlojamiento(alojamiento.getId(), alojamiento);
-            }
+            alojamientoService.actualizarAlojamiento(alojamiento.getId(),alojamiento);
 
             return "redirect:/alojamientos/Listaalojamientos";
         } else {
@@ -218,11 +210,10 @@ public class AppAlojamientosController {
 
 
 
-
-    @PostMapping("/alojamientos/{id}")
+    @PostMapping("/{id}/eliminar")
     public String eliminarAlojamiento(@PathVariable("id") Long id) {
         alojamientoService.eliminarAlojamiento(id);
-        return "redirect:/alojamientos/Listaalojamientos";
+        return "redirect:/alojamientos";
     }
 
 

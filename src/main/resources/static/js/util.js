@@ -11,6 +11,17 @@ function eligeFoto(f) {
     reader = new FileReader();
     reader.onload = function(e) {
         $("#imagen").attr('src', e.target.result);
+        $("#fotoConRuta").val(file.name)
     }
     reader.readAsDataURL(file);
+}
+
+function borrar (e) {
+    e.preventDefault();
+    link = $(this);
+
+    fileName = link.attr("fileName");
+    $("#yesBtn").attr("href", link.attr("href"));
+    $("#confirmText").html("Do you want to delete the File: \<strong\>" + fileName + "\<\/strong\>?");
+    $("#confirmModal").modal();
 }
