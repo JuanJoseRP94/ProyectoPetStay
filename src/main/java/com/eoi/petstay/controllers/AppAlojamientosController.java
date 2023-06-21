@@ -2,6 +2,7 @@ package com.eoi.petstay.controllers;
 
 import com.eoi.petstay.config.ConfigProperties;
 import com.eoi.petstay.dto.AlojamientosDto;
+import com.eoi.petstay.dto.MascotaDto;
 import com.eoi.petstay.model.*;
 import com.eoi.petstay.repository.AlojamientoRepository;
 import com.eoi.petstay.repository.TamanioAlojamientoRepository;
@@ -122,8 +123,6 @@ public class AppAlojamientosController {
         FileUploadUtil.saveFile(imgDir, imagen.getOriginalFilename(), imagen);
 
 
-        alojamientos = modelMapper.map(alojamientoDto, Alojamientos.class);
-
 
         //llamamos a las entidades relacionadas
         TamanioAlojamiento tamanioAlojamiento = tamanioAlojamientoRepository.findById(alojamientoDto.getTamanio()).get();
@@ -132,7 +131,8 @@ public class AppAlojamientosController {
         TipoAlojamiento tipoAlojamiento = tipoAlojamientoRepository.findById(alojamientoDto.getTipo()).get();
         alojamientos.setTipoAlojamiento(tipoAlojamiento);
 
-
+        // ... guardamos la entidad en la BBDD
+        alojamientoService.guardarAlojamiento(alojamientos);
 
         return "redirect:/alojamientos/Listaalojamientos";
     }
@@ -197,7 +197,10 @@ public class AppAlojamientosController {
             TipoAlojamiento tipoAlojamiento = tipoAlojamientoRepository.findById(alojamientoDto.getTipo()).get();
             alojamiento.setTipoAlojamiento(tipoAlojamiento);
 
-            return "redirect:alojamientos/Listaalojamientos";
+            // ... guardamos la entidad en la BBDD
+            alojamientoService.guardarAlojamiento(alojamiento);
+
+            return "redirect:/alojamientos/Listaalojamientos";
         } else {
             // Manejar el caso en que el alojamiento no exista
             return "error"; // o redireccionar a alguna otra página o mostrar un mensaje de error
@@ -219,6 +222,45 @@ public class AppAlojamientosController {
         Resource archivo = alojamientoService.leerImg(nombre);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + archivo.getFilename() + "\"").body(archivo);
+    }
+
+
+
+    private AlojamientosDto toDto(Alojamientos alojamientos){
+        //TODO Esto debería hacerse con un mapper
+        AlojamientosDto alojamientosDto = new AlojamientosDto();
+        AlojamientosDto..setId(alojamientos.getId());
+        AlojamientosDto.(alojamientos.getNombre());
+        AlojamientosDto.set(mascota.getEspecie().getId());
+        mascotaDto.setSexo(mascota.getSexo().getId());
+        mascotaDto.setTamanio(mascota.getTamanio().getId());
+        mascotaDto.setValoracion(mascota.getValoracion());
+        mascotaDto.setUsuario(mascota.getUsuario().getId());
+        //Obtengo la ruta en la que están las imágenes a partir de la configuración
+        // OJO Añado "../" en la ruta porque la carpeta está en el raiz del proyecto
+        String url = UriComponentsBuilder.newInstance()
+                .scheme(configProperties.getProtocolo())
+                .host(configProperties.getServidor())
+                .port(configProperties.getPuerto())
+                .path("../" + configProperties.getRuta() + "/" + mascota.getFoto())
+                .build().toString();
+        mascotaDto.setFotoConRuta(url);
+
+        return mascotaDto;
+    }
+
+    private Mascotas toEntidad(MascotaDto mascotaDto){
+        Mascotas nueva = new Mascotas();
+        nueva.setNombre(mascotaDto.getNombre());
+        nueva.setEdad(mascotaDto.getEdad());
+        nueva.setValoracion(mascotaDto.getValoracion());
+        nueva.setFoto(mascotaDto.getFotoConRuta());
+        // Ejemplo de uso del optional en una sentencia de programación funciona
+        usuarioRepo.findById(mascotaDto.getUsuario()).ifPresent(nueva::setUsuario);
+        especieRepository.findById(mascotaDto.getEspecie()).ifPresent(nueva::setEspecie);
+        sexoRepository.findById(mascotaDto.getSexo()).ifPresent(nueva::setSexo);
+        tamaniosRepository.findById(mascotaDto.getTamanio()).ifPresent(nueva::setTamanio);
+        return nueva;
     }
 
 }
