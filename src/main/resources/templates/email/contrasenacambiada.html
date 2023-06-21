@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Envío de email</title>
+</head>
+<body>
+
+
+<div layout:fragment="contenido">
+    <div class="container">
+        <div id="contenido">
+            <div>
+                <a href="index">
+                    <img th:src="@{/img/efrerg.png}"id="icon" alt="logo" class="logo" height="80px"  />
+                </a>
+            </div>
+
+            <br>
+            <div layout:fragment="cabecera">
+            <h3>Envío de email</h3>
+            </div>
+            <br>
+
+            <div class="titulos">
+                <p>El reestablecimiento de contraseña ha sido realizado con exito.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

@@ -73,6 +73,10 @@ public class AppEmailRecContrController {
     public String reestablecerContrasena(@ModelAttribute(name = "loginForm") RecuperarContrasenaDto recuperarContrasenaDto) throws Exception {
         return "email/recuperarcontrasena";
     }
+    @PostMapping("/email/recuperarcontrasena")
+    public String reestablecerContrasena (@RequestParam ("username") String correo){
+        return "email/contrasenacambiada";
+    }
 
 
 }
