@@ -24,13 +24,9 @@ public class MascotasDto {
     private float valoracion;
 
     // Dependencias
-<<<<<<< HEAD
-    private Long usuario;
-=======
 
     private Long usuario;
 
->>>>>>> rama_des_alba
     private Long sexo;
     private Long especie;
     private Long tamanio;

@@ -29,13 +29,10 @@ public class Mascotas {
     private float valoracion;
 
     @ManyToOne(fetch = FetchType.EAGER)
-<<<<<<< HEAD
-    @JoinColumn(name = "usuarios")
-    private Usuarios usuario;
-=======
+
     @JoinColumn(name = "usuario")
     private Usuario usuario;
->>>>>>> rama_des_alba
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "especie")
     private Especie especie;
