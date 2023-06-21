@@ -14,7 +14,7 @@ public class AlojamientosDto {
 
 
     private Long id;
-    private String foto;
+    private String fotoConRuta;
     private String nombre;
     private String direccion;
     private String descripcion;

@@ -2,6 +2,7 @@ package com.eoi.petstay.service;
 
 import com.eoi.petstay.model.Alojamientos;
 import com.eoi.petstay.model.Usuario;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,4 +17,5 @@ public interface IAlojamientoServicio {
     Page<Alojamientos> findAll(Pageable pageable);
 
     Optional<Alojamientos> listarId(Long id);
+
 }

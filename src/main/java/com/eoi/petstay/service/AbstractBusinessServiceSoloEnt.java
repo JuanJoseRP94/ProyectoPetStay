@@ -1,5 +1,6 @@
 package com.eoi.petstay.service;
 
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -63,5 +64,5 @@ public abstract class AbstractBusinessServiceSoloEnt<E, ID,  REPO extends JpaRep
     public REPO getRepo(){return  repo;}
 
 
-
+    public abstract Resource leerImg(String nombre);
 }

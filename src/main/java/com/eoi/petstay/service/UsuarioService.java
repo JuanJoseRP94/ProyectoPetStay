@@ -3,6 +3,7 @@ package com.eoi.petstay.service;
 
 import com.eoi.petstay.model.Usuario;
 import com.eoi.petstay.repository.UsuarioRepository;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,12 @@ public class UsuarioService extends AbstractBusinessServiceSoloEnt<Usuario,Long,
     public UsuarioService(UsuarioRepository repo) {
         super(repo);
     }
+
+    @Override
+    public Resource leerImg(String nombre) {
+        return null;
+    }
+
     public  List<Usuario> obtenerTodos() {
         return getRepo().findAll();
 
