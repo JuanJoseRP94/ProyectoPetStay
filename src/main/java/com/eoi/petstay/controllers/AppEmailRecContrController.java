@@ -7,6 +7,7 @@ import com.eoi.petstay.model.Usuario;
 import com.eoi.petstay.repository.UsuarioRepository;
 import com.eoi.petstay.service.EmailService;
 import com.eoi.petstay.service.UsuarioService;
+import jakarta.mail.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,13 +17,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
 @Controller
 public class AppEmailRecContrController {
+
     private final UsuarioService usuarioService;
     private final EmailService emailservice;
     private final UsuarioRepository usuarioRepository;
-    @Autowired
-    private JavaMailSender sender;
 
     public AppEmailRecContrController(UsuarioService service, EmailService emailservice,
                                       UsuarioRepository usuarioRepository) {
@@ -42,11 +44,14 @@ public class AppEmailRecContrController {
 
     @PostMapping("/email/olv_contrasena")
     public String enviarContrasena (@RequestParam ("username") String correo){
+
+        Optional<Usuario> usuario = usuarioService.buscarporemail(correo);
         //Comprobamos que existe el usuario por email y password
-        if (usuarioService.getRepo().repValidarEmail(correo) > 0)
+        if (usuario.isPresent())
         {
             // Buscamos el usuario
-            Usuario usuario = usuarioService.getRepo().findUsuarioByEmail(correo);
+            Usuario usuarioGuardar = usuario.get();
+
             Email emailRecContr = new Email();
             String recuperarContrasenaURL = "http://localhost:8099/email/recuperarcontrasena";
 
@@ -54,7 +59,7 @@ public class AppEmailRecContrController {
 
 
             emailRecContr.setFrom("notificaciones@agestturnos.es");
-            emailRecContr.setTo(usuario.getEmail());
+            emailRecContr.setTo(usuarioGuardar.getEmail());
             emailRecContr.setSubject("Recuperación de contraseña");
             emailRecContr.setContent("<a href='" + recuperarContrasenaURL + "'>Haz clic aquí</a> para recuperar tu contraseña.");
             emailservice.sendMail(emailRecContr);

@@ -6,6 +6,7 @@ import com.eoi.petstay.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService extends AbstractBusinessServiceSoloEnt<Usuario,Long,
@@ -20,5 +21,10 @@ public class UsuarioService extends AbstractBusinessServiceSoloEnt<Usuario,Long,
     public  List<Usuario> obtenerTodos() {
         return getRepo().findAll();
 
+    }
+
+    public Optional<Usuario> buscarporemail(String email){
+        Optional<Usuario> usuario = getRepo().findUsuarioByEmailAndActiveTrue(email);
+        return  usuario;
     }
 }
