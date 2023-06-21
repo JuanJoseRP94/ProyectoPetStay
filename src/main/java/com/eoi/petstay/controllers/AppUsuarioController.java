@@ -3,7 +3,7 @@ package com.eoi.petstay.controllers;
 
 import com.eoi.petstay.dto.LoginDto;
 import com.eoi.petstay.model.Roles;
-import com.eoi.petstay.model.Usuario;
+import com.eoi.petstay.model.Usuarios;
 import com.eoi.petstay.config.IUsuarioServicio;
 import com.eoi.petstay.service.RoleService;
 import com.eoi.petstay.service.UsuarioService;
@@ -30,8 +30,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
-
-public class AppUsuarioController {
+@RequestMapping ("/usuarios")
+public class AppUsuariosController {
 
     private final UsuarioService service;
     private final RoleService roleService;
@@ -41,7 +41,7 @@ public class AppUsuarioController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public AppUsuarioController(UsuarioService service, RoleService roleService) {
+    public AppUsuariosController( UsuarioService service, RoleService roleService) {
         super();
         this.service = service;
         this.roleService = roleService;
@@ -62,47 +62,46 @@ public class AppUsuarioController {
         return "index";
      }
 
-    @GetMapping("/usuario/login")
+    @GetMapping("/login")
     public String login( ){
-        return "usuario/login";
+        return "usuarios/login";
     }
-
-    @PostMapping("/usuario/login")
+    @PostMapping("/usuarios/login")
     public String validarPasswordPst(@ModelAttribute(name = "loginForm" ) LoginDto loginDto) {
         String usr = loginDto.getUsername();
         System.out.println("usr :" + usr);
         String password = loginDto.getPassword();
         System.out.println("pass :" + password);
         //¿es correcta la password?
-        Optional<Usuario> usuario = service.getRepo().findByEmailAndPasswordAndActiveTrue(usr, passwordEncoder.encode(password));
+        Optional<Usuarios> usuario = service.getRepo().findByEmailAndPasswordAndActiveTrue(usr, passwordEncoder.encode(password));
         if (usuario.isPresent())
         {
             return "index";
         }else {
-            return "usuario/login";
+            return "usuarios/login";
         }
     }
 
-    @GetMapping("/usuario/Busqueda_Cuidadores")
+    @GetMapping("/Busqueda_Cuidadores")
     public String Busqueda_Cuidadores( ){
-        return "usuario/Busqueda_Cuidadores";
+        return "usuarios/Busqueda_Cuidadores";
     }
 
 
 
-    //Listas y paginar los usuario
+    //Listas y paginar los usuarios
 
-    @GetMapping("/usuario/lista")
+    @GetMapping("/lista")
     public String getAllPaginated(@RequestParam(defaultValue = "1") int page,
                                   @RequestParam(defaultValue = "10") int size,
                                   Model model) {
 
         Pageable pageable = PageRequest.of(page-1, size);
-        Page<Usuario> usuarioPage = service.buscarTodos(pageable);
+        Page<Usuarios> usuariosPage = service.buscarTodos(pageable);
 
-        model.addAttribute("usuario", usuarioPage);
+        model.addAttribute("usuarios", usuariosPage);
 
-        int totalPages = usuarioPage.getTotalPages();
+        int totalPages = usuariosPage.getTotalPages();
 
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -111,43 +110,43 @@ public class AppUsuarioController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-        return "usuario/lista";
+        return "usuarios/lista";
     }
 
 
-    @GetMapping("/usuario/{id}")
+    @GetMapping("/{id}")
         public String editar(@PathVariable Long id, Model model){
-        Optional<Usuario> usuario = service.encuentraPorId(id);
-        model.addAttribute("usuario", usuario);
-        return "usuario/detalles_usuario";
+        Optional<Usuarios> usuarios = service.encuentraPorId(id);
+        model.addAttribute("usuarios", usuarios);
+        return "usuarios/detalles_usuario";
     }
 
 
 
-    @GetMapping("/usuario/Perfil_Usuario")
+    @GetMapping("/Perfil_Usuario")
     public String Perfil_Usuario( ){
-        return "usuario/Perfil_Usuario";
+        return "usuarios/Perfil_Usuario";
     }
 
 
     //Para crear un usuario hay dos bloques
     //El que genera la pantalla para pedir los datos de tipo GetMapping
     //Cuando pasamos informacion a la pantalla hay que usar ModelMap
-    @GetMapping("/usuario/registro")
+    @GetMapping("/registro")
     public String vistaRegistro(Model interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
-        final Usuario usuario = new Usuario();
+        final Usuarios usuario = new Usuarios();
         //Obtengo la lista de roles
         final Set<Roles> roles = roleService.buscarTodos();
         //Mediante "addAttribute" comparto con la pantalla
         interfazConPantalla.addAttribute("datosUsuario",usuario);
         interfazConPantalla.addAttribute("listaRoles", roles);
         System.out.println("Preparando pantalla registro");
-        return "usuario/registro";
+        return "usuarios/registro";
     }
     //El que con los datos de la pantalla guarda la informacion de tipo PostMapping
-    @PostMapping("/usuario/registro")
-    public String guardarUsuario( @ModelAttribute(name ="datosUsuario") Usuario usuario) throws Exception {
+    @PostMapping("/registro")
+    public String guardarUsuario( @ModelAttribute(name ="datosUsuario") Usuarios usuario) throws Exception {
         //Guardamos el usuario
         if (ValidarFormatoPassword.ValidarFormato(usuario.getPassword())){
             //Tenemos que codificar la password antes de guardarla en la base de datos
@@ -159,13 +158,13 @@ public class AppUsuarioController {
                 usuario.setRole(roleService.getRepo().findByRoleName("ROLE_USER"));
             }
             //Guardamos el usuario
-            Usuario usuarioguardado = this.service.guardar(usuario);
+            Usuarios usuarioguardado = this.service.guardar(usuario);
             //Vamos a la pantalla de login
-            return "usuario/login";
+            return "usuarios/login";
         }
         else
         {
-            return "usuario/registro";
+            return "usuarios/registro";
         }
 
 
@@ -175,7 +174,5 @@ public class AppUsuarioController {
     public boolean getLoggedInStatus() {
         return !SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser");
     }
-
-
 
 }
