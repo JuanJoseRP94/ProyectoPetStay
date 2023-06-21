@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MascotasSrvc implements ifxMascotasSrvc{
@@ -31,6 +32,11 @@ public class MascotasSrvc implements ifxMascotasSrvc{
         Page<Mascotas> listaMascotas = mascotasRepo.findAll(pageReq);
         // Devolvemos la lista con los items en la página
         return listaMascotas.getContent();
+    }
+
+    @Override
+    public Optional<Mascotas> cargarMascota(Long id) {
+        return mascotasRepo.findById(id);
     }
 
     @Override

@@ -28,7 +28,7 @@
     <div layout:fragment="contenido">
         <div class="container">
             <div id="contenido">
-                <form class="mx-1 mx-md-4" role="form" th:action="@{/mascotasv2/nueva}" th:object="${datosMascota} " method="post" enctype="multipart/form-data">
+                <form class="mx-1 mx-md-4" role="form" th:action="@{/mascotasv2/grabar}" th:object="${datosMascota} " method="post" enctype="multipart/form-data">
                     <div>
                         <input name="usuario" type="text" class="invisible" th:field="${datosMascota.usuario}">
                     </div>

@@ -7,6 +7,7 @@ import com.eoi.petstay.model.*;
 import com.eoi.petstay.repository.*;
 import com.eoi.petstay.service.ifxMascotasSrvc;
 import com.eoi.petstay.util.FileUploadUtil;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -53,7 +54,7 @@ public class MascotasCtrl {
     private Exception exception;
 
     @GetMapping("/lista")
-    public String listar(Model modelo, RedirectAttributes redirectAttributes) {
+    public String listar(Model modelo) {
         List<Mascotas> listaMascotas = mascotasSrvc.listarMascotas(0,5);
         List<MascotaDto> listaMascotasDto = listaMascotas.stream().map(this::toDto).toList();
         switch (borrado) {
@@ -68,6 +69,32 @@ public class MascotasCtrl {
         modelo.addAttribute("mascotas", listaMascotasDto);
         return "mascotas/listaMascotas";
     }
+
+    @GetMapping("/mascotasv2/{id}")
+    public String editaMascota(@PathVariable Long id, Model modelo) {
+        // Leemos la mascota. Si no está, lanzamos un error
+        MascotaDto nuevaDto = toDto(mascotasSrvc.cargarMascota(id).orElseThrow(
+                () -> new EntityNotFoundException("No se encuentra el registro"))
+        );
+        // Listas para el formulario
+        List<Sexo> sexoList = sexoRepository.findAll(); //TODO ¿convertir a ENUM?
+        List<Especie> especieList = especieRepository.findAll();
+        List<Comportamientos> comportamientosList = comportamientoRepository.findAll();
+        List<TipoCuidados> tipoCuidadosList = tipoCuidadosRepository.findAll();
+        List<Tamanios> tamaniosList = tamaniosRepository.findAll();
+        //Mediante "addAttribute" comparto con la pantalla
+        modelo.addAttribute("titulo","Ficha mascota");
+        modelo.addAttribute("usuario", "1"); //TODO debe ser el usuario que está en la sesión
+        modelo.addAttribute("datosMascota", nuevaDto);
+        modelo.addAttribute("listaSexo",sexoList);
+        modelo.addAttribute("listaEspecies",especieList);
+        modelo.addAttribute("listaTamanios",tamaniosList);
+        modelo.addAttribute("listaTipoCuidados",tipoCuidadosList);
+        modelo.addAttribute("listaComportamientos",comportamientosList);
+
+        return "mascotas/fichaMascota";
+    }
+
 
     @GetMapping("/nueva")
     public String nueva(Model modelo){
@@ -93,23 +120,23 @@ public class MascotasCtrl {
         return "mascotas/fichaMascota";
     }
 
-    @PostMapping("/nueva")
-    public String nuevaMascota(@ModelAttribute(name ="datosMascota") MascotaDto mascotaDto, @RequestParam("img") MultipartFile imagen,
+    @PostMapping("/grabar")
+    public String grabarMascota(@ModelAttribute(name ="datosMascota") MascotaDto mascotaDto, @RequestParam("img") MultipartFile imagen,
                                ModelMap modelo) throws Exception {
         // Convertimos los datos recibidos a un objeto de clase Mascotas
-        Mascotas nuevaMascota = toEntidad(mascotaDto);
+        Mascotas mascota = toEntidad(mascotaDto);
         // ... Grabamos el archivo en la carpeta de imágenes. El nombre de la carpeta se obtiene del archivo
         //     application.properties via clase ConfigProperties
         String imgDir = "./" + configProperties.getRuta();
         FileUploadUtil.saveFile(imgDir, imagen.getOriginalFilename(), imagen);
         // ... guardamos la entidad en la BBDD
-        mascotasSrvc.grabaMascota(nuevaMascota);
+        mascotasSrvc.grabaMascota(mascota);
 
         return "redirect:/mascotasv2/lista";
     }
 
     @GetMapping("/delete/{id}")
-    public String borrarMascota(@PathVariable Long id, Model modelo, RedirectAttributes redirectAttributes) {
+    public String borrarMascota(@PathVariable Long id, Model modelo) {
         try {
             // TODO borro la imagen dela carpeta de imágenes
 
