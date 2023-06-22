@@ -43,7 +43,7 @@ public class AppUsuarioController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/usuarios/")
     public String vistaHome(ModelMap interfazConPantalla) {
         String userName = "no informado";
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
