@@ -37,21 +37,21 @@
         <tr th:each="aloj : ${alojamientos}">
             <td th:text="${aloj.id}">ID</td>
             <td th:text="${aloj.nombre}">ID</td>
-            <td th:text="${aloj.getFotoConRuta()}">ID</td>
+            <td><img th:src="@{${aloj.getFotoConRuta()}}" th:alt="${aloj.getFotoConRuta()}" height="60px"/></td>
             <td th:text="${aloj.direccion}">ID</td>
             <td th:text="${aloj.getTamanio()}">ID</td>
             <td th:text="${aloj.getTipo()}">ID</td>
             <td th:text="${aloj.descripcion}">ID</td>
             <td>
-                <!--
-                <a th:href="@{/alojamientos/{id}/editar_alojamiento(id=${alojamientosDto.id})}" class="btn btn-primary">Editar</a>
-                <a th:href="@{/alojamientos/{id}/editar_alojamiento(id=${alojamientosDto.id}) + '/borrar'}" class="btn btn-danger">Eliminar</a>
-                -->
+                <a th:href="@{/alojamientos/{id}(id=${aloj.getId()})}" class="btn btn-primary">Editar</a>
+                <a th:href="@{/alojamientos/borrar/{id}(id=${aloj.getId()})}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         </tbody>
     </table>
-
+    <div>
+        <a href="/alojamientos/nuevo" class="btn btn-primary">Añadir alojamiento</a>
+    </div>
 
 
 

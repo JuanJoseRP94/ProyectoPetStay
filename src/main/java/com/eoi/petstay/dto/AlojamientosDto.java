@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class AlojamientosDto {
-
 
     private Long id;
     private String fotoConRuta;

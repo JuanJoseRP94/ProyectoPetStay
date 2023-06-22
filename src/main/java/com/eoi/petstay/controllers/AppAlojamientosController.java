@@ -88,7 +88,22 @@ public class AppAlojamientosController {
         return "alojamientos/listaAloj";
     }
 
+    @GetMapping("/nuevo")
+    public String nuevoAlojamiento(Model modelo){
+        AlojamientosDto alojDto = new AlojamientosDto();
+        alojDto.setUsuario(1L);
+        // Creamos los listados para alimentar la página de alta
+        List<TamanioAlojamiento> listaTamanios = tamanioAlojamientoRepository.findAll();
+        List<TipoAlojamiento> listaTipos = tipoAlojamientoRepository.findAll();
+        modelo.addAttribute("titulo", "Ficha Alojamiento");
+        modelo.addAttribute("usuario", "1");
+        modelo.addAttribute("tipos", listaTipos);
+        modelo.addAttribute("tanios", listaTamanios);
+        modelo.addAttribute("datosAloj", alojDto);
 
+        return "alojamientos/fichaAlojamiento";
+
+    }
 
         @GetMapping("/registro_alojamiento")
         public String registroAlojamiento(Model interfazConPantalla) {
@@ -141,7 +156,7 @@ public class AppAlojamientosController {
     }
 
 
-    @GetMapping("/{id}/editar_alojamiento")
+    @GetMapping("/{id}")
     public String editarAlojamiento(@PathVariable("id") Long id, Model interfazConPantalla) {
         // Obtener el alojamiento existente por su ID
         Optional<Alojamientos> alojamientoOptional = alojamientoService.getRepo().findById(id);
@@ -214,7 +229,7 @@ public class AppAlojamientosController {
         }
     }
 
-    @GetMapping("/{id}/borrar")
+    @GetMapping("/borrar/{id}")
     public String eliminarAlojamiento(@PathVariable("id") Long id) {
         alojamientoService.eliminarAlojamiento(id);
         return "redirect:/alojamientos/Listaalojamientos";
