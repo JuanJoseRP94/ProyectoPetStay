@@ -111,7 +111,7 @@
                             <div class="row">
                                 <div style="max-height: 50%" class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                                     <input id="fotoConRuta" type="text" class="visible" th:field="${datosMascota.fotoConRuta}" >
-                                    <img class="img-thumbnail" id="imagen" width="70px">
+                                    <img class="img-thumbnail" id="imagen" width="70px" th:src="${datosMascota.getFotoConRuta()}">
                                 </div>
                             </div>
 

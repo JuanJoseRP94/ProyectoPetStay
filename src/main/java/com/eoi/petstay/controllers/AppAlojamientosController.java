@@ -23,6 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
+@RequestMapping("/alojamientos")
 public class AppAlojamientosController {
     @Autowired
     ConfigProperties configProperties;
@@ -55,15 +57,20 @@ public class AppAlojamientosController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("/alojamientos/Perfil_Alojamiento")
+    @GetMapping("/Perfil_Alojamiento")
     public String perfilAlojamiento() {
         return "alojamientos/Perfil_Alojamiento";
     }
 
-    @GetMapping("/alojamientos/Listaalojamientos")
+    @GetMapping("/listar")
     public String getAllPaginated(@RequestParam(defaultValue = "1") int page,
                                   @RequestParam(defaultValue = "10") int size,
                                   @NotNull Model model) {
+
+        List<Alojamientos> listaAloj = alojamientoService.obtenerAlojamientos();
+        List<AlojamientosDto> listaAlojDto = listaAloj.stream().map(this::toDto).toList();
+        model.addAttribute("alojamientos", listaAlojDto);
+        /*
         Pageable pageable = PageRequest.of(page - 1, size);
         Page<Alojamientos> alojamientosPage = alojamientoService.getRepo().findAll(pageable);
 
@@ -77,13 +84,13 @@ public class AppAlojamientosController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
-
-        return "/alojamientos/Listaalojamientos";
+        */
+        return "alojamientos/listaAloj";
     }
 
 
 
-        @GetMapping("/alojamientos/registro_alojamiento")
+        @GetMapping("/registro_alojamiento")
         public String registroAlojamiento(Model interfazConPantalla) {
 
             // Instancia en memoria del objeto a informar en la pantalla
@@ -98,15 +105,10 @@ public class AppAlojamientosController {
             interfazConPantalla.addAttribute("listaTipoAlojamiento", tipoAlojamientoList);
             interfazConPantalla.addAttribute("listaTamaniosAlojamiento", tamanioAlojamientoList);
 
-
-
-
             return "alojamientos/registro_alojamiento";
         }
 
-
-
-    @PostMapping("/alojamientos/registro_alojamiento")
+    @PostMapping("/registro_alojamiento")
     public String guardarAlojamiento(@ModelAttribute("datosAlojamiento") AlojamientosDto alojamientoDto , @RequestParam("img") MultipartFile imagen,
                                      ModelMap interfazConPantalla) throws Exception {
 
@@ -135,13 +137,11 @@ public class AppAlojamientosController {
         String imgDir = configProperties.getPathimg();
         FileUploadUtil.saveFile(imgDir, nombreArch, imagen);
 
-
-
         return "redirect:/alojamientos/Listaalojamientos";
     }
 
 
-    @GetMapping("/alojamientos/{id}/editar_alojamiento")
+    @GetMapping("/{id}/editar_alojamiento")
     public String editarAlojamiento(@PathVariable("id") Long id, Model interfazConPantalla) {
         // Obtener el alojamiento existente por su ID
         Optional<Alojamientos> alojamientoOptional = alojamientoService.getRepo().findById(id);
@@ -171,7 +171,7 @@ public class AppAlojamientosController {
         }
     }
 
-    @PostMapping("/alojamientos/{id}/editar_alojamiento")
+    @PostMapping("/{id}/editar_alojamiento")
     public String actualizarAlojamiento(@PathVariable("id") Long id, @ModelAttribute("datosAlojamiento") AlojamientosDto alojamientoDto,
                                         @RequestParam("img") MultipartFile imagen) throws Exception {
         // Obtener el alojamiento existente por su ID
@@ -214,16 +214,28 @@ public class AppAlojamientosController {
         }
     }
 
-
-
-
-
-    @PostMapping("/alojamientos/{id}")
+    @GetMapping("/{id}/borrar")
     public String eliminarAlojamiento(@PathVariable("id") Long id) {
         alojamientoService.eliminarAlojamiento(id);
         return "redirect:/alojamientos/Listaalojamientos";
     }
 
-
+    private AlojamientosDto toDto(Alojamientos aloj){
+        AlojamientosDto alojDto = new AlojamientosDto();
+        alojDto.setId(aloj.getId());
+        alojDto.setDescripcion(aloj.getDescripcion());
+        alojDto.setDireccion(aloj.getDireccion());
+        alojDto.setNombre(aloj.getNombre());
+        alojDto.setTamanio(aloj.getTamanioAlojamiento().getId());
+        alojDto.setTipo(aloj.getTipoAlojamiento().getId());
+        String url = UriComponentsBuilder.newInstance()
+                .scheme(configProperties.getProtocolo())
+                .host(configProperties.getServidor())
+                .port(configProperties.getPuerto())
+                .path("../" + configProperties.getRuta() + "/" + aloj.getFoto())
+                .build().toString();
+        alojDto.setFotoConRuta(url);
+        return alojDto;
+    }
 
 }

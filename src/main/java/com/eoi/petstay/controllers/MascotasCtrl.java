@@ -70,7 +70,7 @@ public class MascotasCtrl {
         return "mascotas/listaMascotas";
     }
 
-    @GetMapping("/mascotasv2/{id}")
+    @GetMapping("/{id}")
     public String editaMascota(@PathVariable Long id, Model modelo) {
         // Leemos la mascota. Si no está, lanzamos un error
         MascotaDto nuevaDto = toDto(mascotasSrvc.cargarMascota(id).orElseThrow(

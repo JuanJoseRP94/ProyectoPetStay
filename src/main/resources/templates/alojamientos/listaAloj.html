@@ -1,0 +1,64 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/layout}">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <!-- Estilos personalizados -->
+
+
+    <title th:text="${titulo}">Alojamiento</title>
+</head>
+<body>
+<div layout:fragment="cabecera">
+    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Estas en la lista de alojamientos</p>
+</div>
+<div layout:fragment="contenido">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Foto</th>
+                <th>Dirección</th>
+                <th>Tamaño</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="aloj : ${alojamientos}">
+            <td th:text="${aloj.id}">ID</td>
+            <td th:text="${aloj.nombre}">ID</td>
+            <td th:text="${aloj.getFotoConRuta()}">ID</td>
+            <td th:text="${aloj.direccion}">ID</td>
+            <td th:text="${aloj.getTamanio()}">ID</td>
+            <td th:text="${aloj.getTipo()}">ID</td>
+            <td th:text="${aloj.descripcion}">ID</td>
+            <td>
+                <!--
+                <a th:href="@{/alojamientos/{id}/editar_alojamiento(id=${alojamientosDto.id})}" class="btn btn-primary">Editar</a>
+                <a th:href="@{/alojamientos/{id}/editar_alojamiento(id=${alojamientosDto.id}) + '/borrar'}" class="btn btn-danger">Eliminar</a>
+                -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
+</div>
+
+
+
+</div>
+</body>
+</html>
